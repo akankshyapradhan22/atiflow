@@ -285,30 +285,6 @@ const OVERVIEW_ITEMS: { label: string; count: number; bg: string; border: string
   { label: 'Out of stock',  count: 15,  bg: 'rgba(255,92,92,0.10)',  border: 'rgba(255,92,92,0.45)',  dot: '#ff5c5c' },
 ];
 
-function OverviewChips() {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexShrink: 0 }}>
-      {OVERVIEW_ITEMS.map(({ label, count, bg, border, dot }) => (
-        <Box key={label} sx={{
-          display: 'flex', alignItems: 'center', gap: 0.75,
-          px: 1.25, py: '5px',
-          bgcolor: bg, border: `1px solid ${border}`, borderRadius: '8px',
-        }}>
-          <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: dot, flexShrink: 0 }} />
-          <Typography sx={{
-            fontFamily: '"IBM Plex Mono", monospace',
-            fontWeight: 700, fontSize: '0.875rem', color: '#1A2332', lineHeight: 1,
-          }}>
-            {count}
-          </Typography>
-          <Typography sx={{ fontSize: '0.75rem', fontWeight: 400, color: 'rgba(26,35,50,0.6)', lineHeight: 1 }}>
-            {label}
-          </Typography>
-        </Box>
-      ))}
-    </Box>
-  );
-}
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
