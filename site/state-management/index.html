@@ -1,0 +1,1666 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface">
+      
+      
+        <meta name="author" content="AtiFLOW Design & Engineering">
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../data-models/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>State Management - AtiFLOW v2.0 – MTS Tablet</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#state-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="AtiFLOW v2.0 – MTS Tablet" class="md-header__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtiFLOW v2.0 – MTS Tablet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              State Management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../design-system/" class="md-tabs__link">
+        
+  
+  Design System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="././" class="md-tabs__link">
+        
+  
+  State Management
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-models/" class="md-tabs__link">
+        
+  
+  Data Models
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pages/login/" class="md-tabs__link">
+          
+  
+  Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../interactions/" class="md-tabs__link">
+        
+  
+  Interactions & Navigation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="AtiFLOW v2.0 – MTS Tablet" class="md-nav__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    AtiFLOW v2.0 – MTS Tablet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-deviceuser-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        user: DeviceUser | null
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activeworkflow-workflow-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        activeWorkflow: Workflow | null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="activeWorkflow: Workflow | null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cart-cartitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cart: CartItem[]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cart: CartItem[]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cart-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cart Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containercart-containercartitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        containerCart: ContainerCartItem[]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returntrolleyenabled-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        returnTrolleyEnabled: boolean
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actions Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loginusername-password-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login(username, password): boolean
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logout()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Flow Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-state-vs-context-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local State vs. Context State
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Login
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/create-request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/material-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/container-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/container-checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/return-trolley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Trolley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/my-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/staging-area/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/inventory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactions & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-shape" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Shape
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Variables
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="State Variables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-deviceuser-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        user: DeviceUser | null
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activeworkflow-workflow-null" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        activeWorkflow: Workflow | null
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="activeWorkflow: Workflow | null">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workflow-properties" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Workflow Properties
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cart-cartitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        cart: CartItem[]
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="cart: CartItem[]">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cart-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cart Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containercart-containercartitem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        containerCart: ContainerCartItem[]
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#returntrolleyenabled-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        returnTrolleyEnabled: boolean
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actions-reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actions Reference
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actions Reference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loginusername-password-boolean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        login(username, password): boolean
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logout()
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-flow-diagram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Flow Diagram
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-state-vs-context-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local State vs. Context State
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="state-management">State Management<a class="headerlink" href="#state-management" title="Permanent link">&para;</a></h1>
+<p>All global state lives in a single React Context: <code>AppContext</code> (<code>src/context/AppContext.tsx</code>). It is provided at the root of the application by <code>AppProvider</code> wrapping the entire router.</p>
+<p>Access it in any component with:</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useApp</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;../../context/AppContext&#39;</span><span class="p">;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">cart</span><span class="p">,</span><span class="w"> </span><span class="nx">addToCart</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useApp</span><span class="p">();</span>
+</span></code></pre></div>
+<hr />
+<h2 id="state-shape">State Shape<a class="headerlink" href="#state-shape" title="Permanent link">&para;</a></h2>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">AppState</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nx">user</span><span class="o">:</span><span class="w"> </span><span class="kt">DeviceUser</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">          </span><span class="c1">// null = not logged in</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nx">activeWorkflow</span><span class="o">:</span><span class="w"> </span><span class="kt">Workflow</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">  </span><span class="c1">// null = not logged in</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nx">cart</span><span class="o">:</span><span class="w"> </span><span class="kt">CartItem</span><span class="p">[];</span><span class="w">                 </span><span class="c1">// material items selected for checkout</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nx">containerCart</span><span class="o">:</span><span class="w"> </span><span class="kt">ContainerCartItem</span><span class="p">[];</span><span class="w"> </span><span class="c1">// container items (separate flow)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nx">returnTrolleyEnabled</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w">    </span><span class="c1">// toggle on CheckoutPage</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h2 id="state-variables">State Variables<a class="headerlink" href="#state-variables" title="Permanent link">&para;</a></h2>
+<h3 id="user-deviceuser-null"><code>user: DeviceUser | null</code><a class="headerlink" href="#user-deviceuser-null" title="Permanent link">&para;</a></h3>
+<p>The currently authenticated device operator.</p>
+<ul>
+<li><strong>Initial value:</strong> <code>null</code> (unauthenticated)</li>
+<li><strong>Set by:</strong> <code>login()</code> action (sets to <code>mockDeviceUser</code> with the entered username applied)</li>
+<li><strong>Cleared by:</strong> <code>logout()</code></li>
+<li><strong>Used by:</strong> <code>AuthGuard</code>, <code>TabletHeader</code>, <code>MyRequestsPage</code> (workflow filtering)</li>
+</ul>
+<p>The <code>user.workflows</code> array is the source of truth for which workflows are available in the header dropdown.</p>
+<hr />
+<h3 id="activeworkflow-workflow-null"><code>activeWorkflow: Workflow | null</code><a class="headerlink" href="#activeworkflow-workflow-null" title="Permanent link">&para;</a></h3>
+<p>The currently selected workflow. All material requests, container orders, and return trolleys are scoped to this workflow.</p>
+<ul>
+<li><strong>Initial value:</strong> <code>null</code></li>
+<li><strong>Set by:</strong> <code>login()</code> (auto-selects first workflow), <code>setActiveWorkflow()</code> (via header dropdown)</li>
+<li><strong>Cleared by:</strong> <code>logout()</code></li>
+<li><strong>Used by:</strong> <code>TabletHeader</code> (dropdown), <code>CreateRequestPage</code> (info strip), <code>MaterialSelectionPage</code> (header caption), <code>CheckoutPage</code> (summary, confirm dialog, return trolley chip text), <code>ContainerCheckoutPage</code> (header caption, confirm dialog), <code>ReturnTrolleyPage</code> (confirm dialog, DetailCard), <code>MyRequestsPage</code> (workflow-scoped request filter)</li>
+</ul>
+<h4 id="workflow-properties">Workflow Properties<a class="headerlink" href="#workflow-properties" title="Permanent link">&para;</a></h4>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">Workflow</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nx">assignmentStrategy</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;request-based&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;on-route&#39;</span><span class="p">;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nx">confirmationMode</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="s1">&#39;manual&#39;</span><span class="p">;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p">}</span>
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>assignmentStrategy</code></th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'request-based'</code></td>
+<td>AMR trip created immediately on submission. Success message: "Trip will be fulfilled immediately by an AMR." Return trolley chip: "Trip scheduled immediately on delivery."</td>
+</tr>
+<tr>
+<td><code>'on-route'</code></td>
+<td>AMR trip created only when the AMR scans the trolley QR code (FIFO queue). Success message: "Trip will be assigned when the AMR scans the trolley QR code." Return trolley chip: "AMR will collect on QR scan (FIFO)."</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>confirmationMode</code></th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>'auto'</code></td>
+<td>No dispatcher needed. CreateRequestPage info strip shows "Not required."</td>
+</tr>
+<tr>
+<td><code>'manual'</code></td>
+<td>Dispatcher must confirm the request. CreateRequestPage info strip shows "Required" in amber (<code>#E65100</code>).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="cart-cartitem"><code>cart: CartItem[]</code><a class="headerlink" href="#cart-cartitem" title="Permanent link">&para;</a></h3>
+<p>The material items staged for submission.</p>
+<ul>
+<li><strong>Initial value:</strong> <code>[]</code></li>
+<li><strong>Modified by:</strong> <code>addToCart()</code>, <code>updateCartQty()</code>, <code>removeFromCart()</code>, <code>clearCart()</code></li>
+<li><strong>Used by:</strong> <code>MaterialSelectionPage</code> (in-cart state), <code>CheckoutPage</code> (review list), <code>BottomNav</code> (cart badge count), <code>CreateRequestPage</code> (cart banner + Checkout button)</li>
+</ul>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">CartItem</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nx">subSkuTypeId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">     </span><span class="c1">// unique key</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nx">subSkuTypeName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">   </span><span class="c1">// display name &quot;Widget A – Sub-SKU Type 1&quot;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nx">skuName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">          </span><span class="c1">// parent SKU name</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nx">quantity</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">         </span><span class="c1">// current selected quantity</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nx">maxQty</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w">           </span><span class="c1">// max allowed quantity (from SubSKUType)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="cart-actions">Cart Actions<a class="headerlink" href="#cart-actions" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Signature</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addToCart</code></td>
+<td><code>(item: CartItem) =&gt; void</code></td>
+<td>If item with same <code>subSkuTypeId</code> already exists, increments quantity (capped at <code>maxQty</code>). Otherwise appends.</td>
+</tr>
+<tr>
+<td><code>updateCartQty</code></td>
+<td><code>(subSkuTypeId: string, qty: number) =&gt; void</code></td>
+<td>Replaces quantity directly — used by CheckoutPage quantity stepper.</td>
+</tr>
+<tr>
+<td><code>removeFromCart</code></td>
+<td><code>(subSkuTypeId: string) =&gt; void</code></td>
+<td>Removes item from cart.</td>
+</tr>
+<tr>
+<td><code>clearCart</code></td>
+<td><code>() =&gt; void</code></td>
+<td>Empties cart entirely — called after successful submission.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="containercart-containercartitem"><code>containerCart: ContainerCartItem[]</code><a class="headerlink" href="#containercart-containercartitem" title="Permanent link">&para;</a></h3>
+<p>Container items selected in <code>ContainerSelectionPage</code>. Separate from <code>cart</code> because containers go through a different checkout flow.</p>
+<ul>
+<li><strong>Initial value:</strong> <code>[]</code></li>
+<li><strong>Set by:</strong> <code>setContainerCart(items)</code> — called at once with the full selection array</li>
+<li><strong>Cleared by:</strong> <code>clearContainerCart()</code> — called after successful submission</li>
+<li><strong>Used by:</strong> <code>ContainerCheckoutPage</code></li>
+</ul>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">ContainerCartItem</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nx">containerId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">        </span><span class="c1">// container type ID</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nx">containerType</span><span class="o">:</span><span class="w"> </span><span class="kt">ContainerType</span><span class="p">;</span><span class="w"> </span><span class="c1">// &#39;trolley&#39; | &#39;pallet&#39; | &#39;bin&#39;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nx">subtypeId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">          </span><span class="c1">// subtype ID</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nx">subtypeName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">        </span><span class="c1">// display name</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nx">quantity</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
+</span></code></pre></div>
+<hr />
+<h3 id="returntrolleyenabled-boolean"><code>returnTrolleyEnabled: boolean</code><a class="headerlink" href="#returntrolleyenabled-boolean" title="Permanent link">&para;</a></h3>
+<p>Controls whether an empty trolley return is automatically scheduled alongside the material request.</p>
+<ul>
+<li><strong>Initial value:</strong> <code>true</code> (on by default)</li>
+<li><strong>Set by:</strong> <code>setReturnTrolley(val: boolean)</code> — controlled by the <code>Switch</code> in <code>CheckoutPage</code></li>
+<li><strong>Persisted across sessions:</strong> No — resets on logout (currently resets on login only via context re-initialisation)</li>
+<li><strong>Used by:</strong> <code>CheckoutPage</code> (toggle UI + return trolley section visibility + success message text)</li>
+</ul>
+<hr />
+<h2 id="actions-reference">Actions Reference<a class="headerlink" href="#actions-reference" title="Permanent link">&para;</a></h2>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">AppContextValue</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">AppState</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nx">login</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nx">logout</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nx">setActiveWorkflow</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">w</span><span class="o">:</span><span class="w"> </span><span class="kt">Workflow</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">  </span><span class="nx">addToCart</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">item</span><span class="o">:</span><span class="w"> </span><span class="kt">CartItem</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nx">updateCartQty</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">subSkuTypeId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">qty</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nx">removeFromCart</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">subSkuTypeId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="nx">clearCart</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">  </span><span class="nx">setContainerCart</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="kt">ContainerCartItem</span><span class="p">[])</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">  </span><span class="nx">clearContainerCart</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="nx">setReturnTrolley</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">val</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="ow">void</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="loginusername-password-boolean"><code>login(username, password): boolean</code><a class="headerlink" href="#loginusername-password-boolean" title="Permanent link">&para;</a></h3>
+<p>Mock login — accepts any non-empty string pair.</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">login</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">username</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">password</span><span class="p">.</span><span class="nx">trim</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">setUser</span><span class="p">({</span><span class="w"> </span><span class="p">...</span><span class="nx">mockDeviceUser</span><span class="p">,</span><span class="w"> </span><span class="nx">username</span><span class="w"> </span><span class="p">});</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nx">setActiveWorkflowState</span><span class="p">(</span><span class="nx">mockDeviceUser</span><span class="p">.</span><span class="nx">workflows</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p">};</span>
+</span></code></pre></div>
+<ul>
+<li>Returns <code>true</code> on success (caller navigates to <code>/requester/create</code>)</li>
+<li>Returns <code>false</code> on failure (caller shows error alert)</li>
+<li>The <code>username</code> field is overridden with the entered value so the header displays the actual input</li>
+</ul>
+<h3 id="logout"><code>logout()</code><a class="headerlink" href="#logout" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">logout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="nx">setUser</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="nx">setActiveWorkflowState</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">  </span><span class="nx">setCart</span><span class="p">([]);</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">  </span><span class="nx">setContainerCartState</span><span class="p">([]);</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>Clears all user state. Does <strong>not</strong> reset <code>returnTrolleyEnabled</code> (it will be reset next time context re-initialises on next login via <code>useState(true)</code> initial value).</p>
+<hr />
+<h2 id="state-flow-diagram">State Flow Diagram<a class="headerlink" href="#state-flow-diagram" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Login
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  └─&gt; login() ──&gt; user set, activeWorkflow set ──&gt; navigate(&#39;/requester/create&#39;)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>CreateRequestPage
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  ├─&gt; navigate(&#39;/requester/material&#39;) ──&gt; MaterialSelectionPage
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  │       └─&gt; addToCart() / removeFromCart()
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>  │               └─&gt; navigate(&#39;/requester/checkout&#39;) ──&gt; CheckoutPage
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  │                       ├─&gt; updateCartQty() / removeFromCart()
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  │                       ├─&gt; setReturnTrolley()
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>  │                       ├─&gt; [inline container add – local state only]
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  │                       └─&gt; Submit ──&gt; clearCart() ──&gt; navigate(&#39;/requester/create&#39;)
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  │
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>  └─&gt; navigate(&#39;/requester/return-trolley&#39;) ──&gt; ReturnTrolleyPage
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>          └─&gt; [all state local – no context writes]
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>ContainerSelectionPage
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>  └─&gt; setContainerCart(items) ──&gt; navigate(&#39;/requester/container-checkout&#39;)
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>          └─&gt; ContainerCheckoutPage
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>                  └─&gt; Submit ──&gt; clearContainerCart() ──&gt; navigate(&#39;/requester/create&#39;)
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>TabletHeader
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>  └─&gt; setActiveWorkflow(wf) ──&gt; ALL pages re-render with new workflow context
+</span></code></pre></div>
+<hr />
+<h2 id="local-state-vs-context-state">Local State vs. Context State<a class="headerlink" href="#local-state-vs-context-state" title="Permanent link">&para;</a></h2>
+<p>Not all state lives in context. The following is <strong>local</strong> to each page (React <code>useState</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Local State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LoginPage</code></td>
+<td><code>stationCode</code>, <code>password</code>, <code>error</code></td>
+</tr>
+<tr>
+<td><code>MaterialSelectionPage</code></td>
+<td><code>search</code>, <code>quantities</code> (pending input before add), <code>viewMode</code></td>
+</tr>
+<tr>
+<td><code>CheckoutPage</code></td>
+<td><code>confirmOpen</code>, <code>submitted</code>, <code>containerExpanded</code>, <code>addedContainers</code>, <code>selContainerIdx</code>, <code>selSubtypeId</code>, <code>containerQty</code></td>
+</tr>
+<tr>
+<td><code>ContainerSelectionPage</code></td>
+<td><code>tabIdx</code>, <code>quantities</code>, <code>selected</code> (Set of subtypeIds)</td>
+</tr>
+<tr>
+<td><code>ContainerCheckoutPage</code></td>
+<td><code>confirmOpen</code>, <code>submitted</code></td>
+</tr>
+<tr>
+<td><code>ReturnTrolleyPage</code></td>
+<td><code>method</code>, <code>resolved</code>, <code>confirmOpen</code>, <code>submitted</code>, <code>qrScanning</code>, <code>containerId</code>, <code>containerTypeIdx</code>, <code>subtypeId</code>, <code>notFound</code></td>
+</tr>
+<tr>
+<td><code>MyRequestsPage</code></td>
+<td><code>tabIdx</code> (filter tab index)</td>
+</tr>
+<tr>
+<td><code>StagingAreaPage</code></td>
+<td><code>selectedArea</code>, <code>displayMode</code>, <code>viewLayout</code>, <code>edits</code>, <code>editingCell</code>, <code>savedCount</code></td>
+</tr>
+<tr>
+<td><code>InventoryPage</code></td>
+<td><code>search</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../architecture/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Architecture">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Architecture
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../data-models/" class="md-footer__link md-footer__link--next" aria-label="Next: Data Models">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Data Models
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.instant","navigation.path","navigation.footer","search.highlight","search.suggest","content.code.copy","content.code.annotate"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+    
+  </body>
+</html>

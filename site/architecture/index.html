@@ -1,0 +1,1771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface">
+      
+      
+        <meta name="author" content="AtiFLOW Design & Engineering">
+      
+      
+      
+        <link rel="prev" href="../design-system/">
+      
+      
+        <link rel="next" href="../state-management/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>Architecture - AtiFLOW v2.0 – MTS Tablet</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="./.." title="AtiFLOW v2.0 – MTS Tablet" class="md-header__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtiFLOW v2.0 – MTS Tablet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../design-system/" class="md-tabs__link">
+        
+  
+  Design System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="././" class="md-tabs__link">
+        
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../state-management/" class="md-tabs__link">
+        
+  
+  State Management
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../data-models/" class="md-tabs__link">
+        
+  
+  Data Models
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../pages/login/" class="md-tabs__link">
+          
+  
+  Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../interactions/" class="md-tabs__link">
+        
+  
+  Interactions & Navigation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./.." title="AtiFLOW v2.0 – MTS Tablet" class="md-nav__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    AtiFLOW v2.0 – MTS Tablet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viteconfigts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vite.config.ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry Point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entry Point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index.html
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srcmaintsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        src/main.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-root-srcapptsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application Root – src/App.tsx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application Root – src&#x2f;App.tsx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AuthGuard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layout System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewport-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport Budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesterlayouttsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RequesterLayout.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-minheight-0-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The minHeight: 0 Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tabletheadertsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TabletHeader.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottomnavtsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BottomNav.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Routing Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-route-flow-not-using-nested-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-route Flow (not using nested routes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Login
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/create-request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/material-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/container-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/container-checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/return-trolley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Trolley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/my-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/staging-area/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pages/inventory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../interactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactions & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viteconfigts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        vite.config.ts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entry-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entry Point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Entry Point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#indexhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        index.html
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srcmaintsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        src/main.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#application-root-srcapptsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Application Root – src/App.tsx
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Application Root – src&#x2f;App.tsx">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AuthGuard
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout System
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Layout System">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#viewport-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewport Budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#requesterlayouttsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RequesterLayout.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-minheight-0-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The minHeight: 0 Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tabletheadertsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TabletHeader.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bottomnavtsx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BottomNav.tsx
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing Details
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Routing Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#navigation-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sub-route-flow-not-using-nested-routes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-route Flow (not using nested routes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-layer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data Layer
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h1>
+<hr />
+<h2 id="project-setup">Project Setup<a class="headerlink" href="#project-setup" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Version / Config</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node.js</td>
+<td>LTS (18+)</td>
+</tr>
+<tr>
+<td>Package manager</td>
+<td>npm / bun</td>
+</tr>
+<tr>
+<td>Build tool</td>
+<td>Vite 5</td>
+</tr>
+<tr>
+<td>TypeScript</td>
+<td>Strict mode</td>
+</tr>
+<tr>
+<td>Linter</td>
+<td>ESLint (Vite default + React hooks)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="viteconfigts"><code>vite.config.ts</code><a class="headerlink" href="#viteconfigts" title="Permanent link">&para;</a></h3>
+<p>Standard Vite React plugin configuration. No custom port, no proxy — the app connects to a mock data layer in development. In production, API calls would replace mock imports.</p>
+<hr />
+<h2 id="entry-point">Entry Point<a class="headerlink" href="#entry-point" title="Permanent link">&para;</a></h2>
+<h3 id="indexhtml"><code>index.html</code><a class="headerlink" href="#indexhtml" title="Permanent link">&para;</a></h3>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;UTF-8&quot;</span> <span class="p">/&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span> <span class="p">/&gt;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>mts-tablet<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;root&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;module&quot;</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;/src/main.tsx&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>The <code>&lt;meta name="viewport"&gt;</code> tag ensures correct scaling on the tablet's display. The app does not use the Figma capture script in production — it was only present temporarily for design handoff.</p>
+<h3 id="srcmaintsx"><code>src/main.tsx</code><a class="headerlink" href="#srcmaintsx" title="Permanent link">&para;</a></h3>
+<p>Standard React 18 <code>ReactDOM.createRoot</code> render. Mounts <code>&lt;App /&gt;</code> into <code>#root</code>.</p>
+<hr />
+<h2 id="application-root-srcapptsx">Application Root – <code>src/App.tsx</code><a class="headerlink" href="#application-root-srcapptsx" title="Permanent link">&para;</a></h2>
+<p><code>App.tsx</code> composes the entire application:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>App
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>└── ThemeProvider (theme from src/theme.ts)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    └── CssBaseline
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        └── AppProvider (context from AppContext.tsx)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>            └── BrowserRouter
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                └── AppRoutes
+</span></code></pre></div>
+<h3 id="authguard">AuthGuard<a class="headerlink" href="#authguard" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">AuthGuard</span><span class="p">({</span><span class="w"> </span><span class="nx">children</span><span class="w"> </span><span class="p">}</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">children</span><span class="o">:</span><span class="w"> </span><span class="kt">React.ReactNode</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">user</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useApp</span><span class="p">();</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">user</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">Navigate</span><span class="w"> </span><span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/login&quot;</span><span class="w"> </span><span class="nx">replace</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="p">{</span><span class="nx">children</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/&gt;;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><code>AuthGuard</code> wraps the entire <code>/requester</code> route subtree. Any navigation to a protected route while unauthenticated redirects to <code>/login</code>. After login, the user is sent to <code>/requester/create</code>.</p>
+<h3 id="route-structure">Route Structure<a class="headerlink" href="#route-structure" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="o">&lt;</span><span class="nx">Routes</span><span class="o">&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/login&quot;</span><span class="w">       </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="nx">user</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">Navigate</span><span class="w"> </span><span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/requester/create&quot;</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">LoginPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;/requester&quot;</span><span class="w">   </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">AuthGuard</span><span class="o">&gt;&lt;</span><span class="nx">RequesterLayout</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/AuthGuard&gt;}&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">index</span><span class="w">             </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">Navigate</span><span class="w"> </span><span class="nx">to</span><span class="o">=</span><span class="s2">&quot;create&quot;</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;create&quot;</span><span class="w">     </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">CreateRequestPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;material&quot;</span><span class="w">   </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">MaterialSelectionPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;checkout&quot;</span><span class="w">   </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">CheckoutPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;container&quot;</span><span class="w">  </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">ContainerSelectionPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;container-checkout&quot;</span><span class="w"> </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">ContainerCheckoutPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;return-trolley&quot;</span><span class="w">     </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">ReturnTrolleyPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;requests&quot;</span><span class="w">   </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">MyRequestsPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;staging&quot;</span><span class="w">    </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">StagingAreaPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;inventory&quot;</span><span class="w">  </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">InventoryPage</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/Route&gt;</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">Route</span><span class="w"> </span><span class="nx">path</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="w">            </span><span class="nx">element</span><span class="o">=</span><span class="p">{</span><span class="o">&lt;</span><span class="nx">Navigate</span><span class="w"> </span><span class="nx">to</span><span class="o">=</span><span class="s2">&quot;/login&quot;</span><span class="w"> </span><span class="o">/&gt;</span><span class="p">}</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="o">&lt;</span><span class="err">/Routes&gt;</span>
+</span></code></pre></div>
+<p>The <code>/requester</code> route renders <code>RequesterLayout</code> as its element — this is the shell that provides the header and bottom navigation. All child routes render into the <code>&lt;Outlet /&gt;</code> inside <code>RequesterLayout</code>.</p>
+<hr />
+<h2 id="layout-system">Layout System<a class="headerlink" href="#layout-system" title="Permanent link">&para;</a></h2>
+<h3 id="viewport-budget">Viewport Budget<a class="headerlink" href="#viewport-budget" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>┌──────────────────────────────────────┐  ← 0px
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│         TabletHeader (fixed)         │  52px
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>├──────────────────────────────────────┤  ← 52px
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│                                      │
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│      Page content (scrollable)       │  528px usable
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│                                      │
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>├──────────────────────────────────────┤  ← 580px
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>│          BottomNav (fixed)           │  60px
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>└──────────────────────────────────────┘  ← 640px
+</span></code></pre></div>
+<p><strong>Total screen height:</strong> 640px
+<strong>Header:</strong> 52px (fixed, <code>position: fixed</code>, <code>zIndex: 1200</code>)
+<strong>Bottom nav:</strong> 60px (fixed, <code>position: fixed</code>, <code>zIndex: 1100</code>)
+<strong>Usable content height:</strong> 528px</p>
+<h3 id="requesterlayouttsx"><code>RequesterLayout.tsx</code><a class="headerlink" href="#requesterlayouttsx" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="o">&lt;</span><span class="nx">Box</span><span class="w"> </span><span class="nx">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">display</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;flex&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">flexDirection</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;column&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;100vh&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hidden&#39;</span><span class="w"> </span><span class="p">}}</span><span class="o">&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">TabletHeader</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">Box</span><span class="w"> </span><span class="nx">sx</span><span class="o">=</span><span class="p">{{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nx">mt</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;52px&#39;</span><span class="p">,</span><span class="w">    </span><span class="c1">// offset for fixed header</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nx">mb</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;60px&#39;</span><span class="p">,</span><span class="w">    </span><span class="c1">// offset for fixed bottom nav</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="nx">flex</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="nx">minHeight</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w">  </span><span class="c1">// CRITICAL: allows flex child to shrink for scrolling</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hidden&#39;</span><span class="p">,</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="nx">display</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;flex&#39;</span><span class="p">,</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="nx">flexDirection</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;column&#39;</span><span class="p">,</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="nx">bgcolor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;background.default&#39;</span><span class="p">,</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">  </span><span class="p">}}</span><span class="o">&gt;</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">Outlet</span><span class="w"> </span><span class="o">/&gt;</span><span class="w">   </span><span class="c1">// ← page renders here</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/Box&gt;</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">BottomNav</span><span class="w"> </span><span class="o">/&gt;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="o">&lt;</span><span class="err">/Box&gt;</span>
+</span></code></pre></div>
+<h3 id="the-minheight-0-pattern">The <code>minHeight: 0</code> Pattern<a class="headerlink" href="#the-minheight-0-pattern" title="Permanent link">&para;</a></h3>
+<p>This is the most important layout rule in the application. <strong>Every flex container in the scroll chain must have <code>minHeight: 0</code></strong> — otherwise a flex child with <code>overflow: auto</code> cannot shrink below its content height, preventing scrollbars from working and pushing fixed footer bars off-screen.</p>
+<p>The required pattern for every page:</p>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">{</span><span class="cm">/* Outer page box — fills the layout outlet */</span><span class="p">}</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="p">&lt;</span><span class="nt">Box</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">display</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;flex&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">flexDirection</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;column&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">flex</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">minHeight</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hidden&#39;</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="p">{</span><span class="cm">/* Fixed sub-header — never scrolls */</span><span class="p">}</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Box</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="p">...,</span><span class="w"> </span><span class="nx">flexShrink</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="p">&lt;</span><span class="nt">IconButton</span><span class="p">&gt;</span><span class="nx">Back</span><span class="p">&lt;/</span><span class="nt">IconButton</span><span class="p">&gt;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="p">&lt;</span><span class="nt">Typography</span><span class="p">&gt;</span><span class="nx">Page</span><span class="w"> </span><span class="nx">Title</span><span class="p">&lt;/</span><span class="nt">Typography</span><span class="p">&gt;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="p">&lt;/</span><span class="nt">Box</span><span class="p">&gt;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">  </span><span class="p">{</span><span class="cm">/* Scrollable content area */</span><span class="p">}</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Box</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">flex</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">minHeight</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">p</span><span class="o">:</span><span class="w"> </span><span class="kt">2.5</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span><span class="p">{</span><span class="cm">/* page content */</span><span class="p">}</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">  </span><span class="p">&lt;/</span><span class="nt">Box</span><span class="p">&gt;</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">  </span><span class="p">{</span><span class="cm">/* Fixed submit bar — never scrolls */</span><span class="p">}</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Box</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">p</span><span class="o">:</span><span class="w"> </span><span class="kt">2</span><span class="p">,</span><span class="w"> </span><span class="nx">borderTop</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;1px solid&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">borderColor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;divider&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">flexShrink</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span><span class="p">&lt;</span><span class="nt">Button</span><span class="p">&gt;</span><span class="nx">Submit</span><span class="p">&lt;/</span><span class="nt">Button</span><span class="p">&gt;</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">  </span><span class="p">&lt;/</span><span class="nt">Box</span><span class="p">&gt;</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="p">&lt;/</span><span class="nt">Box</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Omitting <code>minHeight: 0</code> on either the outer box or the scrollable content box will cause layout overflow on the 528px viewport.</p>
+<hr />
+<h2 id="component-architecture">Component Architecture<a class="headerlink" href="#component-architecture" title="Permanent link">&para;</a></h2>
+<h3 id="tabletheadertsx"><code>TabletHeader.tsx</code><a class="headerlink" href="#tabletheadertsx" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>position: fixed</code> MUI <code>AppBar</code> at <code>zIndex: 1200</code></li>
+<li>Height: <code>52px</code> (forced via <code>minHeight: '52px !important'</code> on <code>Toolbar</code>)</li>
+<li>Contains: brand logo, station name, <strong>workflow selector dropdown</strong>, connection status chip, operator avatar</li>
+<li>The workflow selector uses MUI <code>Select</code> directly in the header — changing it calls <code>setActiveWorkflow()</code> on <code>AppContext</code>, instantly updating the active workflow across all pages</li>
+<li>Station name has <code>maxWidth: 180, overflow: 'hidden', textOverflow: 'ellipsis'</code> to prevent overflow on long names</li>
+<li>Renders <code>null</code> if <code>!user || !activeWorkflow</code> (during login flow)</li>
+</ul>
+<h3 id="bottomnavtsx"><code>BottomNav.tsx</code><a class="headerlink" href="#bottomnavtsx" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>position: fixed</code> MUI <code>Paper</code> at <code>zIndex: 1100</code></li>
+<li>Height: <code>60px</code></li>
+<li>4 navigation items:</li>
+<li><strong>Create Request</strong> (<code>/requester/create</code>) — shows cart count Badge when <code>cart.length &gt; 0</code></li>
+<li><strong>My Requests</strong> (<code>/requester/requests</code>)</li>
+<li><strong>Staging Area</strong> (<code>/requester/staging</code>)</li>
+<li><strong>Inventory</strong> (<code>/requester/inventory</code>)</li>
+<li>Active tab detected via <code>pathname.startsWith(item.path)</code> — correctly highlights the parent tab even on sub-routes like <code>/requester/material</code> (which highlights "Create Request")</li>
+</ul>
+<hr />
+<h2 id="routing-details">Routing Details<a class="headerlink" href="#routing-details" title="Permanent link">&para;</a></h2>
+<h3 id="navigation-patterns">Navigation Patterns<a class="headerlink" href="#navigation-patterns" title="Permanent link">&para;</a></h3>
+<p>Three navigation patterns are used:</p>
+<ol>
+<li><strong><code>useNavigate(path)</code></strong> — direct programmatic navigation (after form submit, button click)</li>
+<li><strong><code>useNavigate(-1)</code></strong> — browser history back (Back arrow buttons in sub-headers)</li>
+<li><strong><code>&lt;Navigate to="..." replace /&gt;</code></strong> — redirect without history entry (auth guard, post-login)</li>
+</ol>
+<h3 id="sub-route-flow-not-using-nested-routes">Sub-route Flow (not using nested routes)<a class="headerlink" href="#sub-route-flow-not-using-nested-routes" title="Permanent link">&para;</a></h3>
+<p>Some pages have multi-step flows implemented <strong>within the same route</strong> using local <code>useState</code>:</p>
+<ul>
+<li><code>ReturnTrolleyPage</code>: <code>method = null | 'qr' | 'details'</code> controls which view renders</li>
+<li><code>StagingAreaPage</code>: <code>selectedArea = null | StagingArea</code> controls list vs. detail view</li>
+</ul>
+<p>This keeps the URL stable (no back/forward navigation between sub-steps), which is appropriate for touch-device industrial UIs where back-button confusion must be minimised.</p>
+<hr />
+<h2 id="data-layer">Data Layer<a class="headerlink" href="#data-layer" title="Permanent link">&para;</a></h2>
+<p>Currently all data is mocked in <code>src/data/mock.ts</code>. The mock layer exports:</p>
+<table>
+<thead>
+<tr>
+<th>Export</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mockWorkflows</code></td>
+<td><code>Workflow[]</code></td>
+<td>3 workflows with different strategies</td>
+</tr>
+<tr>
+<td><code>mockDeviceUser</code></td>
+<td><code>DeviceUser</code></td>
+<td>Single operator with all 3 workflows</td>
+</tr>
+<tr>
+<td><code>mockMaterials</code></td>
+<td><code>MaterialSKU[]</code></td>
+<td>4 SKUs with 9 Sub-SKU types total</td>
+</tr>
+<tr>
+<td><code>mockContainers</code></td>
+<td><code>Container[]</code></td>
+<td>3 container types (Trolley/Pallet/Bin) with 7 subtypes</td>
+</tr>
+<tr>
+<td><code>mockStagingAreas</code></td>
+<td><code>StagingArea[]</code></td>
+<td>2 areas (4×10 and 3×8 grid)</td>
+</tr>
+<tr>
+<td><code>mockRequests</code></td>
+<td><code>Request[]</code></td>
+<td>4 requests across different workflows/statuses</td>
+</tr>
+<tr>
+<td><code>mockInventory</code></td>
+<td><code>InventoryRow[]</code></td>
+<td>8 rows of inventory data</td>
+</tr>
+</tbody>
+</table>
+<p>In production, these imports would be replaced with API calls. The function signatures of the context actions (<code>addToCart</code>, <code>setContainerCart</code>, etc.) are designed to remain unchanged.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../design-system/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Design System">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Design System
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../state-management/" class="md-footer__link md-footer__link--next" aria-label="Next: State Management">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                State Management
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.instant","navigation.path","navigation.footer","search.highlight","search.suggest","content.code.copy","content.code.annotate"],"search":"../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1762 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface">
+      
+      
+        <meta name="author" content="AtiFLOW Design & Engineering">
+      
+      
+      
+        <link rel="prev" href="../create-request/">
+      
+      
+        <link rel="next" href="../checkout/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>Material Selection Page - AtiFLOW v2.0 – MTS Tablet</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#material-selection-page" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-header__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtiFLOW v2.0 – MTS Tablet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Material Selection Page
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../design-system/" class="md-tabs__link">
+        
+  
+  Design System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../state-management/" class="md-tabs__link">
+        
+  
+  State Management
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data-models/" class="md-tabs__link">
+        
+  
+  Data Models
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../login/" class="md-tabs__link">
+          
+  
+  Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../interactions/" class="md-tabs__link">
+        
+  
+  Interactions & Navigation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-nav__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    AtiFLOW v2.0 – MTS Tablet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Login
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-data-flat-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material Data (Flat List)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grid-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid View
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grid View">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Card Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status Chip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantity-stepper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantity Stepper
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-added-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add / Added Button
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blocking-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocking Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-to-cart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add to Cart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cart-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cart Toggle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Empty State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../return-trolley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Trolley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../my-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../staging-area/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactions & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#material-data-flat-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Material Data (Flat List)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grid-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid View
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grid View">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#card-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Card Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-chip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status Chip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantity-stepper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quantity Stepper
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-added-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add / Added Button
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List View
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blocking-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocking Logic
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-to-cart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add to Cart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cart-toggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cart Toggle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Empty State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../login/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Pages
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="material-selection-page">Material Selection Page<a class="headerlink" href="#material-selection-page" title="Permanent link">&para;</a></h1>
+<p><strong>Route:</strong> <code>/requester/material</code>
+<strong>Component:</strong> <code>src/pages/requester/MaterialSelectionPage.tsx</code>
+<strong>Auth:</strong> Protected
+<strong>Entered from:</strong> Create Request (Order Material zone)</p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Allows operators to browse all available Sub-SKU types, set desired quantities, and add them to the cart. Supports two view layouts (grid and list) and live search.</p>
+<hr />
+<h2 id="layout">Layout<a class="headerlink" href="#layout" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ ← Order Material       [⊞][☰]  [Cart(N)]│  ← Sub-header (fixed)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─────────────────────────────────────────┤
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│ 🔍 [Search by material name or code…]  │  ← Search bar (fixed)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├─────────────────────────────────────────┤
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│                                         │
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│   [Card] [Card] [Card]    ← Grid view   │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│   [Card] [Card] [Card]        or        │  ← Scrollable content
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                           List view     │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│                                         │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>└─────────────────────────────────────────┘
+</span></code></pre></div>
+<hr />
+<h2 id="ui-components">UI Components<a class="headerlink" href="#ui-components" title="Permanent link">&para;</a></h2>
+<h3 id="sub-header">Sub-header<a class="headerlink" href="#sub-header" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Back arrow (<code>useNavigate(-1)</code>)</li>
+<li>Title "Order Material" + caption "Select Sub-SKU types and quantities"</li>
+<li><strong>View toggle:</strong> <code>ToggleButtonGroup</code> with grid icon and list icon — switches between <code>'grid'</code> and <code>'list'</code> view modes</li>
+<li><strong>Checkout button:</strong> Visible only when <code>cart.length &gt; 0</code> — shows "Checkout (N)" count and navigates to <code>/requester/checkout</code></li>
+</ul>
+<h3 id="search-bar">Search Bar<a class="headerlink" href="#search-bar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Full-width <code>OutlinedInput</code> with <code>SearchIcon</code> adornment</li>
+<li>Background <code>#F8F9FA</code>, padded <code>9px</code> vertically</li>
+<li>Filters across: sub-type <code>name</code>, <code>code</code>, and parent <code>skuName</code> (case-insensitive)</li>
+<li>Instant filtering on every keystroke</li>
+</ul>
+<h3 id="material-data-flat-list">Material Data (Flat List)<a class="headerlink" href="#material-data-flat-list" title="Permanent link">&para;</a></h3>
+<p>All materials are flattened from <code>mockMaterials</code> into a single <code>FlatSST[]</code> array:</p>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">type</span><span class="w"> </span><span class="nx">FlatSST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">SubSKUType</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">skuName</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="nx">skuCode</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kd">const</span><span class="w"> </span><span class="nx">allSubSkus</span><span class="o">:</span><span class="w"> </span><span class="kt">FlatSST</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mockMaterials</span><span class="p">.</span><span class="nx">flatMap</span><span class="p">((</span><span class="nx">sku</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nx">sku</span><span class="p">.</span><span class="nx">subSkuTypes</span><span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">sst</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span><span class="w"> </span><span class="p">...</span><span class="nx">sst</span><span class="p">,</span><span class="w"> </span><span class="nx">skuName</span><span class="o">:</span><span class="w"> </span><span class="kt">sku.name</span><span class="p">,</span><span class="w"> </span><span class="nx">skuCode</span><span class="o">:</span><span class="w"> </span><span class="kt">sku.code</span><span class="w"> </span><span class="p">}))</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p">);</span>
+</span></code></pre></div>
+<p>This gives 9 items total (from the mock). Each item carries its parent SKU name for display.</p>
+<hr />
+<h2 id="grid-view">Grid View<a class="headerlink" href="#grid-view" title="Permanent link">&para;</a></h2>
+<p><strong>Column width:</strong> <code>minmax(280px, 1fr)</code> — auto-fill responsive grid. On 1024px width with 20px padding each side, this renders 3 columns.</p>
+<h3 id="card-structure">Card Structure<a class="headerlink" href="#card-structure" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────┐
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ Widget A          [12 avail]│
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│ Sub-SKU Type 1              │
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│ WGT-A-T1                    │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│─────────────────────────────│
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│ [−] 1 [+]    max 5  [Add]   │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>└─────────────────────────────┘
+</span></code></pre></div>
+<ul>
+<li><strong>Border:</strong> teal when item is in cart, light grey otherwise</li>
+<li><strong>Background:</strong> teal tint when in cart, white otherwise</li>
+<li><strong>Opacity:</strong> 0.6 when blocked (unavailable or pre-processing)</li>
+</ul>
+<h3 id="status-chip">Status Chip<a class="headerlink" href="#status-chip" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Chip label</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inPreProcessing</code></td>
+<td>Pre-Processing</td>
+<td>Amber <code>#E65100</code></td>
+</tr>
+<tr>
+<td><code>available === 0</code></td>
+<td>Unavailable</td>
+<td>Grey <code>#9E9E9E</code></td>
+</tr>
+<tr>
+<td>orderable</td>
+<td><code>{available} avail.</code></td>
+<td>Teal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quantity-stepper">Quantity Stepper<a class="headerlink" href="#quantity-stepper" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>[−]</code> and <code>[+]</code> icon buttons flanking the current quantity value</li>
+<li><code>−</code> disabled when <code>qty &lt;= 1</code></li>
+<li><code>+</code> disabled when <code>qty &gt;= sst.maxQty</code></li>
+<li>Both disabled when <code>blocked</code></li>
+<li>Button size: 36×36px with <code>borderRadius: 0</code> (for seamless inline stepper appearance)</li>
+<li>Default quantity per item: 1 (managed by <code>quantities</code> state as <code>Record&lt;string, number&gt;</code>)</li>
+</ul>
+<h3 id="add-added-button">Add / Added Button<a class="headerlink" href="#add-added-button" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Not in cart:</strong> <code>variant="contained"</code> teal button with <code>+</code> icon, disabled when blocked</li>
+<li><strong>In cart:</strong> <code>variant="outlined"</code> red button with checkmark icon, label "Added" — clicking removes from cart (toggle behaviour)</li>
+</ul>
+<hr />
+<h2 id="list-view">List View<a class="headerlink" href="#list-view" title="Permanent link">&para;</a></h2>
+<p>A compact table-like grid layout inside a <code>Paper</code> card.</p>
+<p><strong>Columns:</strong> <code>1fr 110px 80px 140px</code></p>
+<table>
+<thead>
+<tr>
+<th>Col 1</th>
+<th>Col 2</th>
+<th>Col 3</th>
+<th>Col 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Material name + code</td>
+<td>Status chip</td>
+<td>Qty stepper (compact)</td>
+<td>Add/Added button</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Each row has a divider between it and the next</li>
+<li>Row background: teal tint if in cart, <code>#FAFAFA</code> if blocked, white otherwise</li>
+<li>Added items have a 6px teal dot indicator next to the name</li>
+<li>Quantity stepper in list view is more compact: <code>28px</code> buttons, <code>32px</code> height</li>
+</ul>
+<hr />
+<h2 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Initial</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search</code></td>
+<td><code>string</code></td>
+<td><code>''</code></td>
+<td>Search filter input</td>
+</tr>
+<tr>
+<td><code>quantities</code></td>
+<td><code>Record&lt;string, number&gt;</code></td>
+<td><code>{}</code></td>
+<td>Pending quantities per sub-SKU ID; default 1</td>
+</tr>
+<tr>
+<td><code>viewMode</code></td>
+<td><code>'grid' \| 'list'</code></td>
+<td><code>'grid'</code></td>
+<td>Display layout mode</td>
+</tr>
+</tbody>
+</table>
+<p>Context reads: <code>cart</code>, <code>addToCart</code>, <code>removeFromCart</code></p>
+<hr />
+<h2 id="ux-logic">UX Logic<a class="headerlink" href="#ux-logic" title="Permanent link">&para;</a></h2>
+<h3 id="blocking-logic">Blocking Logic<a class="headerlink" href="#blocking-logic" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">isBlocked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">sst</span><span class="o">:</span><span class="w"> </span><span class="kt">SubSKUType</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">sst</span><span class="p">.</span><span class="nx">available</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">sst</span><span class="p">.</span><span class="nx">inPreProcessing</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Both conditions result in the same disabled state. <code>inPreProcessing</code> items may have <code>available &gt; 0</code> in the data but are still not orderable — this is a business rule (the material is ready in quantity but not physically ready for dispatch).</p>
+<h3 id="add-to-cart">Add to Cart<a class="headerlink" href="#add-to-cart" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">handleAdd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">sst</span><span class="o">:</span><span class="w"> </span><span class="kt">FlatSST</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">item</span><span class="o">:</span><span class="w"> </span><span class="kt">CartItem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="nx">subSkuTypeId</span><span class="o">:</span><span class="w"> </span><span class="kt">sst.id</span><span class="p">,</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="nx">subSkuTypeName</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">sst</span><span class="p">.</span><span class="nx">skuName</span><span class="si">}</span><span class="sb"> – </span><span class="si">${</span><span class="nx">sst</span><span class="p">.</span><span class="nx">name</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="nx">quantity</span><span class="o">:</span><span class="w"> </span><span class="kt">getQty</span><span class="p">(</span><span class="nx">sst</span><span class="p">.</span><span class="nx">id</span><span class="p">),</span><span class="w">  </span><span class="c1">// current pending quantity from local state</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="nx">maxQty</span><span class="o">:</span><span class="w"> </span><span class="kt">sst.maxQty</span><span class="p">,</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nx">skuName</span><span class="o">:</span><span class="w"> </span><span class="kt">sst.skuName</span><span class="p">,</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">  </span><span class="p">};</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">  </span><span class="nx">addToCart</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>The <code>subSkuTypeName</code> is pre-formatted as <code>"Parent SKU – Sub-type name"</code> (e.g. <code>"Widget A – Sub-SKU Type 1"</code>) for display in the checkout review.</p>
+<h3 id="cart-toggle">Cart Toggle<a class="headerlink" href="#cart-toggle" title="Permanent link">&para;</a></h3>
+<p>Tapping "Added" immediately calls <code>removeFromCart(sst.id)</code>. The button reverts to "Add" instantly. Quantities in local state (<code>quantities</code>) are preserved — if the operator re-adds the item, the previous quantity is still set.</p>
+<h3 id="search-empty-state">Search Empty State<a class="headerlink" href="#search-empty-state" title="Permanent link">&para;</a></h3>
+<p>When <code>filtered.length === 0</code>, a centred empty state text is shown: "No materials match your search".</p>
+<hr />
+<h2 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All items blocked</td>
+<td>Empty-looking cards, all steppers/buttons disabled</td>
+</tr>
+<tr>
+<td>Cart has items, user searches</td>
+<td>Cart button still visible in header (cart state persists)</td>
+</tr>
+<tr>
+<td>Max qty reached</td>
+<td><code>+</code> button disabled; cannot exceed <code>maxQty</code></td>
+</tr>
+<tr>
+<td>Item added then search clears it</td>
+<td>Still in cart (cart is separate from display filter)</td>
+</tr>
+<tr>
+<td>Back navigation</td>
+<td><code>useNavigate(-1)</code> returns to previous route (Create Request)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../create-request/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Create Request">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Create Request
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../checkout/" class="md-footer__link md-footer__link--next" aria-label="Next: Checkout">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Checkout
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.instant","navigation.path","navigation.footer","search.highlight","search.suggest","content.code.copy","content.code.annotate"],"search":"../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+    
+  </body>
+</html>

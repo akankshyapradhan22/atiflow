@@ -1,0 +1,1854 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface">
+      
+      
+        <meta name="author" content="AtiFLOW Design & Engineering">
+      
+      
+      
+        <link rel="prev" href="../my-requests/">
+      
+      
+        <link rel="next" href="../inventory/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>Staging Area Page - AtiFLOW v2.0 – MTS Tablet</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#staging-area-page" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-header__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtiFLOW v2.0 – MTS Tablet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Staging Area Page
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../design-system/" class="md-tabs__link">
+        
+  
+  Design System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../state-management/" class="md-tabs__link">
+        
+  
+  State Management
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data-models/" class="md-tabs__link">
+        
+  
+  Data Models
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../login/" class="md-tabs__link">
+          
+  
+  Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../interactions/" class="md-tabs__link">
+        
+  
+  Interactions & Navigation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-nav__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    AtiFLOW v2.0 – MTS Tablet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Login
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../material-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../return-trolley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Trolley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../my-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-level-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Level Navigation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-area-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 – Area List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 – Area List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#area-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Area Card
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-area-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 – Area Detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 – Area Detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stats-strip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stats Strip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manage-mode-banner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manage Mode Banner
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grid-view-staginggrid-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid View (StagingGrid component)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grid View (StagingGrid component)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-colours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Colours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Interactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tooltip
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-view-staginglist-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List View (StagingList component)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-cell-dialog-editcelldialog-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit Cell Dialog (EditCellDialog component)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edits-are-local-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edits are local only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status override
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../inventory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactions & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#two-level-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two-Level Navigation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-area-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 – Area List
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 – Area List">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#area-card" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Area Card
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-area-detail" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 – Area Detail
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 – Area Detail">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sub-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sub-header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stats-strip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stats Strip
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manage-mode-banner" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manage Mode Banner
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#grid-view-staginggrid-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Grid View (StagingGrid component)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Grid View (StagingGrid component)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cell-colours" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Colours
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-interactions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Interactions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tooltip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tooltip
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-view-staginglist-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List View (StagingList component)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-cell-dialog-editcelldialog-component" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edit Cell Dialog (EditCellDialog component)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#edits-are-local-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edits are local only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#status-override" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status override
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../login/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Pages
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="staging-area-page">Staging Area Page<a class="headerlink" href="#staging-area-page" title="Permanent link">&para;</a></h1>
+<p><strong>Route:</strong> <code>/requester/staging</code>
+<strong>Component:</strong> <code>src/pages/requester/StagingAreaPage.tsx</code>
+<strong>Auth:</strong> Protected
+<strong>Bottom Nav:</strong> "Staging Area" tab (index 2)</p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Provides a visual and tabular view of all staging areas assigned to this device. Operators can:
+- See which staging cells are occupied, reserved, or empty
+- Switch between a visual grid layout and a detailed table list
+- Enter Manage mode to edit individual cell metadata (container ID, type, ageing, notes)</p>
+<hr />
+<h2 id="two-level-navigation">Two-Level Navigation<a class="headerlink" href="#two-level-navigation" title="Permanent link">&para;</a></h2>
+<p>This page implements its own internal navigation using local state (no URL change):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Level 1: Area List  →  (tap area card)  →  Level 2: Area Detail
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                    ←  (back button)    ←
+</span></code></pre></div>
+<p><code>StagingAreaPage</code> (default export) renders <code>AreaDetail</code> when <code>selectedArea !== null</code>.</p>
+<hr />
+<h2 id="level-1-area-list">Level 1 – Area List<a class="headerlink" href="#level-1-area-list" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────┐
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ Staging Areas                           │  ← Header
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>│ 2 areas assigned to your device         │
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├─────────────────────────────────────────┤
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│  ┌──────────────────────────────────┐   │
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│  │ 🗓 Staging Area 1    4R × 10C    │   │
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│  │ [View] [Manage]                  │   │
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│  │ ████████░░░░░░░░  (fill bar 35%) │   │
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>│  │ 14 occupied · 6 reserved · 20 empty  │
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>│  │ [View Grid] [Manage Cells]       │   │
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>│  └──────────────────────────────────┘   │
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│  ┌──────────────────────────────────┐   │
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>│  │ 🗓 Staging Area 2    3R × 8C     │   │
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│  │ ...                              │   │
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│  └──────────────────────────────────┘   │
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>└─────────────────────────────────────────┘
+</span></code></pre></div>
+<h3 id="area-card">Area Card<a class="headerlink" href="#area-card" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Teal icon box with <code>CalendarViewMonthIcon</code></li>
+<li>Name + grid dimensions (e.g. "4R × 10C")</li>
+<li>"View" and "Manage" chips (cosmetic only — both navigate to the same <code>AreaDetail</code>)</li>
+<li><strong>Fill progress bar:</strong> <code>height: 6px</code>, teal fill at <code>{fillPct}%</code></li>
+<li><code>fillPct = Math.round((occupied / total) * 100)</code></li>
+<li>Stats row: "N occupied · N reserved · N empty"</li>
+<li>Two action buttons: "View Grid" (<code>variant="outlined"</code>) and "Manage Cells" (<code>variant="contained"</code>)</li>
+<li>Both call <code>setSelectedArea(area)</code> with <code>e.stopPropagation()</code> to prevent double-triggering with card click</li>
+</ul>
+<p>The entire card is clickable (<code>onClick={() =&gt; setSelectedArea(area)}</code>).</p>
+<hr />
+<h2 id="level-2-area-detail">Level 2 – Area Detail<a class="headerlink" href="#level-2-area-detail" title="Permanent link">&para;</a></h2>
+<h3 id="sub-header">Sub-header<a class="headerlink" href="#sub-header" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>← Staging Area 1   4R × 10C · 40 cells
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                   [5 edits chip]
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                   [View | Manage]  [⊞ | ☰]
+</span></code></pre></div>
+<ul>
+<li>Back button: <code>onBack()</code> sets <code>selectedArea = null</code></li>
+<li>Cell count: <code>{rows}R × {cols}C · {total} cells</code></li>
+<li>Edits chip: shows unsaved edit count (blue chip) — only when <code>savedCount &gt; 0</code></li>
+<li><strong>View/Manage toggle:</strong> <code>ToggleButtonGroup</code> — switches <code>displayMode</code></li>
+<li><strong>Grid/List toggle:</strong> <code>ToggleButtonGroup</code> — switches <code>viewLayout</code></li>
+</ul>
+<h3 id="stats-strip">Stats Strip<a class="headerlink" href="#stats-strip" title="Permanent link">&para;</a></h3>
+<p>Below sub-header, above content:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>14 Occupied   6 Reserved   20 Empty   0 Maintenance
+</span></code></pre></div>
+<p>Counts are derived from current cell states including any local edits (<code>edits</code> record).</p>
+<h3 id="manage-mode-banner">Manage Mode Banner<a class="headerlink" href="#manage-mode-banner" title="Permanent link">&para;</a></h3>
+<p>Shown when <code>displayMode === 'manage'</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>✏ Manage mode active — tap any cell (or use edit icon) to update...
+</span></code></pre></div>
+<p>Blue <code>Paper</code> with <code>rgba(21,101,192,0.04)</code> background.</p>
+<hr />
+<h2 id="grid-view-staginggrid-component">Grid View (<code>StagingGrid</code> component)<a class="headerlink" href="#grid-view-staginggrid-component" title="Permanent link">&para;</a></h2>
+<p><strong>Dimensions:</strong>
+- <code>CELL_SIZE = 40px</code>
+- <code>CELL_GAP = 4px</code>
+- Rows labelled A, B, C... (letters)
+- Columns labelled 1, 2, 3... (numbers)</p>
+<h3 id="cell-colours">Cell Colours<a class="headerlink" href="#cell-colours" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Background</th>
+<th>Border</th>
+<th>Inner indicator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>empty</code></td>
+<td><code>#F0F3F5</code></td>
+<td><code>#DDE1E6</code></td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>occupied</code></td>
+<td><code>rgba(0,150,136,0.14)</code></td>
+<td><code>#009688</code></td>
+<td>14×14 teal square</td>
+</tr>
+<tr>
+<td><code>reserved</code></td>
+<td><code>rgba(245,124,0,0.12)</code></td>
+<td><code>#F57C00</code></td>
+<td>8px orange dot</td>
+</tr>
+<tr>
+<td><code>maintenance</code></td>
+<td><code>rgba(198,40,40,0.08)</code></td>
+<td><code>#C62828</code></td>
+<td><code>!</code> text red</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cell-interactions">Cell Interactions<a class="headerlink" href="#cell-interactions" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>View mode:</strong> Hover has no effect. Cells are not clickable.</li>
+<li><strong>Manage mode:</strong> Hover scales cell to <code>1.12×</code> with shadow and <code>zIndex: 1</code>. Click opens <code>EditCellDialog</code>.</li>
+<li><strong>Edited indicator:</strong> 5px blue dot in the top-right corner of any cell with a pending edit.</li>
+</ul>
+<h3 id="tooltip">Tooltip<a class="headerlink" href="#tooltip" title="Permanent link">&para;</a></h3>
+<p>Each cell has a <code>Tooltip</code> showing:
+- If locally edited: <code>{containerId} · {subtype or containerType}</code>
+- Else if original data has material: <code>{material} · {trolleyId}</code>
+- Else: status label (e.g. "Empty")</p>
+<hr />
+<h2 id="list-view-staginglist-component">List View (<code>StagingList</code> component)<a class="headerlink" href="#list-view-staginglist-component" title="Permanent link">&para;</a></h2>
+<p>MUI <code>Table</code> with <code>size="small"</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cell</td>
+<td>Monospace label (A1, B3, etc.)</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Status chip (colour-coded)</td>
+</tr>
+<tr>
+<td>Container ID</td>
+<td><code>edits.containerId</code> or <code>cell.trolleyId</code> or "—"</td>
+</tr>
+<tr>
+<td>Type / Sub-type</td>
+<td>"Trolley / Heavy" from edits, or "Trolley" from original, or "—"</td>
+</tr>
+<tr>
+<td>Ageing</td>
+<td><code>edits.ageing</code> or "—"</td>
+</tr>
+<tr>
+<td>Notes</td>
+<td><code>edits.notes</code> truncated (noWrap) or "—"</td>
+</tr>
+<tr>
+<td>Edit (manage only)</td>
+<td>Edit icon button</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="edit-cell-dialog-editcelldialog-component">Edit Cell Dialog (<code>EditCellDialog</code> component)<a class="headerlink" href="#edit-cell-dialog-editcelldialog-component" title="Permanent link">&para;</a></h2>
+<p>Opens when a cell is clicked in manage mode.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Edit Cell
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Row A, Col 3                        [Occupied chip]
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>[Cell State dropdown ▾]
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>─────────── Container Info ──────────
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>[Container ID: monospace input]
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>[Container Type ▾]  [Sub-type ▾]
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>[Ageing / Time in Cell]
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>[Notes multiline textarea]
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>[Cancel]    [💾 Save Changes]
+</span></code></pre></div>
+<p><strong>Conditional container fields:</strong> The Container Info section (ID, type, sub-type, ageing) only shows when <code>status === 'occupied' || status === 'reserved'</code>. For <code>empty</code> and <code>maintenance</code>, only the Cell State dropdown and Notes field are shown.</p>
+<p><strong>Cell State options</strong> (with colour dot indicators):
+- Empty (grey)
+- Occupied (teal)
+- Reserved (amber)
+- Maintenance (red)</p>
+<p><strong>On save:</strong> <code>handleSaveCell(edit)</code> upserts into <code>edits</code> record by <code>cell.id</code>. Increments <code>savedCount</code>. Closes dialog.</p>
+<hr />
+<h2 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h2>
+<p>Local to <code>AreaDetail</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Initial</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>displayMode</code></td>
+<td><code>'view' \| 'manage'</code></td>
+<td><code>'view'</code></td>
+<td>View or manage mode</td>
+</tr>
+<tr>
+<td><code>viewLayout</code></td>
+<td><code>'grid' \| 'list'</code></td>
+<td><code>'grid'</code></td>
+<td>Grid or list layout</td>
+</tr>
+<tr>
+<td><code>edits</code></td>
+<td><code>Record&lt;string, CellEdit&gt;</code></td>
+<td><code>{}</code></td>
+<td>Unsaved cell edits keyed by <code>cell.id</code></td>
+</tr>
+<tr>
+<td><code>editingCell</code></td>
+<td><code>StagingCell \| null</code></td>
+<td><code>null</code></td>
+<td>Cell currently open in dialog</td>
+</tr>
+<tr>
+<td><code>savedCount</code></td>
+<td><code>number</code></td>
+<td><code>0</code></td>
+<td>Cumulative edit saves (for the edits chip)</td>
+</tr>
+</tbody>
+</table>
+<p>Local to <code>StagingAreaPage</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Initial</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>selectedArea</code></td>
+<td><code>StagingArea \| null</code></td>
+<td><code>null</code></td>
+<td>Currently viewing area (null = list view)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ux-logic">UX Logic<a class="headerlink" href="#ux-logic" title="Permanent link">&para;</a></h2>
+<h3 id="edits-are-local-only">Edits are local only<a class="headerlink" href="#edits-are-local-only" title="Permanent link">&para;</a></h3>
+<p>The <code>edits</code> Record is never written to context or API. Changes are session-scoped — navigating away and back resets the staging area to the original mock data. In production, saves would trigger a PATCH to the MTS backend.</p>
+<h3 id="status-override">Status override<a class="headerlink" href="#status-override" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">getStatus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">cell</span><span class="o">:</span><span class="w"> </span><span class="kt">StagingCell</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nx">CellStatus</span><span class="w"> </span><span class="p">=&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="p">(</span><span class="nx">edits</span><span class="p">[</span><span class="nx">cell</span><span class="p">.</span><span class="nx">id</span><span class="p">]</span><span class="o">?</span><span class="p">.</span><span class="nx">status</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="nx">cell</span><span class="p">.</span><span class="nx">status</span><span class="p">)</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">CellStatus</span><span class="p">;</span>
+</span></code></pre></div>
+<p>The edit record takes precedence over the original cell status for display in both grid and list views and for statistics calculation.</p>
+<hr />
+<h2 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Click edit in view mode</td>
+<td>Cells are not clickable (<code>cursor: 'default'</code>, no onClick)</td>
+</tr>
+<tr>
+<td>Switch view mode</td>
+<td>Edits are preserved in <code>edits</code> state</td>
+</tr>
+<tr>
+<td>Switch to list view</td>
+<td>Same edits shown in table form</td>
+</tr>
+<tr>
+<td>Save dialog</td>
+<td>Cell updates in grid immediately</td>
+</tr>
+<tr>
+<td>Back from area detail</td>
+<td>Area list shown; edits are lost</td>
+</tr>
+<tr>
+<td>Area with 0 occupied cells</td>
+<td>Fill bar shows 0%, "0 occupied"</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../my-requests/" class="md-footer__link md-footer__link--prev" aria-label="Previous: My Requests">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                My Requests
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../inventory/" class="md-footer__link md-footer__link--next" aria-label="Next: Inventory">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Inventory
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.instant","navigation.path","navigation.footer","search.highlight","search.suggest","content.code.copy","content.code.annotate"],"search":"../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+    
+  </body>
+</html>

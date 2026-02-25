@@ -1,0 +1,61 @@
+[project]
+
+site_name = "AtiFLOW v2.0 – MTS Tablet"
+site_description = "Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface"
+site_author = "AtiFLOW Design & Engineering"
+
+docs_dir = "docs"
+
+nav = [
+  { "Home" = "index.md" },
+  { "Design System" = "design-system.md" },
+  { "Architecture" = "architecture.md" },
+  { "State Management" = "state-management.md" },
+  { "Data Models" = "data-models.md" },
+  { "Pages" = [
+    { "Login" = "pages/login.md" },
+    { "Create Request" = "pages/create-request.md" },
+    { "Material Selection" = "pages/material-selection.md" },
+    { "Checkout" = "pages/checkout.md" },
+    { "Container Selection" = "pages/container-selection.md" },
+    { "Container Checkout" = "pages/container-checkout.md" },
+    { "Return Trolley" = "pages/return-trolley.md" },
+    { "My Requests" = "pages/my-requests.md" },
+    { "Staging Area" = "pages/staging-area.md" },
+    { "Inventory" = "pages/inventory.md" },
+  ]},
+  { "Interactions & Navigation" = "interactions.md" },
+]
+
+[project.theme]
+
+features = [
+  "navigation.tabs",
+  "navigation.sections",
+  "navigation.top",
+  "navigation.instant",
+  "navigation.path",
+  "navigation.footer",
+  "search.highlight",
+  "search.suggest",
+  "content.code.copy",
+  "content.code.annotate",
+]
+
+[[project.theme.palette]]
+scheme = "default"
+primary = "teal"
+accent = "teal"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+primary = "teal"
+accent = "teal"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[project.theme.font]
+text = "Inter"
+code = "Roboto Mono"

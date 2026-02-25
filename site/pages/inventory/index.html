@@ -1,0 +1,1686 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface">
+      
+      
+        <meta name="author" content="AtiFLOW Design & Engineering">
+      
+      
+      
+        <link rel="prev" href="../staging-area/">
+      
+      
+        <link rel="next" href="../../interactions/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="zensical-0.0.23">
+    
+    
+      
+        <title>Inventory Page - AtiFLOW v2.0 – MTS Tablet</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/modern/main.1e989742.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/modern/palette.dfe2e883.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,a=__md_scope)=>JSON.parse(t.getItem(a.pathname+"."+e)),__md_set=(e,t,a=localStorage,_=__md_scope)=>{try{a.setItem(_.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#inventory-page" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-header__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-menu" viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AtiFLOW v2.0 – MTS Tablet
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Inventory Page
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="none" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-moon" viewBox="0 0 24 24"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-search" viewBox="0 0 24 24"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+  <button type="button" class="md-search__button">
+    Search
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+    </div>
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../design-system/" class="md-tabs__link">
+        
+  
+  Design System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../state-management/" class="md-tabs__link">
+        
+  
+  State Management
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../data-models/" class="md-tabs__link">
+        
+  
+  Data Models
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../login/" class="md-tabs__link">
+          
+  
+  Pages
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../interactions/" class="md-tabs__link">
+        
+  
+  Interactions & Navigation
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="AtiFLOW v2.0 – MTS Tablet" class="md-nav__button md-logo" aria-label="AtiFLOW v2.0 – MTS Tablet" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-book-open" viewBox="0 0 24 24"><path d="M12 7v14M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>
+
+    </a>
+    AtiFLOW v2.0 – MTS Tablet
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../state-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    State Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../data-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pages
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pages
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../login/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Login
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../create-request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Create Request
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../material-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Material Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-selection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Selection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../container-checkout/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Container Checkout
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../return-trolley/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Return Trolley
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../my-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    My Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../staging-area/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Staging Area
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inventory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-chips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Chips
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Empty State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-container-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Container Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#totals-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Totals calculation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#row-hover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row Hover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../interactions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interactions & Navigation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ui-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI Components
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UI Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Header
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#summary-chips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary Chips
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#search-bar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Bar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cell-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cell Rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#empty-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Empty State
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#table-container-layout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Table Container Layout
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ux-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UX Logic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UX Logic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#totals-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Totals calculation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#row-hover" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Row Hover
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge Cases
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="Navigation" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  <span class="md-ellipsis">
+    Home
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../login/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Pages
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+<h1 id="inventory-page">Inventory Page<a class="headerlink" href="#inventory-page" title="Permanent link">&para;</a></h1>
+<p><strong>Route:</strong> <code>/requester/inventory</code>
+<strong>Component:</strong> <code>src/pages/requester/InventoryPage.tsx</code>
+<strong>Auth:</strong> Protected
+<strong>Bottom Nav:</strong> "Inventory" tab (index 3)</p>
+<hr />
+<h2 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h2>
+<p>Provides a read-only, searchable table of real-time material inventory across all SKU types for the operator's workflow. Operators can verify availability before placing orders and understand the full material lifecycle (produced → pre-processing → available → reserved → in transit → consumed).</p>
+<hr />
+<h2 id="layout">Layout<a class="headerlink" href="#layout" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────────────────────────┐
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│ Live Inventory                          │  ← Header (fixed)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│ Real-time material availability         │
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├─────────────────────────────────────────┤
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│ [47 Available] [8 Reserved] [3 In Transit] [3 Pre-Processing] │  ← Summary chips (fixed)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├─────────────────────────────────────────┤
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│ 🔍 [Search by SKU name…         ]       │  ← Search (fixed)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├─────────────────────────────────────────┤
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│  ┌────────────────────────────────────┐ │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│  │ SKU | Sub-SKU | Prod | Pre | Avail │ │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│  │     |        |      |     |       │ │  ← Sticky-header scrollable table
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│  │ Widget A | Type 1 | 50 | 5 | 12  │ │
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│  │ Widget A | Type 2 | 30 | 0 |  0  │ │
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│  │ ...                               │ │
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│  └────────────────────────────────────┘ │
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└─────────────────────────────────────────┘
+</span></code></pre></div>
+<hr />
+<h2 id="ui-components">UI Components<a class="headerlink" href="#ui-components" title="Permanent link">&para;</a></h2>
+<h3 id="header">Header<a class="headerlink" href="#header" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Title "Live Inventory" (<code>fontWeight: 700</code>)</li>
+<li>Caption "Real-time material availability for your workflow"</li>
+</ul>
+<h3 id="summary-chips">Summary Chips<a class="headerlink" href="#summary-chips" title="Permanent link">&para;</a></h3>
+<p>4 aggregate chips computed from <code>filtered</code> rows (update in real time as search filters):</p>
+<table>
+<thead>
+<tr>
+<th>Chip</th>
+<th>Value</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Available</td>
+<td>Sum of all <code>row.available</code></td>
+<td>Teal</td>
+</tr>
+<tr>
+<td>Reserved</td>
+<td>Sum of all <code>row.reserved</code></td>
+<td>Amber</td>
+</tr>
+<tr>
+<td>In Transit</td>
+<td>Sum of all <code>row.inTransit</code></td>
+<td>Blue</td>
+</tr>
+<tr>
+<td>Pre-Processing</td>
+<td>Sum of all <code>row.preProcessing</code></td>
+<td>Grey</td>
+</tr>
+</tbody>
+</table>
+<p>These totals change as the user types in the search box.</p>
+<h3 id="search-bar">Search Bar<a class="headerlink" href="#search-bar" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>OutlinedInput</code>, max-width 400px, white background</li>
+<li>Filters by <code>row.sku</code> and <code>row.subSkuType</code> (case-insensitive)</li>
+</ul>
+<h3 id="table">Table<a class="headerlink" href="#table" title="Permanent link">&para;</a></h3>
+<p>MUI <code>Table</code> with <code>size="small"</code> and <code>stickyHeader</code> inside a flex-1 <code>TableContainer</code> with <code>overflow: 'auto'</code>.</p>
+<p><strong>Columns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Column key</th>
+<th>Label</th>
+<th>Alignment</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sku</code></td>
+<td>SKU</td>
+<td>left</td>
+<td>default</td>
+</tr>
+<tr>
+<td><code>subSkuType</code></td>
+<td>Sub-SKU Type</td>
+<td>left</td>
+<td>default</td>
+</tr>
+<tr>
+<td><code>produced</code></td>
+<td>Produced</td>
+<td>center</td>
+<td>default</td>
+</tr>
+<tr>
+<td><code>preProcessing</code></td>
+<td>Pre-Proc.</td>
+<td>center</td>
+<td>default</td>
+</tr>
+<tr>
+<td><code>available</code></td>
+<td>Available</td>
+<td>center</td>
+<td><strong>Teal</strong></td>
+</tr>
+<tr>
+<td><code>reserved</code></td>
+<td>Reserved</td>
+<td>center</td>
+<td><strong>Amber</strong> <code>#F57C00</code></td>
+</tr>
+<tr>
+<td><code>inTransit</code></td>
+<td>In Transit</td>
+<td>center</td>
+<td><strong>Blue</strong> <code>#1565C0</code></td>
+</tr>
+<tr>
+<td><code>consumed</code></td>
+<td>Consumed</td>
+<td>center</td>
+<td>default</td>
+</tr>
+<tr>
+<td><code>total</code></td>
+<td>Total</td>
+<td>center</td>
+<td>default</td>
+</tr>
+</tbody>
+</table>
+<p>Column header colours are applied via the <code>color</code> property in the <code>COLUMNS</code> definition.</p>
+<h3 id="cell-rendering">Cell Rendering<a class="headerlink" href="#cell-rendering" title="Permanent link">&para;</a></h3>
+<p><strong>Available column:</strong>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">&lt;</span><span class="nt">Typography</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">fontWeight</span><span class="o">:</span><span class="w"> </span><span class="kt">700</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="kt">row.available</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">PRIMARY</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text.disabled&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">fontSize</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;0.8125rem&#39;</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="p">{</span><span class="nx">row</span><span class="p">.</span><span class="nx">available</span><span class="p">}</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p">&lt;/</span><span class="nt">Typography</span><span class="p">&gt;</span>
+</span></code></pre></div>
+- <code>&gt; 0</code>: Bold teal number
+- <code>=== 0</code>: Disabled grey</p>
+<p><strong>Reserved column:</strong>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">{</span><span class="nx">row</span><span class="p">.</span><span class="nx">reserved</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Chip</span><span class="w"> </span><span class="na">label</span><span class="o">=</span><span class="p">{</span><span class="nx">row</span><span class="p">.</span><span class="nx">reserved</span><span class="p">}</span><span class="w"> </span><span class="na">size</span><span class="o">=</span><span class="s">&quot;small&quot;</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">bgcolor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;rgba(245,124,0,0.1)&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#F57C00&#39;</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="p">/&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="p">&lt;</span><span class="nt">Typography</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;text.disabled&#39;</span><span class="w"> </span><span class="p">}}&gt;</span><span class="mf">0</span><span class="p">&lt;/</span><span class="nt">Typography</span><span class="p">&gt;}</span>
+</span></code></pre></div></p>
+<p><strong>In Transit column:</strong> Same pattern as Reserved but with blue chip.</p>
+<p><strong>Pre-Processing column:</strong>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="p">{</span><span class="nx">row</span><span class="p">.</span><span class="nx">preProcessing</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">0</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Chip</span><span class="w"> </span><span class="na">label</span><span class="o">=</span><span class="p">{</span><span class="nx">row</span><span class="p">.</span><span class="nx">preProcessing</span><span class="p">}</span><span class="w"> </span><span class="na">size</span><span class="o">=</span><span class="s">&quot;small&quot;</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">bgcolor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#F5F5F5&#39;</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="p">/&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">row</span><span class="p">.</span><span class="nx">preProcessing</span><span class="p">}</span><span class="w">  </span><span class="c1">// shows 0 as plain text</span>
+</span></code></pre></div></p>
+<h3 id="empty-state">Empty State<a class="headerlink" href="#empty-state" title="Permanent link">&para;</a></h3>
+<p>When <code>filtered.length === 0</code> (no search match):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>No inventory data found
+</span></code></pre></div></p>
+<hr />
+<h2 id="table-container-layout">Table Container Layout<a class="headerlink" href="#table-container-layout" title="Permanent link">&para;</a></h2>
+<p>The table is inside a <code>Paper variant="outlined"</code> which uses <code>height: '100%'</code> and <code>display: 'flex', flexDirection: 'column'</code>. The <code>TableContainer</code> has <code>flex: 1, minHeight: 0, overflow: 'auto'</code> — this is the key that makes the sticky header work within the constrained viewport:</p>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">Box</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">flex</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">minHeight</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hidden&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">px</span><span class="o">:</span><span class="w"> </span><span class="kt">2.5</span><span class="p">,</span><span class="w"> </span><span class="nx">pb</span><span class="o">:</span><span class="w"> </span><span class="kt">2</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="p">&lt;</span><span class="nt">Paper</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;100%&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">display</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;flex&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">flexDirection</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;column&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">&lt;</span><span class="nt">TableContainer</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="nx">flex</span><span class="o">:</span><span class="w"> </span><span class="kt">1</span><span class="p">,</span><span class="w"> </span><span class="nx">minHeight</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">overflow</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;auto&#39;</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">      </span><span class="p">&lt;</span><span class="nt">Table</span><span class="w"> </span><span class="na">stickyHeader</span><span class="p">&gt;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="p">...</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">      </span><span class="p">&lt;/</span><span class="nt">Table</span><span class="p">&gt;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="p">&lt;/</span><span class="nt">TableContainer</span><span class="p">&gt;</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">  </span><span class="p">&lt;/</span><span class="nt">Paper</span><span class="p">&gt;</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p">&lt;/</span><span class="nt">Box</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>The sticky header pins the column labels while scrolling through rows.</p>
+<hr />
+<h2 id="state">State<a class="headerlink" href="#state" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Type</th>
+<th>Initial</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search</code></td>
+<td><code>string</code></td>
+<td><code>''</code></td>
+<td>Search filter input</td>
+</tr>
+</tbody>
+</table>
+<p>No context reads (uses <code>mockInventory</code> directly — in production would be scoped by workflow).</p>
+<hr />
+<h2 id="ux-logic">UX Logic<a class="headerlink" href="#ux-logic" title="Permanent link">&para;</a></h2>
+<h3 id="totals-calculation">Totals calculation<a class="headerlink" href="#totals-calculation" title="Permanent link">&para;</a></h3>
+<div class="language-typescript highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">totals</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">filtered</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="p">(</span><span class="nx">acc</span><span class="p">,</span><span class="w"> </span><span class="nx">row</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="nx">produced</span><span class="o">:</span><span class="w"> </span><span class="kt">acc.produced</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">row</span><span class="p">.</span><span class="nx">produced</span><span class="p">,</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="c1">// ... all columns</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="p">}),</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">produced</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">preProcessing</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">available</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">reserved</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">inTransit</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">consumed</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="p">,</span><span class="w"> </span><span class="nx">total</span><span class="o">:</span><span class="w"> </span><span class="kt">0</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p">);</span>
+</span></code></pre></div>
+<p>The summary chips show totals for the <strong>filtered</strong> dataset, so searching for "Widget" shows only Widget A inventory in the chips.</p>
+<h3 id="row-hover">Row Hover<a class="headerlink" href="#row-hover" title="Permanent link">&para;</a></h3>
+<div class="language-tsx highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">TableRow</span><span class="w"> </span><span class="na">sx</span><span class="o">=</span><span class="p">{{</span><span class="w"> </span><span class="s1">&#39;&amp;:hover&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bgcolor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#F9FAFB&#39;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}}&gt;</span>
+</span></code></pre></div>
+<p>Subtle hover highlight for touch accuracy feedback.</p>
+<hr />
+<h2 id="edge-cases">Edge Cases<a class="headerlink" href="#edge-cases" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Scenario</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search: no match</td>
+<td>Empty state message shown; summary chips show all zeros</td>
+</tr>
+<tr>
+<td>All items available</td>
+<td>Available chip shows total; no grey "0" values</td>
+</tr>
+<tr>
+<td>Pre-processing &gt; 0</td>
+<td>Shown as grey chip (not teal) to distinguish from available</td>
+</tr>
+<tr>
+<td>Long SKU name</td>
+<td>Text wraps (no truncation in table cells)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-circle-arrow-up" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 16V8"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../staging-area/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Staging Area">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-left" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7M19 12H5"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Staging Area
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../interactions/" class="md-footer__link md-footer__link--next" aria-label="Next: Interactions &amp; Navigation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Interactions & Navigation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="lucide lucide-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://zensical.org/" target="_blank" rel="noopener">
+      Zensical
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["navigation.tabs","navigation.sections","navigation.top","navigation.instant","navigation.path","navigation.footer","search.highlight","search.suggest","content.code.copy","content.code.annotate"],"search":"../../assets/javascripts/workers/search.e2d2d235.min.js","tags":null,"translations":{"clipboard.copied":"Copied to clipboard","clipboard.copy":"Copy to clipboard","search.result.more.one":"1 more on this page","search.result.more.other":"# more on this page","search.result.none":"No matching documents","search.result.one":"1 matching document","search.result.other":"# matching documents","search.result.placeholder":"Type to start searching","search.result.term.missing":"Missing","select.version":"Select version"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5fcf0de6.min.js"></script>
+      
+    
+  </body>
+</html>
