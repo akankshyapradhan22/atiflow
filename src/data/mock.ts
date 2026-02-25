@@ -6,6 +6,7 @@ import type {
   InventoryRow,
   Workflow,
   DeviceUser,
+  ApprovalRequest,
 } from '../types';
 
 export const mockWorkflows: Workflow[] = [
@@ -25,6 +26,26 @@ export const mockDeviceUser: DeviceUser = {
   workflows: mockWorkflows,
   stagingAreaIds: ['sa-01', 'sa-02'],
 };
+
+export const mockApproverUser: DeviceUser = {
+  id: 'dev-002',
+  username: 'Priya',
+  stationId: 'Station AP1',
+  stationCode: 'AP 001',
+  stationName: 'Central Approver Station',
+  deviceName: 'APVR-001',
+  role: 'approver',
+  workflows: mockWorkflows,
+  stagingAreaIds: ['sa-01', 'sa-02'],
+};
+
+export const mockApprovalRequests: ApprovalRequest[] = [
+  { id: 'APR-001', fromStation: 'Assembly Line A', items: 'SKU 7765',       quantity: 1000, requestType: 'Fulfilment Request', requestTime: '3:30 pm', inventoryCount: 400, inventoryStatus: 'available',      workflow: 'Assembly Line A', requestedAt: 'Today, 3:30 pm', status: 'pending' },
+  { id: 'APR-002', fromStation: 'Production C',    items: 'Leaf Container', quantity: 100,  requestType: 'Container',          requestTime: '3:20 pm', inventoryCount: 400, inventoryStatus: 'out_of_stock',   workflow: 'Production C',    requestedAt: 'Today, 3:20 pm', status: 'pending' },
+  { id: 'APR-003', fromStation: 'QC Station B',    items: 'SKU 7765',       quantity: 100,  requestType: 'Material',           requestTime: '3:10 pm', inventoryCount: 400, inventoryStatus: 'finishing_soon', workflow: 'QC Station B',    requestedAt: 'Today, 3:10 pm', status: 'pending' },
+  { id: 'APR-004', fromStation: 'Assembly Line A', items: 'Leaf Container', quantity: 100,  requestType: 'Return Container',   requestTime: '3:00 pm', inventoryCount: 400, inventoryStatus: 'available',      workflow: 'Assembly Line A', requestedAt: 'Today, 3:00 pm', status: 'pending' },
+  { id: 'APR-005', fromStation: 'Production C',    items: 'Widget A',       quantity: 50,   requestType: 'Material',           requestTime: '2:45 pm', inventoryCount: 250, inventoryStatus: 'finishing_soon', workflow: 'Production C',    requestedAt: 'Today, 2:45 pm', status: 'pending' },
+];
 
 export const mockMaterials: MaterialSKU[] = [
   {

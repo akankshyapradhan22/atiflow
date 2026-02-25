@@ -14,6 +14,7 @@ import StagingAreaPage from './pages/requester/StagingAreaPage';
 import WIPInventoryPage from './pages/requester/WIPInventoryPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import ProfilePage from './pages/profile/ProfilePage';
+import ApprovalsPage from './pages/approver/ApprovalsPage';
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const user = useAuthStore((s) => s.user);
@@ -26,12 +27,12 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/login" element={user ? <Navigate to="/history" replace /> : <LoginPage />} />
+      <Route path="/login" element={user ? <Navigate to={user.role === 'approver' ? '/approvals' : '/history'} replace /> : <LoginPage />} />
       <Route
         path="/"
         element={<AuthGuard><TabletLayout /></AuthGuard>}
       >
-        <Route index element={<Navigate to="/history" replace />} />
+        <Route index element={<Navigate to={user?.role === 'approver' ? '/approvals' : '/history'} replace />} />
         <Route path="history" element={<RequestHistoryPage />} />
         <Route path="history/create" element={<CreateRequestPage />} />
         <Route path="history/checkout" element={<CheckoutPage />} />
@@ -40,6 +41,7 @@ function AppRoutes() {
         <Route path="history/return-trolley" element={<ReturnTrolleyPage />} />
         <Route path="staging" element={<StagingAreaPage />} />
         <Route path="inventory" element={<WIPInventoryPage />} />
+        <Route path="approvals" element={<ApprovalsPage />} />
         <Route path="settings" element={<SettingsPage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>
@@ -53,7 +55,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={{ body: { backgroundColor: '#e9e9e9' } }} />
-      <Box sx={{ maxWidth: 1024, mx: 'auto', height: '100vh', overflow: 'hidden' }}>
+      <Box sx={{ maxWidth: 1280, mx: 'auto', height: '100vh', overflow: 'hidden' }}>
         <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>

@@ -7,6 +7,7 @@ import Alert from '@mui/material/Alert';
 import Divider from '@mui/material/Divider';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 import { useAuthStore } from '../../stores/authStore';
 import { useWorkflowStore } from '../../stores/workflowStore';
 
@@ -18,6 +19,7 @@ export default function LoginPage() {
   const [stationId, setStationId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const isApprover = stationId.toUpperCase().startsWith('AP');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,9 +28,9 @@ export default function LoginPage() {
     if (ok) {
       const user = useAuthStore.getState().user;
       if (user?.workflows[0]) setActiveWorkflow(user.workflows[0]);
-      navigate('/history', { replace: true });
+      navigate(user?.role === 'approver' ? '/approvals' : '/history', { replace: true });
     } else {
-      setError('Invalid Station ID or password. (Hint: PA01 / 1234)');
+      setError('Invalid Station ID or password. (Hint: PA01 or AP01 / 1234)');
     }
   };
 
@@ -65,39 +67,41 @@ export default function LoginPage() {
           borderRight: '1px solid #e0e0e0',
         }}>
           {/* AtiFlow logo */}
-          <Box sx={{ mb: 3 }}>
-            <Typography sx={{
-              fontWeight: 700,
-              fontSize: '1.375rem',
-              color: '#1A2332',
-              lineHeight: 1,
-              letterSpacing: '-0.01em',
-            }}>
-              Ati
-            </Typography>
-            <Typography sx={{
-              fontWeight: 700,
-              fontSize: '3.625rem',
-              color: '#00a99d',
-              lineHeight: 1.05,
-              letterSpacing: '-0.02em',
-            }}>
-              Flow
-            </Typography>
-          </Box>
+          {isApprover ? (
+            <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: '8px', mb: 3 }}>
+              <Typography sx={{ fontWeight: 700, fontSize: '1.875rem', color: '#1A2332', letterSpacing: '-0.02em', lineHeight: 1 }}>
+                Ati
+              </Typography>
+              <Typography sx={{ fontWeight: 700, fontSize: '1.875rem', color: '#00a99d', letterSpacing: '-0.02em', lineHeight: 1 }}>
+                Flow
+              </Typography>
+            </Box>
+          ) : (
+            <Box sx={{ mb: 3 }}>
+              <Typography sx={{ fontWeight: 700, fontSize: '1.375rem', color: '#1A2332', lineHeight: 1, letterSpacing: '-0.01em' }}>
+                Ati
+              </Typography>
+              <Typography sx={{ fontWeight: 700, fontSize: '3.625rem', color: '#00a99d', lineHeight: 1.05, letterSpacing: '-0.02em' }}>
+                Flow
+              </Typography>
+            </Box>
+          )}
 
           <Divider sx={{ borderColor: '#e0e0e0', mb: 3 }} />
 
-          {/* Requester Tablet label */}
+          {/* Device type label */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-            <ArticleOutlinedIcon sx={{ fontSize: 52, color: '#637381', flexShrink: 0 }} />
+            {isApprover
+              ? <AssignmentTurnedInOutlinedIcon sx={{ fontSize: 60, color: '#637381', flexShrink: 0 }} />
+              : <ArticleOutlinedIcon sx={{ fontSize: 52, color: '#637381', flexShrink: 0 }} />
+            }
             <Typography sx={{
               fontWeight: 600,
               fontSize: '1.375rem',
               color: '#1A2332',
               lineHeight: 1.3,
             }}>
-              Requester<br />Tablet
+              {stationId.toUpperCase().startsWith('AP') ? 'Approver' : 'Requester'}<br />Tablet
             </Typography>
           </Box>
         </Box>

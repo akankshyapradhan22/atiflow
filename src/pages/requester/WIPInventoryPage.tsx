@@ -134,22 +134,16 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
                     }}>
                       {row.available + row.reserved} units
                     </Typography>
+                  </Box>
+
+                  {/* Status */}
+                  <Box>
+                    <StatusBadge status={row._status} />
                     <Typography sx={{
                       fontSize: '0.5rem', fontStyle: 'italic',
                       color: 'rgba(26,35,50,0.68)', mt: 0.5, display: 'block',
                     }}>
                       Updated 30 mins ago
-                    </Typography>
-                  </Box>
-
-                  {/* Status + sub-type — same pattern as Request History status cell */}
-                  <Box>
-                    <StatusBadge status={row._status} />
-                    <Typography sx={{
-                      fontSize: '0.75rem', color: 'rgba(26,35,50,0.55)',
-                      mt: 0.5, display: 'block',
-                    }}>
-                      {row.subSkuType}
                     </Typography>
                   </Box>
 
@@ -232,7 +226,7 @@ function GridView({ rows }: { rows: RowWithStatus[] }) {
               lineHeight: 1.4,
               wordBreak: 'break-word',
             }}>
-              {row.sku} – {row.subSkuType}
+              {row.sku}
             </Typography>
 
             {/* Parent SKU label */}
@@ -279,10 +273,10 @@ function GridView({ rows }: { rows: RowWithStatus[] }) {
 
 // ─── Overview Chips ───────────────────────────────────────────────────────────
 
-const OVERVIEW_ITEMS: { label: string; count: number; bg: string; border: string; dot: string }[] = [
-  { label: 'Available',     count: 134, bg: 'rgba(0,169,157,0.12)',  border: 'rgba(0,169,157,0.45)',  dot: '#00a99d' },
-  { label: 'Finishing soon', count: 155, bg: 'rgba(255,167,25,0.10)', border: 'rgba(255,167,25,0.45)', dot: '#ffa719' },
-  { label: 'Out of stock',  count: 15,  bg: 'rgba(255,92,92,0.10)',  border: 'rgba(255,92,92,0.45)',  dot: '#ff5c5c' },
+const OVERVIEW_ITEMS: { label: string; count: number; bg: string; border: string }[] = [
+  { label: 'Available',     count: 134, bg: 'rgba(0,169,157,0.24)',  border: '#00a99d' },
+  { label: 'Low Stock',     count: 155, bg: 'rgba(255,217,92,0.24)', border: '#ffa719' },
+  { label: 'Out of stock',  count: 15,  bg: 'rgba(255,92,92,0.24)',  border: '#ff5c5c' },
 ];
 
 
@@ -367,24 +361,29 @@ export default function WIPInventoryPage() {
         <Typography sx={{ fontWeight: 600, fontSize: '0.8125rem', color: 'rgba(26,35,50,0.55)', textTransform: 'uppercase', letterSpacing: '0.04em', mb: 0.5 }}>
           Overview
         </Typography>
-        {OVERVIEW_ITEMS.map(({ label, count, bg, border, dot }) => (
-          <Box key={label} sx={{
-            bgcolor: bg, border: `1px solid ${border}`,
-            borderRadius: '10px', p: 1.5,
-            display: 'flex', flexDirection: 'column', gap: 0.5,
-          }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-              <Box sx={{ width: 7, height: 7, borderRadius: '50%', bgcolor: dot, flexShrink: 0 }} />
-              <Typography sx={{ fontSize: '0.75rem', color: 'rgba(26,35,50,0.6)', lineHeight: 1 }}>
-                {label}
+        {OVERVIEW_ITEMS.map(({ label, count, bg, border }) => (
+          <Box key={label} sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+            <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#1A2332', textAlign: 'center', width: '100%' }}>
+              {label}
+            </Typography>
+            <Box sx={{
+              bgcolor: bg, border: `1px solid ${border}`,
+              borderRadius: '10px', px: '10px', py: '12px',
+              width: '100%', display: 'flex', flexDirection: 'column', gap: 2,
+            }}>
+              <Typography sx={{
+                fontFamily: '"IBM Plex Mono", monospace',
+                fontWeight: 600, fontSize: '1.75rem', color: '#1A2332', lineHeight: 1,
+              }}>
+                {count}
+              </Typography>
+              <Typography sx={{
+                fontFamily: '"IBM Plex Mono", monospace',
+                fontSize: '1rem', color: '#1A2332', lineHeight: 1,
+              }}>
+                SKU
               </Typography>
             </Box>
-            <Typography sx={{
-              fontFamily: '"IBM Plex Mono", monospace',
-              fontWeight: 700, fontSize: '1.75rem', color: '#1A2332', lineHeight: 1, mt: 0.25,
-            }}>
-              {count}
-            </Typography>
           </Box>
         ))}
       </Box>

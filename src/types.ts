@@ -73,6 +73,20 @@ export interface Request {
   workflowId: string; // for filtering by active workflow
 }
 
+export interface ApprovalRequest {
+  id: string;
+  fromStation: string;
+  items: string;
+  quantity: number;
+  requestType: string;
+  requestTime: string;
+  inventoryCount: number;
+  inventoryStatus: 'available' | 'out_of_stock' | 'finishing_soon';
+  workflow: string;
+  requestedAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+}
+
 export interface InventoryRow {
   sku: string;
   subSkuType: string;
@@ -99,7 +113,7 @@ export interface DeviceUser {
   stationCode: string; // e.g. "PR 001" — shown in sidebar dropdown
   stationName: string;
   deviceName: string;
-  role: 'requester' | 'dispatcher';
+  role: 'requester' | 'dispatcher' | 'approver';
   workflows: Workflow[];
   stagingAreaIds: string[];
 }
