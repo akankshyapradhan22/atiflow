@@ -189,6 +189,36 @@ interface Request {
 
 ---
 
+### `ApprovalRequest`
+
+An approval request submitted by a requester station and awaiting an approver decision.
+
+```typescript
+interface ApprovalRequest {
+  id: string;               // e.g. "APR-001"
+  fromStation: string;      // originating station name
+  items: string;            // human-readable item name, e.g. "SKU 7765"
+  quantity: number;         // requested units
+  requestType: string;      // e.g. "Fulfilment Request", "Container", "Material", "Return Container"
+  requestTime: string;      // display time, e.g. "3:30 pm"
+  inventoryCount: number;   // current inventory level of the requested item
+  inventoryStatus: 'available' | 'finishing_soon' | 'out_of_stock';
+  workflow: string;         // workflow display name
+  requestedAt: string;      // full timestamp, e.g. "Today, 3:30 pm"
+  status: 'pending' | 'approved' | 'rejected';
+}
+```
+
+**Inventory status thresholds** (determined server-side; stored as a derived field in the mock):
+
+| Value | Meaning | Accent colour |
+|---|---|---|
+| `available` | Stock healthy | Teal `rgba(0,169,157,0.2)` |
+| `finishing_soon` | Low stock | Amber `rgba(255,167,25,0.2)` |
+| `out_of_stock` | No stock | Red `rgba(255,135,121,0.3)` |
+
+---
+
 ### `InventoryRow`
 
 A single row in the WIP inventory table.
@@ -243,11 +273,16 @@ interface DeviceUser {
   stationCode: string;  // e.g. "PR 001" — shown in sidebar / login
   stationName: string;  // e.g. "Assembly Line A – Requester"
   deviceName: string;   // e.g. "YOHT-123"
-  role: 'requester' | 'dispatcher';
+  role: 'requester' | 'dispatcher' | 'approver';
   workflows: Workflow[];           // available workflows for this station
   stagingAreaIds: string[];        // staging areas this device can access
 }
 ```
+
+The `role` field controls:
+- Login page left-panel appearance (stacked logo + ArticleIcon for requester; inline logo + AssignmentTurnedInIcon for approver)
+- Sidebar nav items (see [Architecture – TabletSidebar](../architecture.md#tabletsidebartsx))
+- Post-login redirect (`/history` for requester, `/approvals` for approver)
 
 ---
 
@@ -263,7 +298,7 @@ All mock data is in `src/data/mock.ts`.
 | `wf-02` | QC Station B | `on-route` | `manual` |
 | `wf-03` | Production C | `request-based` | `auto` |
 
-### Device User (`mockDeviceUser`)
+### Requester Device User (`mockDeviceUser`)
 
 | Field | Value |
 |---|---|
@@ -272,11 +307,38 @@ All mock data is in `src/data/mock.ts`.
 | Station code | PR 001 |
 | Station name | Assembly Line A – Requester |
 | Device | YOHT-123 |
-| Role | requester |
+| Role | `requester` |
 | Workflows | All 3 |
 | Staging area IDs | `['sa-01', 'sa-02']` |
 
-**Login credentials:** Station Code `PA01`, Password `1234` (fixed in `authStore.login`).
+**Login credentials:** Station Code `PA01`, Password `1234`.
+
+### Approver Device User (`mockApproverUser`)
+
+| Field | Value |
+|---|---|
+| Username | Priya |
+| Station ID | Station AP1 |
+| Station code | AP 001 |
+| Station name | Central Approver Station |
+| Device | APVR-001 |
+| Role | `approver` |
+| Workflows | All 3 |
+| Staging area IDs | `['sa-01', 'sa-02']` |
+
+**Login credentials:** Station Code `AP01`, Password `1234`.
+
+### Approval Requests (`mockApprovalRequests`)
+
+5 requests, all initially `status: 'pending'`. Status is managed as local state in `ApprovalsPage` — the mock array is never mutated.
+
+| ID | From | Items | Qty | Type | Inv. Status |
+|---|---|---|---|---|---|
+| `APR-001` | Assembly Line A | SKU 7765 | 1000 | Fulfilment Request | available |
+| `APR-002` | Production C | Leaf Container | 100 | Container | out_of_stock |
+| `APR-003` | QC Station B | SKU 7765 | 100 | Material | finishing_soon |
+| `APR-004` | Assembly Line A | Leaf Container | 100 | Return Container | available |
+| `APR-005` | Production C | Widget A | 50 | Material | finishing_soon |
 
 ### Materials (`mockMaterials`)
 
@@ -311,9 +373,13 @@ All mock data is in `src/data/mock.ts`.
 | `sa-01` | SA 001 | 40 | 5 | 200 |
 | `sa-02` | SA 002 | 40 | 5 | 200 |
 
+Both areas use the same 40 × 5 grid.
+
 Cell status is deterministically generated: every 7th cell is `occupied` (with material `"Widget A – T1"` and trolley ID), every 5th cell is `reserved`, all others are `empty`.
 
 ### Requests (`mockRequests`)
+
+7 requests spanning two workflows and all status values:
 
 | ID | Type | Status | Workflow |
 |---|---|---|---|

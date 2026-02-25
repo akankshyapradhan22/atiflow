@@ -1,6 +1,11 @@
 # AtiFLOW v2.0 – MTS Tablet
 
-**AtiFLOW v2.0** is an industrial tablet application for the **Material Transport System (MTS)**. It is used by floor operators (Requesters) at fixed workstations to order materials, request containers, schedule trolley returns, monitor request status, visualise staging areas, and view live WIP inventory — all driven by Autonomous Mobile Robots (AMRs).
+**AtiFLOW v2.0** is an industrial tablet application for the **Material Transport System (MTS)**. It supports two device roles on a single codebase:
+
+- **Requester** — floor operators at fixed workstations who order materials, request containers, schedule trolley returns, and monitor request status
+- **Approver** — supervisors who review, approve, or reject pending fulfilment requests
+
+All activity is driven by Autonomous Mobile Robots (AMRs).
 
 ---
 
@@ -36,7 +41,7 @@
 ## Application Structure
 
 ```
-mts-tablet/
+atiflow/
 ├── src/
 │   ├── App.tsx                    # Root — ThemeProvider, BrowserRouter, AuthGuard
 │   ├── main.tsx                   # ReactDOM entry point
@@ -45,13 +50,15 @@ mts-tablet/
 │   ├── index.css                  # Global font imports
 │   ├── components/layout/
 │   │   ├── TabletLayout.tsx       # Shell: sidebar (153px) + <Outlet>
-│   │   ├── TabletSidebar.tsx      # Left nav — logo, workflow, nav items, profile
-│   │   ├── RequesterLayout.tsx    # Inner layout wrapper
-│   │   └── BottomNav.tsx
+│   │   ├── TabletSidebar.tsx      # Left nav — logo, workflow, role-based nav, profile
+│   │   ├── RequesterLayout.tsx    # Inner layout wrapper (requester flows)
+│   │   └── BottomNav.tsx          # (unused — replaced by sidebar)
 │   ├── pages/
-│   │   ├── login/LoginPage.tsx
+│   │   ├── login/LoginPage.tsx    # Role-detecting login (requester / approver)
 │   │   ├── profile/ProfilePage.tsx
 │   │   ├── settings/SettingsPage.tsx
+│   │   ├── approver/
+│   │   │   └── ApprovalsPage.tsx  # Approval request list with expand/decide
 │   │   └── requester/
 │   │       ├── RequestHistoryPage.tsx
 │   │       ├── CreateRequestPage.tsx
@@ -62,7 +69,7 @@ mts-tablet/
 │   │       ├── StagingAreaPage.tsx
 │   │       └── WIPInventoryPage.tsx
 │   ├── stores/
-│   │   ├── authStore.ts           # Zustand — user session
+│   │   ├── authStore.ts           # Zustand — user session (requester + approver)
 │   │   ├── cartStore.ts           # Zustand — material + container cart
 │   │   └── workflowStore.ts       # Zustand — active workflow
 │   └── data/
@@ -74,19 +81,20 @@ mts-tablet/
 
 ## Route Map
 
-| Route | Component | Auth |
-|---|---|---|
-| `/login` | `LoginPage` | Public (redirects to `/history` if logged in) |
-| `/history` | `RequestHistoryPage` | Protected |
-| `/history/create` | `CreateRequestPage` | Protected |
-| `/history/checkout` | `CheckoutPage` | Protected |
-| `/history/container` | `ContainerSelectionPage` | Protected |
-| `/history/return-trolley` | `ReturnTrolleyPage` | Protected |
-| `/staging` | `StagingAreaPage` | Protected |
-| `/inventory` | `WIPInventoryPage` | Protected |
-| `/settings` | `SettingsPage` | Protected |
-| `/profile` | `ProfilePage` | Protected |
-| `*` | — | Redirects to `/login` |
+| Route | Component | Role | Auth |
+|---|---|---|---|
+| `/login` | `LoginPage` | All | Public (redirects to role home if logged in) |
+| `/approvals` | `ApprovalsPage` | Approver | Protected |
+| `/history` | `RequestHistoryPage` | Requester | Protected |
+| `/history/create` | `CreateRequestPage` | Requester | Protected |
+| `/history/checkout` | `CheckoutPage` | Requester | Protected |
+| `/history/container` | `ContainerSelectionPage` | Requester | Protected |
+| `/history/return-trolley` | `ReturnTrolleyPage` | Requester | Protected |
+| `/staging` | `StagingAreaPage` | All | Protected |
+| `/inventory` | `WIPInventoryPage` | All | Protected |
+| `/settings` | `SettingsPage` | All | Protected |
+| `/profile` | `ProfilePage` | All | Protected |
+| `*` | — | — | Redirects to `/login` |
 
 ---
 
@@ -99,4 +107,6 @@ mts-tablet/
 | [State Management](state-management.md) | All 3 Zustand stores — shape, actions, usage |
 | [Data Models](data-models.md) | TypeScript interfaces and mock data catalogue |
 | Pages | Per-page UI structure, UX logic, interactions |
+| — [Login](pages/login.md) | Role-detecting login page (requester / approver) |
+| — [Approvals](pages/approvals.md) | Approver request list with expand/decide interaction |
 | [Interactions & Navigation](interactions.md) | Navigation flows, request creation wizard |

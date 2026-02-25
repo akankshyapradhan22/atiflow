@@ -43,14 +43,25 @@ The currently authenticated device operator.
 ```typescript
 login: (username, password) => {
   if (username.trim() === 'PA01' && password.trim() === '1234') {
-    set({ user: mockDeviceUser });
+    set({ user: mockDeviceUser });      // requester
+    return true;
+  }
+  if (username.trim() === 'AP01' && password.trim() === '1234') {
+    set({ user: mockApproverUser });    // approver
     return true;
   }
   return false;
 },
 ```
 
-Fixed credentials: **Station Code `PA01`**, **Password `1234`**. Returns `true` on success (caller navigates to `/history`), `false` on failure (caller shows error alert).
+Two fixed credential pairs:
+
+| Station Code | Password | User | Role |
+|---|---|---|---|
+| `PA01` | `1234` | Arjun | `requester` |
+| `AP01` | `1234` | Priya | `approver` |
+
+Returns `true` on success. The caller (`LoginPage`) then navigates based on `user.role`: approvers go to `/approvals`, requesters go to `/history`. Returns `false` on failure (caller shows error alert).
 
 ### `logout(): void`
 
@@ -185,10 +196,15 @@ interface Workflow {
 ## State Flow Diagram
 
 ```
-Login (PA01 / 1234)
-  └─> authStore.login() ──> user set
+Login (PA01 / 1234)  ──> requester
+  └─> authStore.login() ──> user = mockDeviceUser
   └─> workflowStore.setActiveWorkflow(wf) ──> first workflow selected
   └─> navigate('/history')
+
+Login (AP01 / 1234)  ──> approver
+  └─> authStore.login() ──> user = mockApproverUser
+  └─> workflowStore.setActiveWorkflow(wf) ──> first workflow selected
+  └─> navigate('/approvals')
 
 RequestHistoryPage
   └─> navigate('/history/create') ──> CreateRequestPage
@@ -219,7 +235,7 @@ Not all state lives in stores. The following is **local** to each page (`React.u
 
 | Page | Local State |
 |---|---|
-| `LoginPage` | `stationCode`, `password`, `error` |
+| `LoginPage` | `stationId`, `password`, `error` |
 | `MaterialSelectionPage` | `search`, `quantities` (pending input before add), `viewMode` |
 | `CheckoutPage` | `confirmOpen`, `submitted`, `containerExpanded`, `addedContainers`, `selContainerIdx`, `selSubtypeId`, `containerQty` |
 | `ContainerSelectionPage` | `tabIdx`, `quantities`, `selected` (Set of subtypeIds) |
@@ -228,3 +244,4 @@ Not all state lives in stores. The following is **local** to each page (`React.u
 | `RequestHistoryPage` | `tab`, `expanded` (open row id) |
 | `StagingAreaPage` | `selectedArea`, `displayMode`, `viewLayout`, `edits`, `editingCell`, `savedCount` |
 | `WIPInventoryPage` | `tab`, `viewMode` |
+| `ApprovalsPage` | `tab`, `expandedId`, `statuses` (approve/reject decisions) |

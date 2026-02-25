@@ -54,27 +54,43 @@ function AuthGuard({ children }: { children: React.ReactNode }) {
 }
 ```
 
-`AuthGuard` wraps the root `/` route. Any navigation to a protected route while unauthenticated redirects to `/login`. After login, the user is sent to `/history`.
+`AuthGuard` wraps the root `/` route. Any navigation to a protected route while unauthenticated redirects to `/login`. After login, the user is redirected based on role: approvers go to `/approvals`, requesters go to `/history`.
 
 ### Route Structure
 
 ```typescript
 <Routes>
-  <Route path="/login"   element={user ? <Navigate to="/history" replace /> : <LoginPage />} />
-  <Route path="/"        element={<AuthGuard><TabletLayout /></AuthGuard>}>
-    <Route index          element={<Navigate to="/history" replace />} />
-    <Route path="history"                  element={<RequestHistoryPage />} />
-    <Route path="history/create"           element={<CreateRequestPage />} />
-    <Route path="history/checkout"         element={<CheckoutPage />} />
-    <Route path="history/container"        element={<ContainerSelectionPage />} />
+  {/* Role-aware login redirect */}
+  <Route path="/login" element={
+    user ? <Navigate to={user.role === 'approver' ? '/approvals' : '/history'} replace />
+         : <LoginPage />
+  } />
+
+  <Route path="/" element={<AuthGuard><TabletLayout /></AuthGuard>}>
+    {/* Role-aware index redirect */}
+    <Route index element={
+      <Navigate to={user?.role === 'approver' ? '/approvals' : '/history'} replace />
+    } />
+
+    {/* Approver routes */}
+    <Route path="approvals"                  element={<ApprovalsPage />} />
+
+    {/* Requester routes */}
+    <Route path="history"                    element={<RequestHistoryPage />} />
+    <Route path="history/create"             element={<CreateRequestPage />} />
+    <Route path="history/checkout"           element={<CheckoutPage />} />
+    <Route path="history/container"          element={<ContainerSelectionPage />} />
     <Route path="history/container-checkout" element={<ContainerCheckoutPage />} />
-    <Route path="history/return-trolley"   element={<ReturnTrolleyPage />} />
-    <Route path="staging"                  element={<StagingAreaPage />} />
-    <Route path="inventory"                element={<WIPInventoryPage />} />
-    <Route path="settings"                 element={<SettingsPage />} />
-    <Route path="profile"                  element={<ProfilePage />} />
+    <Route path="history/return-trolley"     element={<ReturnTrolleyPage />} />
+
+    {/* Shared routes */}
+    <Route path="staging"                    element={<StagingAreaPage />} />
+    <Route path="inventory"                  element={<WIPInventoryPage />} />
+    <Route path="settings"                   element={<SettingsPage />} />
+    <Route path="profile"                    element={<ProfilePage />} />
   </Route>
-  <Route path="*"        element={<Navigate to="/login" replace />} />
+
+  <Route path="*" element={<Navigate to="/login" replace />} />
 </Routes>
 ```
 
@@ -171,8 +187,14 @@ The sidebar contains four zones (top to bottom):
 
 1. **Logo** — "Ati**Flow** v2.0" wordmark (teal accent on "Flow")
 2. **Workflow selector** — MUI `Select` dropdown bound to `workflowStore.activeWorkflow`. Changing it calls `setActiveWorkflow(wf)`, immediately updating all pages that read from `workflowStore`.
-3. **Nav items** — Three primary routes: Request History (`/history`), Staging Area (`/staging`), WIP Inventory (`/inventory`). Active state: `rgba(0,169,157,0.19)` background when `pathname.startsWith(item.path)`.
-4. **Bottom utilities** — Settings (`/settings`), Help (no route), then a divider and the Profile row (`/profile`) with user avatar.
+3. **Nav items** — Role-based primary routes. Active state: `rgba(0,169,157,0.19)` background when `pathname.startsWith(item.path)`.
+
+   | Role | Nav items |
+   |---|---|
+   | Requester | Request History (`/history`), Staging Area (`/staging`), WIP Inventory (`/inventory`) |
+   | Approver | Requests (`/approvals`), Staging Area (`/staging`), WIP Inventory (`/inventory`) |
+
+4. **Bottom utilities** — Settings (`/settings`), Help (no route), then a divider and the Profile row (`/profile`) with user avatar. The profile subtitle shows "Approver" or "Operator" based on `user.role`.
 
 The sidebar renders `null` when `user` is null (during the login flow).
 
@@ -220,9 +242,11 @@ All data is mocked in `src/data/mock.ts`. In production, these imports would be 
 | Export | Type | Description |
 |---|---|---|
 | `mockWorkflows` | `Workflow[]` | 3 workflows with different strategies |
-| `mockDeviceUser` | `DeviceUser` | Single operator with all 3 workflows |
+| `mockDeviceUser` | `DeviceUser` | Requester operator (Arjun, PA01, Station 001) |
+| `mockApproverUser` | `DeviceUser` | Approver supervisor (Priya, AP01, Station AP1) |
+| `mockApprovalRequests` | `ApprovalRequest[]` | 5 pending approval requests |
 | `mockMaterials` | `MaterialSKU[]` | 4 SKUs with 9 Sub-SKU types total |
 | `mockContainers` | `Container[]` | 3 container types (Trolley/Pallet/Bin) with 7 subtypes |
-| `mockStagingAreas` | `StagingArea[]` | 2 areas (4×10 and 3×8 grid) |
-| `mockRequests` | `Request[]` | 4 requests across different workflows/statuses |
+| `mockStagingAreas` | `StagingArea[]` | 2 areas (both 40 rows × 5 cols = 200 cells each) |
+| `mockRequests` | `Request[]` | 7 requests across different workflows/statuses |
 | `mockInventory` | `InventoryRow[]` | 8 rows of inventory data |
