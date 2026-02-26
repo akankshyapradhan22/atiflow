@@ -1,14 +1,12 @@
-# AtiFLOW v2.0 – MTS Tablet
+# AtiFLOW v2.0 –  Requester and Approver application
 
-**AtiFLOW v2.0** ATI Flow – Requester & Approver is an application built for the Material Transport System (MTS), currently designed to operate on a 1024 × 640 screen based on the existing reference device. While it is presently used on tablet-sized displays, the application is not strictly defined as a tablet-only solution.
+**AtiFLOW v2.0** Requester & Approver is an application currently designed to operate on a 1024 × 640 screen based on the existing reference device. While it is presently used on tablet-sized displays, the application is not strictly defined as a tablet-only solution.
 
 The application supports two device roles on a single codebase:
 
 Requester – Floor operators at fixed workstations who initiate material requests, request containers, schedule trolley returns, and monitor request status.
 
 Approver – Supervisors who review, approve, or reject pending fulfilment requests.
-
-All workflows are executed through Autonomous Mobile Robots (AMRs).
 
 Admin flows and screens also exist within ATI Flow; however, they are currently implemented on a separate codebase with distinct workflows and are not included in this documentation.
 
