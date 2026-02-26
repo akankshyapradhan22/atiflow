@@ -25,8 +25,12 @@ type Mode = 'view' | 'manage';
 type ListMode = 'card' | 'list';
 type CellViewMode = 'grid' | 'list';
 
-const ROW_LETTERS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 const CELL_SIZE = 50;
+
+function getRowLabel(idx: number): string {
+  if (idx < 26) return String.fromCharCode(65 + idx);
+  return 'A' + String.fromCharCode(65 + (idx - 26));
+}
 const CELL_GAP = 10;
 
 function isActive(area: StagingArea): boolean {
@@ -332,8 +336,8 @@ function SAGridView({
   area: StagingArea;
   onCellClick: (cell: StagingCell, letter: string, num: number) => void;
 }) {
-  const numLetterRows = area.cols;   // 5 rows (A–E)
-  const numNumberCols = area.rows;   // 40 columns
+  const numLetterRows = area.rows;   // 40 rows (A–AN)
+  const numNumberCols = area.cols;   // 5 columns
 
   return (
     <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1 }}>
@@ -352,7 +356,7 @@ function SAGridView({
 
         {/* Rows */}
         {Array.from({ length: numLetterRows }, (_, rowIdx) => {
-          const letter = ROW_LETTERS[rowIdx] ?? String.fromCharCode(65 + rowIdx);
+          const letter = getRowLabel(rowIdx);
           return (
             <Box key={rowIdx} sx={{ display: 'flex', alignItems: 'center', gap: `${CELL_GAP}px` }}>
               {/* Row letter */}
@@ -363,7 +367,7 @@ function SAGridView({
               </Box>
               {/* Cells */}
               {Array.from({ length: numNumberCols }, (_, colIdx) => {
-                const cell = area.cells.find(c => c.row === colIdx && c.col === rowIdx);
+                const cell = area.cells.find(c => c.row === rowIdx && c.col === colIdx);
                 if (!cell) {
                   return <Box key={colIdx} sx={{ width: CELL_SIZE, height: CELL_SIZE, bgcolor: '#f5f5f5', border: '1px solid #c9c9c9', borderRadius: '9px', flexShrink: 0 }} />;
                 }
@@ -439,8 +443,8 @@ function SACellListView({
       {/* Rows */}
       <Box sx={{ flex: 1, overflow: 'auto', scrollbarGutter: 'stable', px: 2, py: 1.5, display: 'flex', flexDirection: 'column', gap: 1 }}>
         {sorted.map(cell => {
-          const letter = ROW_LETTERS[cell.col] ?? String.fromCharCode(65 + cell.col);
-          const num = cell.row + 1;
+          const letter = getRowLabel(cell.row);
+          const num = cell.col + 1;
           const cfg = CELL_STATUS_CONFIG[cell.status];
           const parts = cell.material?.split(' – ') ?? [];
           const sku = parts[0] ?? '—';
@@ -457,6 +461,7 @@ function SACellListView({
                 overflow: 'hidden',
                 bgcolor: '#fff',
                 cursor: 'pointer',
+                minHeight: 48,
                 transition: 'box-shadow 0.12s',
                 '&:hover': { boxShadow: '0 2px 8px rgba(0,0,0,0.07)' },
               }}

@@ -82,6 +82,7 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
       <Box sx={{
         display: 'grid',
         gridTemplateColumns: LIST_GRID_COLS,
+        columnGap: '16px',
         px: 3, pl: '43px', py: 1,
         borderTop: '1px solid #f0f0f0',
         borderBottom: '1px solid #f0f0f0',
