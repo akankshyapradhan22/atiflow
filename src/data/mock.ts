@@ -128,6 +128,7 @@ const buildCells = (rows: number, cols: number) =>
 export const mockStagingAreas: StagingArea[] = [
   { id: 'sa-01', name: 'SA 001', rows: 40, cols: 5, cells: buildCells(40, 5) },
   { id: 'sa-02', name: 'SA 002', rows: 40, cols: 5, cells: buildCells(40, 5) },
+  { id: 'sa-03', name: 'SA 003', rows: 40, cols: 5, cells: buildCells(40, 5) },
 ];
 
 export const mockRequests: Request[] = [
