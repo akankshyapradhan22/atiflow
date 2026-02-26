@@ -340,8 +340,8 @@ function SAGridView({
   const numNumberCols = area.cols;   // 5 columns
 
   return (
-    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1 }}>
-      <Box sx={{ display: 'inline-flex', flexDirection: 'column', gap: `${CELL_GAP}px`, minWidth: 'max-content' }}>
+    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${CELL_GAP}px` }}>
 
         {/* Column number headers */}
         <Box sx={{ display: 'flex', gap: `${CELL_GAP}px`, ml: `${CELL_SIZE + CELL_GAP}px` }}>
@@ -851,11 +851,11 @@ export default function StagingAreaPage() {
               </Typography>
               <ChevronRightIcon sx={{ fontSize: 16, color: '#9E9E9E' }} />
               <Typography sx={{ fontSize: '1rem', color: '#1A2332', fontWeight: 500 }}>
-                {selectedArea.name.replace(' ', '')}
+                {selectedArea.name}
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', width: '100%' }}>
               <Box>
                 <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#1A2332', lineHeight: 1.2 }}>
                   {selectedArea.name}
