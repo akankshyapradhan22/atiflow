@@ -247,6 +247,6 @@ All data is mocked in `src/data/mock.ts`. In production, these imports would be 
 | `mockApprovalRequests` | `ApprovalRequest[]` | 5 pending approval requests |
 | `mockMaterials` | `MaterialSKU[]` | 4 SKUs with 9 Sub-SKU types total |
 | `mockContainers` | `Container[]` | 3 container types (Trolley/Pallet/Bin) with 7 subtypes |
-| `mockStagingAreas` | `StagingArea[]` | 2 areas (both 40 rows × 5 cols = 200 cells each) |
+| `mockStagingAreas` | `StagingArea[]` | 3 areas (all 40 rows × 5 cols = 200 cells each) |
 | `mockRequests` | `Request[]` | 7 requests across different workflows/statuses |
 | `mockInventory` | `InventoryRow[]` | 8 rows of inventory data |

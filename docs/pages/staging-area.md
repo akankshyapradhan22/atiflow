@@ -3,16 +3,17 @@
 **Route:** `/staging`
 **Component:** `src/pages/requester/StagingAreaPage.tsx`
 **Auth:** Protected
-**Sidebar:** "Staging Area" nav item
+**Sidebar:** "Staging Area" nav item (visible to both Requester and Approver)
 
 ---
 
 ## Purpose
 
 Provides a visual and tabular view of all staging areas assigned to this device. Operators can:
-- See which staging cells are occupied, reserved, or empty
-- Switch between a visual grid layout and a detailed table list
-- Enter Manage mode to edit individual cell metadata (container ID, type, ageing, notes)
+- Browse all available staging areas and their utilisation status
+- Drill into a specific area to inspect individual cells
+- Toggle between a visual grid layout and a tabular list layout
+- Enter Manage mode to edit individual cell contents (SKU, sub-SKU, quantity, state)
 
 ---
 
@@ -21,189 +22,266 @@ Provides a visual and tabular view of all staging areas assigned to this device.
 This page implements its own internal navigation using local state (no URL change):
 
 ```
-Level 1: Area List  →  (tap area card)  →  Level 2: Area Detail
-                    ←  (back button)    ←
+Level 1: Area List  →  (tap area card or row)  →  Level 2: Area Detail
+                    ←  (breadcrumb back link)   ←
 ```
 
-`StagingAreaPage` renders `AreaDetail` when `selectedArea !== null`.
+`StagingAreaPage` renders the Area Detail view when `selectedArea !== null`.
 
 ---
 
 ## Level 1 – Area List
 
+### Header
+
 ```
-┌─────────────────────────────────────────┐
-│ Staging Areas                           │  ← Header
-│ 2 areas assigned to your device         │
-├─────────────────────────────────────────┤
-│  ┌──────────────────────────────────┐   │
-│  │ 🗓 SA 001    40R × 5C            │   │
-│  │ [View] [Manage]                  │   │
-│  │ ████████░░░░░░░░  (fill bar)     │   │
-│  │ N occupied · N reserved · N empty│   │
-│  │ [View Grid] [Manage Cells]       │   │
-│  └──────────────────────────────────┘   │
-│  ┌──────────────────────────────────┐   │
-│  │ 🗓 SA 002    40R × 5C            │   │
-│  │ ...                              │   │
-│  └──────────────────────────────────┘   │
-└─────────────────────────────────────────┘
+Staging Area                          [☰ | ⊞]
+All   Active   Inactive
 ```
 
-### Area Card
+- Page title "Staging Area" in bold
+- **List / Card toggle** (`ListCardToggle`) — `☰` (list) / `⊞` (card) — top-right of the tab row
+- **Tabs:** All / Active / Inactive — filter by `isActive()`:
+  - `isActive(area)` returns `true` if any cell has `status === 'occupied'`
 
-- `CalendarViewMonthIcon` in teal icon box
-- Name + grid dimensions (e.g. "40R × 5C")
-- "View" and "Manage" chips (cosmetic only — both navigate to the same `AreaDetail`)
-- **Fill progress bar:** `height: 6px`, teal fill at `{fillPct}%`
-  - `fillPct = Math.round((occupied / total) * 100)`
-- Stats row: "N occupied · N reserved · N empty"
-- Two action buttons: "View Grid" (`variant="outlined"`) and "Manage Cells" (`variant="contained"`)
+### Card View (`SACard`)
 
-The entire card is clickable (`onClick={() => setSelectedArea(area)}`).
+Areas are displayed as 270px-wide cards in a flex-wrap row. Each card:
+
+- Left accent bar via `box-shadow: -3px 0 0 0 accentColor`
+  - Active area → teal `#009688`
+  - Inactive area → coral `#ff726a`
+- Area name (bold, 1.25rem) + grid dimensions (e.g. "40 x 5 cells") in Roboto Mono
+- "Updated 51 mins ago" timestamp chip
+- Edit and MoreVert icon buttons (stop-propagation — don't navigate)
+- Utilised cells count (`used/total`) + 5px `LinearProgress` bar
+  - `used = occupied + reserved`
+  - `pct = Math.round((used / total) * 100)`
+- Entire card is clickable → calls `openArea(area)`
+
+### List View (`SAListRow`)
+
+Areas are displayed as full-width rows. Each row has a left accent bar (14px wide) and a CSS Grid content area:
+
+**Grid columns:** `'1fr 90px 100px 200px 44px'`
+
+| Column | Content |
+|---|---|
+| Name | Area name + grid dimensions subtitle |
+| Status | Active / Inactive badge |
+| Utilised | `used/total` count |
+| Progress | "Utilisation N%" label + 5px LinearProgress bar |
+| Arrow | `ChevronRightIcon` |
+
+Entire row is clickable → calls `openArea(area)`.
 
 ---
 
 ## Level 2 – Area Detail
 
+### Opening an Area (`openArea`)
+
+When an area is opened, state is reset to defaults:
+
+```typescript
+setSelectedArea(area);
+setMode('view');
+setCellViewMode('grid');
+setGridOrientation('vertical');
+setEditState(null);
+```
+
+### Breadcrumb
+
+```
+Station 001  ›  Staging Area  ›  SA 001
+```
+
+- "Staging Area" is clickable → sets `selectedArea = null` (back to list)
+- Area name is the selected area's `.name`
+
 ### Sub-header
 
 ```
-← SA 001   40R × 5C · 200 cells
-           [5 edits chip]
-           [View | Manage]  [⊞ | ☰]
+SA 001                     [⊞ | ☰]  [V | H]  [View | Manage]
+40 x 5 cells
 ```
 
-- Back button: sets `selectedArea = null`
-- **View/Manage toggle:** `ToggleButtonGroup` — switches `displayMode`
-- **Grid/List toggle:** `ToggleButtonGroup` — switches `viewLayout`
-- Edits chip: blue chip showing unsaved edit count — only visible when `savedCount > 0`
-
-### Stats Strip
-
-Below sub-header:
-
-```
-N Occupied   N Reserved   N Empty   N Maintenance
-```
-
-Counts derived from current cell states including any local edits.
-
-### Manage Mode Banner
-
-Shown when `displayMode === 'manage'`:
-
-```
-✏ Manage mode active — tap any cell (or use edit icon) to update...
-```
-
-Blue `Paper` with `rgba(21,101,192,0.04)` background.
+- Area name + grid dimensions
+- **Grid/List toggle** — `GridViewIcon` / `FormatListBulletedIcon` — switches `cellViewMode`
+- **V / H orientation toggle** — only visible when `cellViewMode === 'grid'` — switches `gridOrientation`
+  - `V` = vertical (default), `H` = horizontal
+- **View / Manage toggle** (`ViewManageToggle`) — 200px wide pill with `VisibilityIcon` / `EditIcon`
 
 ---
 
-## Grid View (`StagingGrid` component)
+## Grid View (`SAGridView`)
 
-**Dimensions:**
-- `CELL_SIZE = 40px`
-- `CELL_GAP = 4px`
-- Rows labelled A, B, C... (letters)
-- Columns labelled 1, 2, 3... (numbers)
+### Constants
+
+| Name | Value | Purpose |
+|---|---|---|
+| `CELL_SIZE` | `50px` | Fixed cell height; also width in horizontal mode |
+| `CELL_GAP` | `10px` | Gap between cells and rows |
+
+### Row Labels
+
+`getRowLabel(idx)` generates letter labels for row indices:
+- `0–25` → `A–Z`
+- `26–51` → `AA–AZ`
+
+A 40-row area uses labels A through AN.
+
+### Vertical Orientation (default)
+
+- **Outer axis:** rows (A–AN) → renders top-to-bottom
+- **Inner axis:** cols (1–5) → renders left-to-right
+- **Grid template:** `50px repeat(5, 1fr)` — the row label column is 50px; the 5 cell columns use `1fr` each and fill the available width
+- Scrolls vertically; no horizontal scroll
+
+### Horizontal Orientation
+
+- **Outer axis:** cols (1–5) → renders as labelled rows top-to-bottom
+- **Inner axis:** rows (A–AN) → renders as labelled columns left-to-right
+- **Grid template:** `50px repeat(40, 50px)` — fixed 50px per column; scrolls horizontally
+- `minWidth: 'max-content'` on row and header containers enables horizontal scroll
+- `minWidth: 0` on the outer scroll Box prevents it from expanding the page
 
 ### Cell Colours
 
-| Status | Background | Border | Inner indicator |
+| Status | Background | Border | Inner Indicator |
 |---|---|---|---|
-| `empty` | `#F0F3F5` | `#DDE1E6` | none |
-| `occupied` | `rgba(0,150,136,0.14)` | `#009688` | 14×14 teal square |
-| `reserved` | `rgba(245,124,0,0.12)` | `#F57C00` | 8px orange dot |
-| `maintenance` | `rgba(198,40,40,0.08)` | `#C62828` | `!` red text |
+| `empty` | `#f5f5f5` | `#c9c9c9` | none |
+| `reserved` | `rgba(255,217,92,0.37)` | `#ffa719` | 14×14 rotated amber square |
+| `occupied` | `rgba(255,33,33,0.2)` | `#ff5c5c` (2px) | 12px red circle |
 
-### Cell Interactions
+All cells have `borderRadius: 9px`, `width: '100%'`, `height: CELL_SIZE`.
 
-- **View mode:** Cells are not clickable.
-- **Manage mode:** Hover scales to `1.12×` with shadow and `zIndex: 1`. Click opens `EditCellDialog`.
-- **Edited indicator:** 5px blue dot in the top-right corner of any cell with a pending edit.
+### Cell Tooltip
+
+Hovering a cell shows an MUI Tooltip with:
+- Status label (Available / Reserved / Occupied)
+- SKU, Sub-SKU, Trolley ID (if present)
+- Qty (12 Units — hardcoded) for occupied cells
+
+### Clicking a Cell
+
+Any cell click calls `handleCellClick(cell, rowLetter, colNumber)`, which sets `editState` and opens the `EditPanel` overlay.
+
+### Legend
+
+Below the grid rows:
+
+```
+[  ] Available   [◆] Reserved   [●] Occupied
+```
+
+Three colour swatches (20×20, borderRadius 6px) matching cell colours.
 
 ---
 
-## List View (`StagingList` component)
+## List View (`SACellListView`)
 
-MUI `Table` with `size="small"`:
+Cells sorted by `col` then `row` (column A, B, C... order; then row 1, 2... within each column).
+
+**Grid columns:** `'72px 110px 1fr 1fr 110px 80px'`
 
 | Column | Content |
 |---|---|
-| Cell | Monospace label (A1, B3, etc.) |
-| State | Status chip (colour-coded) |
-| Container ID | `edits.containerId` or `cell.trolleyId` or "—" |
-| Type / Sub-type | From edits or original data, or "—" |
-| Ageing | `edits.ageing` or "—" |
-| Notes | `edits.notes` truncated (noWrap) or "—" |
-| Edit (manage only) | Edit icon button |
+| Cell | Monospace label e.g. "A-1" (`letter-num` format) |
+| Status | Coloured badge (Available / Reserved / Occupied) |
+| SKU | Parent SKU name or "—" |
+| Sub-SKU | Sub-SKU part of `cell.material` or "—" |
+| Trolley ID | `cell.trolleyId` or "—" |
+| Qty | `12` for occupied cells, "—" for others |
+
+Left accent bar (`width: 12px`) uses `CELL_STATUS_CONFIG[status].accentBg`.
+
+Each row has `minHeight: 48` and shows a hover shadow. Clicking any row also opens `EditPanel`.
 
 ---
 
-## Edit Cell Dialog (`EditCellDialog`)
+## Edit Panel (`EditPanel`)
+
+An **overlay panel** rendered via `position: absolute, inset: 0` inside the content area, centered with flexbox. It does not navigate away or close the grid/list view behind it.
 
 ```
-Edit Cell
-Row A, Col 3                       [Occupied chip]
-
-[Cell State dropdown ▾]
-─────────── Container Info ──────────
-[Container ID: monospace input]
-[Container Type ▾]  [Sub-type ▾]
-[Ageing / Time in Cell]
-
-[Notes multiline textarea]
-
-[Cancel]    [💾 Save Changes]
+┌──────────────────────────────────────────────┐
+│ Cell A - 1                        [Scan QR]  │
+│                                              │
+│ Cell State: [Available ▾]                    │
+│                                              │
+│           Contains              Quantity     │
+│ [  SKU  ] [Enter SKU ___________] [  —  ]   │
+│ [Sub-SKU] [Enter Sub-SKU ________] [  —  ]  │
+│                                              │
+│                      [Cancel]   [Save]       │
+└──────────────────────────────────────────────┘
 ```
 
-Container Info fields are only shown when `status === 'occupied' || status === 'reserved'`.
+- **Title:** `Cell {rowLetter} - {colNumber}` (e.g. "Cell A - 1")
+- **Scan QR** button — outlined, cosmetic only
+- **Cell State** Select (width 148px, teal accent): Available / Reserved / Blocked
+- **Contains table:** SKU row + Sub-SKU row, each with a label box, text field, and quantity field
+- **Cancel / Save** — both call `onClose()` (sets `editState = null`); no persistence beyond closing
 
-**Cell State options** (with colour dot indicators):
-- Empty (grey) · Occupied (teal) · Reserved (amber) · Maintenance (red)
-
-**On save:** upserts into `edits` record by `cell.id`. Increments `savedCount`. Closes dialog.
+Local state (`local`) is initialised from the `EditState` passed in and updated on every field change. No data is written to mock or store.
 
 ---
 
 ## State
 
-Local to `AreaDetail`:
+All state is local to `StagingAreaPage` (no store reads beyond mock data):
 
 | Variable | Type | Initial | Description |
 |---|---|---|---|
-| `displayMode` | `'view' \| 'manage'` | `'view'` | View or manage mode |
-| `viewLayout` | `'grid' \| 'list'` | `'grid'` | Grid or list layout |
-| `edits` | `Record<string, CellEdit>` | `{}` | Unsaved cell edits keyed by `cell.id` |
-| `editingCell` | `StagingCell \| null` | `null` | Cell currently open in dialog |
-| `savedCount` | `number` | `0` | Cumulative edit saves (for the edits chip) |
+| `tab` | `'all' \| 'active' \| 'inactive'` | `'all'` | Area list filter tab |
+| `listMode` | `'card' \| 'list'` | `'card'` | Area list display format |
+| `selectedArea` | `StagingArea \| null` | `null` | Currently open area (null = list view) |
+| `mode` | `'view' \| 'manage'` | `'view'` | View or Manage mode in area detail |
+| `cellViewMode` | `'grid' \| 'list'` | `'grid'` | Grid or list cell display |
+| `gridOrientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Grid axis orientation |
+| `editState` | `EditState \| null` | `null` | Currently open edit panel |
 
-Local to `StagingAreaPage`:
-
-| Variable | Type | Initial | Description |
-|---|---|---|---|
-| `selectedArea` | `StagingArea \| null` | `null` | Currently viewing area |
-
-No store reads (uses `mockStagingAreas` directly).
+`EditPanel` maintains its own internal `local` state (copy of `EditState`) via `useState`.
 
 ---
 
-## UX Logic
+## Mock Data
+
+Three staging areas are available:
+
+| ID | Name | Rows | Cols |
+|---|---|---|---|
+| `sa-01` | SA 001 | 40 | 5 |
+| `sa-02` | SA 002 | 40 | 5 |
+| `sa-03` | SA 003 | 40 | 5 |
+
+Cell status is deterministically generated in `buildCells()`:
+- Every 7th cell → `occupied` (with material `"Widget A – T1"` and trolley ID `TR-{100+i}`)
+- Every 5th cell → `reserved`
+- All others → `empty`
+
+The `mockDeviceUser.stagingAreaIds` field lists which areas a device has access to (`['sa-01', 'sa-02']`). `StagingAreaPage` currently loads all three areas directly from `mockStagingAreas` regardless of this filter.
+
+---
+
+## UX Notes
 
 ### Edits are session-local only
 
-The `edits` Record is never written to a store or API. Changes are session-scoped — navigating away and back resets the staging area to the original mock data.
+`EditPanel` maintains local state. Closing it without saving discards all field changes. Navigating back to the Area List and re-entering an area resets all state.
 
-### Status override
+### Manage mode (View/Manage toggle)
 
-```typescript
-const getStatus = (cell: StagingCell): CellStatus =>
-  (edits[cell.id]?.status ?? cell.status) as CellStatus;
-```
+The `mode` state is tracked but does not currently gate cell interaction — clicking a cell opens `EditPanel` in both View and Manage modes. The toggle is present for future API integration where View mode would suppress edits.
 
-The edit record takes precedence over the original cell status for display and statistics calculation.
+### Scroll behaviour
+
+- Area List: `overflow: auto` on the inner container — scrolls when areas exceed viewport
+- Grid View: `overflow: auto` on the grid container — scrolls vertically (V) or horizontally (H)
+- List View: `overflow: auto` on the row container — scrolls vertically
+- `minHeight: 0` on every flex container in the scroll chain is mandatory
 
 ---
 
@@ -211,7 +289,8 @@ The edit record takes precedence over the original cell status for display and s
 
 | Scenario | Behaviour |
 |---|---|
-| Click in view mode | Cells are not clickable |
-| Switch view mode | Edits are preserved in state |
-| Back from area detail | Area list shown; edits are lost |
-| Area with 0 occupied cells | Fill bar shows 0% |
+| Area with 0 occupied cells | `isActive` returns false → coral accent |
+| Grid cell not found | Renders a placeholder `#f5f5f5` box (no tooltip, no click) |
+| Row index > 25 | `getRowLabel` returns double-letter (e.g. AA, AB) |
+| Switching H ↔ V | Grid re-renders from scratch; scroll position resets |
+| Closing EditPanel | `editState = null`; no data written |

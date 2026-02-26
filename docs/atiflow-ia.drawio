@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LEGEND
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="leg-title" value="Legend" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontStyle=1;fontColor=#1A2332;" vertex="1" parent="1">
+      <mxGeometry x="60" y="60" width="80" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-req" value="Requester only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5f5f0;strokeColor=#009688;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="92" width="130" height="32" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-apr" value="Approver only" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565C0;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="132" width="130" height="32" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-shared" value="Shared (both roles)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="172" width="130" height="32" as="geometry" />
+    </mxCell>
+    <mxCell id="leg-sub" value="Sub-view / step" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="212" width="130" height="32" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         ENTRY POINT
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="login" value="/login&#xa;LoginPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="740" y="60" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- Role split labels -->
+    <mxCell id="label-req" value="Requester role" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#009688;" vertex="1" parent="1">
+      <mxGeometry x="340" y="155" width="160" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="label-apr" value="Approver role" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontColor=#1565C0;" vertex="1" parent="1">
+      <mxGeometry x="1130" y="155" width="160" height="24" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         REQUESTER – PRIMARY PAGES
+    ════════════════════════════════════════════════════════════════ -->
+
+    <!-- /history -->
+    <mxCell id="history" value="/history&#xa;Request History" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5f5f0;strokeColor=#009688;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="280" y="200" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- /history sub-steps -->
+    <mxCell id="create" value="/history/create&#xa;CreateRequestPage&#xa;(Material / Container / Return)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="320" width="190" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="checkout" value="/history/checkout&#xa;CheckoutPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="60" y="420" width="190" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="container-sel" value="/history/container&#xa;ContainerSelectionPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="270" y="320" width="190" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="container-ckout" value="/history/container-checkout&#xa;ContainerCheckoutPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="270" y="400" width="190" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="return-trolley" value="/history/return-trolley&#xa;ReturnTrolleyPage&#xa;(QR scan / Manual)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="480" y="320" width="190" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SHARED PAGES
+    ════════════════════════════════════════════════════════════════ -->
+
+    <!-- /staging -->
+    <mxCell id="staging" value="/staging&#xa;StagingAreaPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="740" y="200" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- staging sub-views (local state, no URL change) -->
+    <mxCell id="staging-list" value="Area List&#xa;(card / list toggle)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="660" y="310" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="staging-detail" value="Area Detail&#xa;(grid V/H · list view)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="840" y="310" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="staging-edit" value="Edit Cell Panel&#xa;(overlay — no nav)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="840" y="400" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- /inventory -->
+    <mxCell id="inventory" value="/inventory&#xa;WIPInventoryPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="740" y="500" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- /settings -->
+    <mxCell id="settings" value="/settings&#xa;SettingsPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="920" y="500" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- /profile -->
+    <mxCell id="profile" value="/profile&#xa;ProfilePage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="560" y="500" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         APPROVER – PRIMARY PAGES
+    ════════════════════════════════════════════════════════════════ -->
+
+    <!-- /approvals -->
+    <mxCell id="approvals" value="/approvals&#xa;ApprovalsPage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565C0;fontColor=#1A2332;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="1160" y="200" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- approvals sub-views -->
+    <mxCell id="approvals-list" value="Request List&#xa;(pending approval)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="1080" y="310" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="approvals-expand" value="Expanded Row&#xa;(Approve / Reject actions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#1A2332;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="1260" y="310" width="160" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EDGES — Login → Role homes
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="e-login-req" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#009688;strokeWidth=2;" edge="1" source="login" target="history" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-login-apr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#1565C0;strokeWidth=2;" edge="1" source="login" target="approvals" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Login → shared pages (sidebar nav) -->
+    <mxCell id="e-login-staging" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#666666;strokeWidth=1;dashed=1;" edge="1" source="login" target="staging" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EDGES — Requester flows
+    ════════════════════════════════════════════════════════════════ -->
+    <!-- history → create -->
+    <mxCell id="e-hist-create" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="history" target="create" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <!-- create → checkout (material flow) -->
+    <mxCell id="e-create-ckout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="create" target="checkout" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <!-- history → container-sel -->
+    <mxCell id="e-hist-csel" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="history" target="container-sel" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <!-- container-sel → container-ckout -->
+    <mxCell id="e-csel-ckout" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="container-sel" target="container-ckout" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <!-- history → return-trolley -->
+    <mxCell id="e-hist-return" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="history" target="return-trolley" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Requester sidebar → shared pages -->
+    <mxCell id="e-req-staging" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#009688;strokeWidth=1;dashed=1;" edge="1" source="history" target="staging" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-req-inv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#009688;strokeWidth=1;dashed=1;" edge="1" source="history" target="inventory" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EDGES — Staging sub-views
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="e-staging-list" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#666666;strokeWidth=1;" edge="1" source="staging" target="staging-list" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-staging-detail" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#666666;strokeWidth=1;" edge="1" source="staging-list" target="staging-detail" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-staging-edit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#666666;strokeWidth=1;" edge="1" source="staging-detail" target="staging-edit" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EDGES — Approver flows
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="e-apr-list" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="approvals" target="approvals-list" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-apr-expand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#d6b656;strokeWidth=1;" edge="1" source="approvals-list" target="approvals-expand" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <!-- Approver sidebar → shared pages -->
+    <mxCell id="e-apr-staging" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#1565C0;strokeWidth=1;dashed=1;" edge="1" source="approvals" target="staging" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-apr-inv" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#1565C0;strokeWidth=1;dashed=1;" edge="1" source="approvals" target="inventory" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EDGES — All roles → Settings / Profile (sidebar)
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="e-staging-settings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#666666;strokeWidth=1;dashed=1;" edge="1" source="staging" target="settings" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e-staging-profile" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;strokeColor=#666666;strokeWidth=1;dashed=1;" edge="1" source="staging" target="profile" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         SIDEBAR NAV LABEL
+    ════════════════════════════════════════════════════════════════ -->
+    <mxCell id="note-sidebar" value="Dashed arrows = sidebar navigation (always accessible)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="530" y="620" width="380" height="24" as="geometry" />
+    </mxCell>
+    <mxCell id="note-local" value="Sub-view boxes use local state — URL does not change" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#666666;fontStyle=2;" vertex="1" parent="1">
+      <mxGeometry x="530" y="644" width="380" height="24" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>

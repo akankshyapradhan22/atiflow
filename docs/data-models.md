@@ -372,8 +372,9 @@ All mock data is in `src/data/mock.ts`.
 |---|---|---|---|---|
 | `sa-01` | SA 001 | 40 | 5 | 200 |
 | `sa-02` | SA 002 | 40 | 5 | 200 |
+| `sa-03` | SA 003 | 40 | 5 | 200 |
 
-Both areas use the same 40 × 5 grid.
+All three areas use the same 40 × 5 grid.
 
 Cell status is deterministically generated: every 7th cell is `occupied` (with material `"Widget A – T1"` and trolley ID), every 5th cell is `reserved`, all others are `empty`.
 
