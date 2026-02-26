@@ -98,7 +98,7 @@ function GridCell({
         <Box
           onClick={onClick}
           sx={{
-            width: CELL_SIZE, height: CELL_SIZE, flexShrink: 0,
+            width: '100%', height: CELL_SIZE,
             bgcolor: '#f5f5f5',
             border: '1px solid #c9c9c9',
             borderRadius: '9px',
@@ -120,7 +120,7 @@ function GridCell({
         <Box
           onClick={onClick}
           sx={{
-            width: CELL_SIZE, height: CELL_SIZE, flexShrink: 0,
+            width: '100%', height: CELL_SIZE,
             bgcolor: 'rgba(255,217,92,0.37)',
             border: '1px solid #ffa719',
             borderRadius: '9px',
@@ -142,7 +142,7 @@ function GridCell({
       <Box
         onClick={onClick}
         sx={{
-          width: CELL_SIZE, height: CELL_SIZE, flexShrink: 0,
+          width: '100%', height: CELL_SIZE,
           bgcolor: 'rgba(255,33,33,0.2)',
           border: '2px solid #ff5c5c',
           borderRadius: '9px',
@@ -339,28 +339,31 @@ function SAGridView({
   const numLetterRows = area.rows;   // 40 rows (A–AN)
   const numNumberCols = area.cols;   // 5 columns
 
+  const gridCols = `${CELL_SIZE}px repeat(${numNumberCols}, 1fr)`;
+
   return (
-    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1 }}>
+
+      {/* Column number headers */}
+      <Box sx={{ display: 'grid', gridTemplateColumns: gridCols, columnGap: `${CELL_GAP}px`, mb: `${CELL_GAP}px` }}>
+        <Box /> {/* spacer for label column */}
+        {Array.from({ length: numNumberCols }, (_, i) => (
+          <Box key={i} sx={{ textAlign: 'center' }}>
+            <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
+              {i + 1}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+
+      {/* Rows */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${CELL_GAP}px` }}>
-
-        {/* Column number headers */}
-        <Box sx={{ display: 'flex', gap: `${CELL_GAP}px`, ml: `${CELL_SIZE + CELL_GAP}px` }}>
-          {Array.from({ length: numNumberCols }, (_, i) => (
-            <Box key={i} sx={{ width: CELL_SIZE, textAlign: 'center', flexShrink: 0 }}>
-              <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
-                {i + 1}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-
-        {/* Rows */}
         {Array.from({ length: numLetterRows }, (_, rowIdx) => {
           const letter = getRowLabel(rowIdx);
           return (
-            <Box key={rowIdx} sx={{ display: 'flex', alignItems: 'center', gap: `${CELL_GAP}px` }}>
+            <Box key={rowIdx} sx={{ display: 'grid', gridTemplateColumns: gridCols, columnGap: `${CELL_GAP}px` }}>
               {/* Row letter */}
-              <Box sx={{ width: CELL_SIZE, flexShrink: 0, textAlign: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: CELL_SIZE }}>
                 <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
                   {letter}
                 </Typography>
@@ -369,7 +372,7 @@ function SAGridView({
               {Array.from({ length: numNumberCols }, (_, colIdx) => {
                 const cell = area.cells.find(c => c.row === rowIdx && c.col === colIdx);
                 if (!cell) {
-                  return <Box key={colIdx} sx={{ width: CELL_SIZE, height: CELL_SIZE, bgcolor: '#f5f5f5', border: '1px solid #c9c9c9', borderRadius: '9px', flexShrink: 0 }} />;
+                  return <Box key={colIdx} sx={{ height: CELL_SIZE, bgcolor: '#f5f5f5', border: '1px solid #c9c9c9', borderRadius: '9px' }} />;
                 }
                 return (
                   <GridCell
@@ -385,7 +388,7 @@ function SAGridView({
       </Box>
 
       {/* Legend */}
-      <Box sx={{ display: 'flex', gap: 3.5, mt: 3, ml: `${CELL_SIZE + CELL_GAP}px` }}>
+      <Box sx={{ display: 'flex', gap: 3.5, mt: 3, pl: `${CELL_SIZE + CELL_GAP}px` }}>
         {[
           { label: 'Available', bg: 'rgba(0,150,136,0.15)', border: '#009688' },
           { label: 'Reserved',  bg: 'rgba(255,217,92,0.37)', border: '#ffa719' },
