@@ -366,7 +366,7 @@ function SAGridView({
       : [getRowLabel(outerIdx), innerIdx + 1];
 
   return (
-    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1 }}>
+    <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1, minWidth: 0 }}>
 
       {/* Column headers */}
       <Box sx={{
