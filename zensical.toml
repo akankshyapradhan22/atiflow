@@ -3,17 +3,30 @@
 site_name = "AtiFLOW v2.0 – MTS Tablet"
 site_description = "Complete design, code, and UX/UI documentation for the AtiFLOW v2.0 Material Transport System tablet interface"
 site_author = "AtiFLOW Design & Engineering"
+site_url = "https://akankshyapradhan22.github.io/atiflow/"
+copyright = "Copyright &copy; 2026 AtiFLOW Design & Engineering"
+
+repo_url = "https://github.com/akankshyapradhan22/atiflow"
+repo_name = "GitHub"
 
 docs_dir = "docs"
 
+# Mermaid diagrams: mermaid.min.js processes <div class="mermaid"> blocks
+# emitted by pymdownx.superfences (enabled by default in Zensical).
+extra_javascript = [
+  { path = "https://unpkg.com/mermaid@11/dist/mermaid.min.js", defer = true },
+]
+
 nav = [
   { "Home" = "index.md" },
+  { "Information Architecture" = "ia.md" },
   { "Design System" = "design-system.md" },
   { "Architecture" = "architecture.md" },
   { "State Management" = "state-management.md" },
   { "Data Models" = "data-models.md" },
   { "Pages" = [
     { "Login" = "pages/login.md" },
+    { "Approvals" = "pages/approvals.md" },
     { "Create Request" = "pages/create-request.md" },
     { "Material Selection" = "pages/material-selection.md" },
     { "Checkout" = "pages/checkout.md" },
@@ -40,6 +53,7 @@ features = [
   "search.suggest",
   "content.code.copy",
   "content.code.annotate",
+  "content.action.view",
 ]
 
 [[project.theme.palette]]
