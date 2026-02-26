@@ -24,6 +24,7 @@ type TabValue = 'all' | 'active' | 'inactive';
 type Mode = 'view' | 'manage';
 type ListMode = 'card' | 'list';
 type CellViewMode = 'grid' | 'list';
+type GridOrientation = 'vertical' | 'horizontal';
 
 const CELL_SIZE = 50;
 
@@ -332,59 +333,82 @@ function EditPanel({
 function SAGridView({
   area,
   onCellClick,
+  orientation,
 }: {
   area: StagingArea;
   onCellClick: (cell: StagingCell, letter: string, num: number) => void;
+  orientation: GridOrientation;
 }) {
-  const numLetterRows = area.rows;   // 40 rows (A–AN)
-  const numNumberCols = area.cols;   // 5 columns
+  const numRows = area.rows;   // 40 (A–AN)
+  const numCols = area.cols;   // 5  (1–5)
+  const isHorizontal = orientation === 'horizontal';
 
-  const gridCols = `${CELL_SIZE}px repeat(${numNumberCols}, 1fr)`;
+  // Horizontal: outer = cols (1–5), inner = rows (A–AN), fixed cell width, scrolls right
+  // Vertical:   outer = rows (A–AN), inner = cols (1–5), 1fr cell width, fills width
+  const outerCount = isHorizontal ? numCols : numRows;
+  const innerCount = isHorizontal ? numRows : numCols;
+
+  const gridCols = isHorizontal
+    ? `${CELL_SIZE}px repeat(${innerCount}, ${CELL_SIZE}px)`
+    : `${CELL_SIZE}px repeat(${innerCount}, 1fr)`;
+
+  const getOuterLabel = (i: number) => isHorizontal ? String(i + 1) : getRowLabel(i);
+  const getInnerLabel = (i: number) => isHorizontal ? getRowLabel(i) : String(i + 1);
+
+  const findCell = (outerIdx: number, innerIdx: number) =>
+    isHorizontal
+      ? area.cells.find(c => c.col === outerIdx && c.row === innerIdx)
+      : area.cells.find(c => c.row === outerIdx && c.col === innerIdx);
+
+  const buildClickArgs = (outerIdx: number, innerIdx: number): [string, number] =>
+    isHorizontal
+      ? [getRowLabel(innerIdx), outerIdx + 1]
+      : [getRowLabel(outerIdx), innerIdx + 1];
 
   return (
     <Box sx={{ overflow: 'auto', scrollbarGutter: 'stable', p: 2.5, flex: 1 }}>
 
-      {/* Column number headers */}
-      <Box sx={{ display: 'grid', gridTemplateColumns: gridCols, columnGap: `${CELL_GAP}px`, mb: `${CELL_GAP}px` }}>
+      {/* Column headers */}
+      <Box sx={{
+        display: 'grid', gridTemplateColumns: gridCols,
+        columnGap: `${CELL_GAP}px`, mb: `${CELL_GAP}px`,
+        ...(isHorizontal ? { minWidth: 'max-content' } : {}),
+      }}>
         <Box /> {/* spacer for label column */}
-        {Array.from({ length: numNumberCols }, (_, i) => (
+        {Array.from({ length: innerCount }, (_, i) => (
           <Box key={i} sx={{ textAlign: 'center' }}>
             <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
-              {i + 1}
+              {getInnerLabel(i)}
             </Typography>
           </Box>
         ))}
       </Box>
 
       {/* Rows */}
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${CELL_GAP}px` }}>
-        {Array.from({ length: numLetterRows }, (_, rowIdx) => {
-          const letter = getRowLabel(rowIdx);
-          return (
-            <Box key={rowIdx} sx={{ display: 'grid', gridTemplateColumns: gridCols, columnGap: `${CELL_GAP}px` }}>
-              {/* Row letter */}
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: CELL_SIZE }}>
-                <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
-                  {letter}
-                </Typography>
-              </Box>
-              {/* Cells */}
-              {Array.from({ length: numNumberCols }, (_, colIdx) => {
-                const cell = area.cells.find(c => c.row === rowIdx && c.col === colIdx);
-                if (!cell) {
-                  return <Box key={colIdx} sx={{ height: CELL_SIZE, bgcolor: '#f5f5f5', border: '1px solid #c9c9c9', borderRadius: '9px' }} />;
-                }
-                return (
-                  <GridCell
-                    key={colIdx}
-                    cell={cell}
-                    onClick={() => onCellClick(cell, letter, colIdx + 1)}
-                  />
-                );
-              })}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: `${CELL_GAP}px`, ...(isHorizontal ? { minWidth: 'max-content' } : {}) }}>
+        {Array.from({ length: outerCount }, (_, outerIdx) => (
+          <Box key={outerIdx} sx={{ display: 'grid', gridTemplateColumns: gridCols, columnGap: `${CELL_GAP}px` }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: CELL_SIZE }}>
+              <Typography sx={{ fontSize: '0.875rem', color: 'rgba(26,35,50,0.7)', fontFamily: '"Roboto Mono", monospace', fontWeight: 500 }}>
+                {getOuterLabel(outerIdx)}
+              </Typography>
             </Box>
-          );
-        })}
+            {Array.from({ length: innerCount }, (_, innerIdx) => {
+              const cell = findCell(outerIdx, innerIdx);
+              if (!cell) {
+                return <Box key={innerIdx} sx={{ height: CELL_SIZE, bgcolor: '#f5f5f5', border: '1px solid #c9c9c9', borderRadius: '9px' }} />;
+              }
+              const [letter, num] = buildClickArgs(outerIdx, innerIdx);
+              return (
+                <GridCell
+                  key={innerIdx}
+                  cell={cell}
+                  onClick={() => onCellClick(cell, letter, num)}
+                />
+              );
+            })}
+          </Box>
+        ))}
       </Box>
 
       {/* Legend */}
@@ -806,6 +830,7 @@ export default function StagingAreaPage() {
   const [selectedArea, setSelectedArea] = useState<StagingArea | null>(null);
   const [mode, setMode] = useState<Mode>('view');
   const [cellViewMode, setCellViewMode] = useState<CellViewMode>('grid');
+  const [gridOrientation, setGridOrientation] = useState<GridOrientation>('vertical');
   const [editState, setEditState] = useState<EditState | null>(null);
 
   const filtered = mockStagingAreas.filter(area => {
@@ -831,6 +856,7 @@ export default function StagingAreaPage() {
     setSelectedArea(area);
     setMode('view');
     setCellViewMode('grid');
+    setGridOrientation('vertical');
     setEditState(null);
   };
 
@@ -900,6 +926,33 @@ export default function StagingAreaPage() {
                   </Box>
                 </Box>
 
+                {/* H / V orientation toggle — only for grid view */}
+                {cellViewMode === 'grid' && (
+                  <Box sx={{
+                    display: 'flex', alignItems: 'center',
+                    bgcolor: '#e5e5e5', border: '1px solid #e0e0e0',
+                    borderRadius: '8px', p: '2px', gap: '2px',
+                  }}>
+                    {(['vertical', 'horizontal'] as const).map((o) => (
+                      <Box
+                        key={o}
+                        onClick={() => setGridOrientation(o)}
+                        sx={{
+                          width: 34, height: 28, borderRadius: '6px', cursor: 'pointer',
+                          bgcolor: gridOrientation === o ? '#fff' : 'transparent',
+                          display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          transition: 'background-color 0.15s',
+                          '&:hover': { bgcolor: gridOrientation === o ? '#fff' : 'rgba(0,0,0,0.06)' },
+                        }}
+                      >
+                        <Typography sx={{ fontSize: '0.75rem', fontWeight: 700, color: '#1A2332', lineHeight: 1 }}>
+                          {o === 'vertical' ? 'V' : 'H'}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+
                 <ViewManageToggle mode={mode} onChange={setMode} />
               </Box>
             </Box>
@@ -908,7 +961,7 @@ export default function StagingAreaPage() {
           {/* Content */}
           <Box sx={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
             {cellViewMode === 'grid' ? (
-              <SAGridView area={selectedArea} onCellClick={handleCellClick} />
+              <SAGridView area={selectedArea} onCellClick={handleCellClick} orientation={gridOrientation} />
             ) : (
               <SACellListView area={selectedArea} onCellClick={handleCellClick} />
             )}
