@@ -122,7 +122,7 @@ export default function ReturnTrolleyPage() {
       <Box sx={{ flex: 1, overflow: 'auto', scrollbarGutter: 'stable', px: 3, pt: 2, pb: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
 
         {/* Container Type parent row */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75, flexWrap: { xs: 'wrap', md: 'nowrap' } }}>
           <LabelChip
             icon={GridViewOutlinedIcon}
             label="Container Type"
@@ -138,7 +138,7 @@ export default function ReturnTrolleyPage() {
               ? containerTypeName(mockContainers.find(c => c.id === val)!.type)
               : <Typography sx={{ color: 'rgba(26,35,50,0.43)', fontSize: '0.875rem', fontStyle: 'italic' }}>Please select container type</Typography>
             }
-            sx={{ ...selectSx, width: 440 }}
+            sx={{ ...selectSx, width: { xs: '100%', md: 440 } }}
           >
             {mockContainers.map(c => (
               <MenuItem key={c.id} value={c.id} sx={{ fontSize: '0.875rem' }}>

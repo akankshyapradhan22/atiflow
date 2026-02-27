@@ -47,7 +47,7 @@ export default function LoginPage() {
       <Box sx={{
         display: 'flex',
         flexDirection: 'row',
-        width: 684,
+        width: { xs: '100%', sm: 684 },
         maxWidth: '95vw',
         bgcolor: '#fff',
         border: '1px solid #cfcfcf',
@@ -59,7 +59,7 @@ export default function LoginPage() {
         <Box sx={{
           width: 249,
           flexShrink: 0,
-          display: 'flex',
+          display: { xs: 'none', sm: 'flex' },
           flexDirection: 'column',
           justifyContent: 'center',
           px: 3.5,
@@ -114,7 +114,7 @@ export default function LoginPage() {
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            px: '45px',
+            px: { xs: 3, sm: '45px' },
             pt: '25px',
             pb: '18px',
           }}

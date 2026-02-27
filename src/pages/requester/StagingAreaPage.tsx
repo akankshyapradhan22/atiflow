@@ -590,7 +590,7 @@ function SACard({ area, onClick }: { area: StagingArea; onClick: () => void }) {
         borderRadius: '10px',
         boxShadow: `-3px 0px 0px 0px ${accentColor}`,
         p: '16px 16px 20px',
-        width: 270,
+        width: { xs: '100%', sm: 270 },
         cursor: 'pointer',
         transition: 'box-shadow 0.15s',
         '&:hover': {
@@ -749,7 +749,7 @@ function ViewManageToggle({ mode, onChange }: { mode: Mode; onChange: (m: Mode) 
       display: 'flex', alignItems: 'center',
       bgcolor: '#f1f1f1', border: '1px solid #e0e0e0',
       borderRadius: '10px', p: '2px', gap: 0,
-      width: 200, height: 44,
+      width: { xs: 'auto', md: 200 }, height: 44,
     }}>
       <Button
         onClick={() => onChange('view')}
@@ -884,7 +884,7 @@ export default function StagingAreaPage() {
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', width: '100%' }}>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', width: '100%', flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 1 }}>
               <Box>
                 <Typography sx={{ fontWeight: 600, fontSize: '1.25rem', color: '#1A2332', lineHeight: 1.2 }}>
                   {selectedArea.name}
@@ -893,7 +893,7 @@ export default function StagingAreaPage() {
                   {selectedArea.rows} x {selectedArea.cols} cells
                 </Typography>
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, flexWrap: 'wrap' }}>
                 {/* Grid / List toggle for cell view */}
                 <Box sx={{
                   display: 'flex', alignItems: 'center',
@@ -987,7 +987,7 @@ export default function StagingAreaPage() {
           </Typography>
 
           {/* Tabs + toggle */}
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
             <Tabs
               value={tab}
               onChange={(_, v) => setTab(v)}

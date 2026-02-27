@@ -279,7 +279,7 @@ export default function RequestHistoryPage() {
       </Box>
 
       {/* Tabs */}
-      <Box sx={{ pl: '43px', flexShrink: 0 }}>
+      <Box sx={{ pl: { xs: 1, md: '43px' }, flexShrink: 0 }}>
         <Tabs
           value={tab}
           onChange={(_, v) => setTab(v)}
@@ -299,20 +299,20 @@ export default function RequestHistoryPage() {
       {/* Column headers */}
       <Box sx={{
         display: 'grid',
-        gridTemplateColumns: GRID_COLS,
+        gridTemplateColumns: { xs: '1fr 110px', md: GRID_COLS },
         columnGap: '16px',
-        pl: '43px',
+        pl: { xs: 2, md: '43px' },
         pr: '29px',
         py: 1,
         borderTop: '1px solid #f0f0f0',
         borderBottom: '1px solid #f0f0f0',
         flexShrink: 0,
       }}>
-        {['ID No.', 'Request Details', 'Request Time', 'Status', 'Actions'].map(h => (
-          <Typography key={h} sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>
-            {h}
-          </Typography>
-        ))}
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>ID No.</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>Request Details</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>Request Time</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>Status</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>Actions</Typography>
       </Box>
 
       {/* Rows */}
@@ -345,7 +345,7 @@ export default function RequestHistoryPage() {
                   <Box sx={{
                     flex: 1,
                     display: 'grid',
-                    gridTemplateColumns: GRID_COLS,
+                    gridTemplateColumns: { xs: '1fr 110px', md: GRID_COLS },
                     columnGap: '16px',
                     px: 1.5,
                     py: 1.25,
@@ -361,7 +361,7 @@ export default function RequestHistoryPage() {
                     </Box>
 
                     {/* Request details */}
-                    <Box>
+                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                       <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#1A2332', fontFamily: '"IBM Plex Mono", monospace', lineHeight: 1.4 }}>
                         {req.items}
                       </Typography>
@@ -371,7 +371,7 @@ export default function RequestHistoryPage() {
                     </Box>
 
                     {/* Request time */}
-                    <Box>
+                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                       <Typography sx={{ fontSize: '0.875rem', color: '#1A2332', fontFamily: '"IBM Plex Mono", monospace', lineHeight: 1.4 }}>
                         {time}
                       </Typography>
@@ -381,7 +381,7 @@ export default function RequestHistoryPage() {
                     </Box>
 
                     {/* Status */}
-                    <Box>
+                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                       <StatusBadge status={req.status} />
                       <Typography sx={{ fontSize: '0.5rem', fontStyle: 'italic', color: 'rgba(26,35,50,0.68)', mt: 0.75, display: 'block' }}>
                         Updated 30 mins ago
@@ -426,6 +426,7 @@ export default function RequestHistoryPage() {
                           borderRadius: '13px',
                           overflow: 'hidden',
                           bgcolor: '#f7f7f7',
+                          overflowX: 'auto',
                         }}>
                           {/* Header */}
                           <Box sx={{
@@ -554,13 +555,14 @@ export default function RequestHistoryPage() {
 
       {/* Footer */}
       <Box sx={{
-        px: 3, py: 1.5,
+        px: { xs: 2, md: 3 }, py: 1.5,
         borderTop: '1px solid #f0f0f0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         bgcolor: '#fff',
         flexShrink: 0,
+        gap: 1,
       }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
           <Typography sx={{ fontSize: '0.75rem', color: '#1A2332', fontWeight: 400 }}>

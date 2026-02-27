@@ -59,7 +59,7 @@ export default function ApprovalsPage() {
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', minHeight: 0 }}>
 
       {/* Breadcrumb */}
-      <Box sx={{ px: 3, py: 1.5, flexShrink: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <Box sx={{ px: { xs: 2, md: 3 }, py: 1.5, flexShrink: 0, display: 'flex', alignItems: 'center', gap: '6px' }}>
         <Typography sx={{ fontWeight: 500, fontSize: '1rem', color: '#1A2332' }}>
           {user.stationId}
         </Typography>
@@ -70,7 +70,7 @@ export default function ApprovalsPage() {
       </Box>
 
       {/* Tabs */}
-      <Box sx={{ pl: '43px', flexShrink: 0 }}>
+      <Box sx={{ pl: { xs: 1, md: '43px' }, flexShrink: 0 }}>
         <Tabs
           value={tab}
           onChange={(_, v: TabValue) => setTab(v)}
@@ -95,20 +95,27 @@ export default function ApprovalsPage() {
       {/* Column header */}
       <Box sx={{
         display: 'grid',
-        gridTemplateColumns: GRID_COLS,
+        gridTemplateColumns: { xs: '1fr 1fr', md: GRID_COLS },
         columnGap: '16px',
-        pl: '43px',
+        pl: { xs: 2, md: '43px' },
         pr: '122px',
         py: '8px',
         flexShrink: 0,
         borderTop: '1px solid #f0f0f0',
         borderBottom: '1px solid #e0e0e0',
       }}>
-        {['ID No.', 'Request Details', 'Request Time', 'Inventory Status'].map((col) => (
-          <Typography key={col} sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(26,35,50,0.54)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-            {col}
-          </Typography>
-        ))}
+        <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(26,35,50,0.54)', textTransform: 'uppercase', letterSpacing: '0.05em', display: { xs: 'none', md: 'block' } }}>
+          ID No.
+        </Typography>
+        <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(26,35,50,0.54)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          Request Details
+        </Typography>
+        <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(26,35,50,0.54)', textTransform: 'uppercase', letterSpacing: '0.05em', display: { xs: 'none', md: 'block' } }}>
+          Request Time
+        </Typography>
+        <Typography sx={{ fontSize: '0.6875rem', fontWeight: 600, color: 'rgba(26,35,50,0.54)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          Inventory Status
+        </Typography>
       </Box>
 
       {/* Rows */}
@@ -174,7 +181,7 @@ function ApprovalRow({
       <Box sx={{
         flex: 1,
         display: 'grid',
-        gridTemplateColumns: GRID_COLS,
+        gridTemplateColumns: { xs: '1fr 1fr', md: GRID_COLS },
         columnGap: '16px',
         pl: '15px',
         pr: '4px',
@@ -183,7 +190,7 @@ function ApprovalRow({
         minWidth: 0,
       }}>
         {/* ID + type badge */}
-        <Box>
+        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
           <Typography sx={{
             fontFamily: '"IBM Plex Mono", monospace',
             fontSize: '0.875rem',
@@ -232,7 +239,7 @@ function ApprovalRow({
         </Box>
 
         {/* Request time */}
-        <Box>
+        <Box sx={{ display: { xs: 'none', md: 'block' } }}>
           <Typography sx={{
             fontFamily: '"IBM Plex Mono", monospace',
             fontSize: '0.875rem',

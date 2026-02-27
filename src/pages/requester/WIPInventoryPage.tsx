@@ -81,16 +81,17 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
       {/* Column headers — pl offset matches: card px:2(16) + accent(14) + content px:1.5(12) = 42px */}
       <Box sx={{
         display: 'grid',
-        gridTemplateColumns: LIST_GRID_COLS,
+        gridTemplateColumns: { xs: '1fr 110px', md: LIST_GRID_COLS },
         columnGap: '16px',
-        px: 3, pl: '43px', py: 1,
+        px: 3, pl: { xs: 2, md: '43px' }, py: 1,
         borderTop: '1px solid #f0f0f0',
         borderBottom: '1px solid #f0f0f0',
         flexShrink: 0,
       }}>
-        {['Sub-SKU Details', 'Status', 'Quantity', 'Actions'].map(h => (
-          <Typography key={h} sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>{h}</Typography>
-        ))}
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>Sub-SKU Details</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>Status</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>Quantity</Typography>
+        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: '#1A2332' }}>Actions</Typography>
       </Box>
 
       {/* Rows */}
@@ -116,7 +117,7 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
                 <Box sx={{
                   flex: 1,
                   display: 'grid',
-                  gridTemplateColumns: LIST_GRID_COLS,
+                  gridTemplateColumns: { xs: '1fr 110px', md: LIST_GRID_COLS },
                   px: 1.5, py: 1.25,
                   alignItems: 'center',
                   minWidth: 0,
@@ -138,7 +139,7 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
                   </Box>
 
                   {/* Status */}
-                  <Box>
+                  <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                     <StatusBadge status={row._status} />
                     <Typography sx={{
                       fontSize: '0.5rem', fontStyle: 'italic',
@@ -149,7 +150,7 @@ function ListView({ rows }: { rows: RowWithStatus[] }) {
                   </Box>
 
                   {/* Quantity */}
-                  <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: '#1A2332' }}>
+                  <Typography sx={{ fontSize: '1rem', fontWeight: 700, color: '#1A2332', display: { xs: 'none', md: 'block' } }}>
                     {row.available}
                   </Typography>
 
@@ -195,7 +196,7 @@ function GridView({ rows }: { rows: RowWithStatus[] }) {
       py: 2,
       borderTop: '1px solid #f0f0f0',
       display: 'grid',
-      gridTemplateColumns: 'repeat(3, 1fr)',
+      gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
       gap: 1.75,
       alignContent: 'start',
     }}>
@@ -303,7 +304,7 @@ export default function WIPInventoryPage() {
           </Typography>
 
           {/* Tabs row + view toggle */}
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 1 }}>
             <Tabs
               value={tab}
               onChange={(_, v) => setTab(v)}
@@ -355,7 +356,7 @@ export default function WIPInventoryPage() {
       <Box sx={{
         width: 172, flexShrink: 0,
         borderLeft: '1px solid #f0f0f0',
-        display: 'flex', flexDirection: 'column',
+        display: { xs: 'none', md: 'flex' }, flexDirection: 'column',
         px: 2, pt: 2.5, pb: 2, gap: 1.25,
         overflow: 'auto', scrollbarGutter: 'stable',
       }}>

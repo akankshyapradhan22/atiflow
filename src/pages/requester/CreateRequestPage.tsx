@@ -101,8 +101,8 @@ function WizardStepper({ step }: { step: number }) {
   const progressWidth = step === 1 ? 0 : step === 2 ? 207 : step === 3 ? 417 : 593;
 
   return (
-    <Box sx={{ py: 1.5, pl: '44px' }}>
-      <Box sx={{ position: 'relative', height: 42, width: 678 }}>
+    <Box sx={{ py: 1.5, pl: { xs: 2, md: '44px' }, overflowX: 'auto' }}>
+      <Box sx={{ position: 'relative', height: 42, width: 678, minWidth: 320 }}>
         {/* Grey background line */}
         <Box sx={{ position: 'absolute', top: 9, left: 49, width: 593, height: '2px', bgcolor: 'rgba(99,115,129,0.25)', zIndex: 0 }} />
         {/* Teal progress line */}
@@ -311,7 +311,7 @@ export default function CreateRequestPage() {
         {step === 1 && (
           <>
             {/* SKU parent row */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75, flexWrap: { xs: 'wrap', md: 'nowrap' } }}>
               <LabelChip
                 icon={GridViewOutlinedIcon}
                 label={selectedSku?.code ?? 'SKU'}
@@ -327,7 +327,7 @@ export default function CreateRequestPage() {
                   ? mockMaterials.find(m => m.id === val)?.name
                   : <Typography sx={{ color: 'rgba(26,35,50,0.43)', fontSize: '0.875rem', fontStyle: 'italic' }}>Please select SKU</Typography>
                 }
-                sx={{ ...selectSx, width: 440 }}
+                sx={{ ...selectSx, width: { xs: '100%', md: 440 } }}
               >
                 {mockMaterials.map(m => (
                   <MenuItem key={m.id} value={m.id} sx={{ fontSize: '0.875rem' }}>
@@ -451,7 +451,7 @@ export default function CreateRequestPage() {
             </Typography>
 
             {/* Container type row */}
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.75, flexWrap: { xs: 'wrap', md: 'nowrap' } }}>
               <LabelChip
                 icon={Inventory2OutlinedIcon}
                 label="Container"
@@ -463,7 +463,7 @@ export default function CreateRequestPage() {
                 value={containerTypeId}
                 onChange={e => setContainerTypeId(e.target.value)}
                 size="small"
-                sx={{ ...selectSx, width: 440 }}
+                sx={{ ...selectSx, width: { xs: '100%', md: 440 } }}
               >
                 {mockContainers.map(c => (
                   <MenuItem key={c.id} value={c.id} sx={{ fontSize: '0.875rem' }}>
@@ -738,10 +738,9 @@ export default function CreateRequestPage() {
                   Summary
                 </Typography>
               </Box>
-              {/* Data row — exact pixel positions from Figma spec (card body: 83px) */}
-              <Box sx={{ position: 'relative', height: 83 }}>
-                {/* Material: left:12, label top:16, value top:46 */}
-                <Box sx={{ position: 'absolute', left: 12, top: 16 }}>
+              {/* Data row — responsive flex layout */}
+              <Box sx={{ display: 'flex', alignItems: 'flex-start', px: '12px', py: '16px', gap: 2, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+                <Box sx={{ flex: '0 0 auto' }}>
                   <Typography sx={{ fontWeight: 500, fontSize: '0.875rem', color: 'rgba(26,35,50,0.54)', lineHeight: '19px', mb: '11px' }}>
                     Material
                   </Typography>
@@ -749,8 +748,7 @@ export default function CreateRequestPage() {
                     {selectedSku?.code ?? cart[0]?.skuName ?? '—'}
                   </Typography>
                 </Box>
-                {/* Quantity: left:193 */}
-                <Box sx={{ position: 'absolute', left: 193, top: 16 }}>
+                <Box sx={{ flex: '0 0 auto' }}>
                   <Typography sx={{ fontWeight: 500, fontSize: '0.875rem', color: 'rgba(26,35,50,0.54)', lineHeight: '19px', mb: '11px' }}>
                     Quantity
                   </Typography>
@@ -758,10 +756,8 @@ export default function CreateRequestPage() {
                     {cart.reduce((sum, item) => sum + item.quantity, 0)} units
                   </Typography>
                 </Box>
-                {/* Single vertical divider: left:327, top:10, height:61 */}
-                <Box sx={{ position: 'absolute', left: 327, top: 10, width: '1px', height: 61, bgcolor: 'rgba(99,115,129,0.24)' }} />
-                {/* Return Empty Container: left:375 */}
-                <Box sx={{ position: 'absolute', left: 375, top: 16, right: 12 }}>
+                <Box sx={{ width: '1px', bgcolor: 'rgba(99,115,129,0.24)', alignSelf: 'stretch', display: { xs: 'none', sm: 'block' } }} />
+                <Box sx={{ flex: 1 }}>
                   <Typography sx={{ fontWeight: 500, fontSize: '0.875rem', color: '#1A2332', lineHeight: '19px', mb: '11px' }}>
                     Return Empty Container:
                   </Typography>
