@@ -520,6 +520,7 @@ export default function RequestHistoryPage() {
                               </Box>
                               <Box sx={{
                                 maxHeight: 130, overflowY: 'auto', scrollbarGutter: 'stable',
+                                scrollbarWidth: 'thin', scrollbarColor: '#9e9e9e transparent',
                                 '&::-webkit-scrollbar': { width: 6 },
                                 '&::-webkit-scrollbar-thumb': { bgcolor: '#9e9e9e', borderRadius: 20 },
                               }}>

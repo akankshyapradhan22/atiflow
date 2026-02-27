@@ -9,6 +9,14 @@ html, body, #root {
   overflow: hidden;
 }
 
+/* Dynamic viewport height for mobile Safari (15.4+) / Chrome (108+) / Firefox (101+).
+   Ensures the layout excludes the browser chrome on mobile instead of overflowing behind it. */
+@supports (height: 100dvh) {
+  html {
+    height: 100dvh;
+  }
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,7 +31,13 @@ body {
   width: 100%;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styling — Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* Scrollbar styling — Chrome, Safari, Edge */
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;

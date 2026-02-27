@@ -4,7 +4,7 @@ import BottomNav, { BOTTOM_NAV_HEIGHT } from './BottomNav';
 
 export default function RequesterLayout() {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
       <Box
         sx={{
           pb: `${BOTTOM_NAV_HEIGHT}px`,

@@ -15,7 +15,7 @@ export default function TabletLayout() {
   return (
     <Box sx={{
       display: 'flex',
-      height: '100vh',
+      height: '100%',
       overflow: 'hidden',
       bgcolor: '#e9e9e9',
       p: 1.5,
@@ -49,6 +49,9 @@ export default function TabletLayout() {
               width: SIDEBAR_WIDTH,
               boxSizing: 'border-box',
               height: '100vh',
+            },
+            '@supports (height: 100dvh)': {
+              '& .MuiDrawer-paper': { height: '100dvh' },
             },
           }}
         >
