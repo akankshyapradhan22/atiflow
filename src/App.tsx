@@ -55,7 +55,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <GlobalStyles styles={{ body: { backgroundColor: '#e9e9e9' } }} />
-      <Box sx={{ maxWidth: 1366, mx: 'auto', height: '100vh', overflow: 'hidden' }}>
+      <Box sx={{ width: '100%', maxWidth: 1366, mx: 'auto', height: '100vh', overflow: 'hidden' }}>
         <BrowserRouter>
           <AppRoutes />
         </BrowserRouter>

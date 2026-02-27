@@ -15,7 +15,6 @@ export default function TabletLayout() {
   return (
     <Box sx={{
       display: 'flex',
-      width: '100vw',
       height: '100vh',
       overflow: 'hidden',
       bgcolor: '#e9e9e9',
