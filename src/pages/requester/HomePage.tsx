@@ -12,7 +12,6 @@ import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../stores/authStore';
 import { useWorkflowStore } from '../../stores/workflowStore';
 import { mockRequests } from '../../data/mock';
 import type { Request } from '../../types';
@@ -112,7 +111,6 @@ const statConfigs = [
 
 export default function HomePage() {
   const navigate = useNavigate();
-  const user = useAuthStore((s) => s.user);
   const activeWorkflow = useWorkflowStore((s) => s.activeWorkflow);
   const [searchQuery, setSearchQuery] = useState('');
 
