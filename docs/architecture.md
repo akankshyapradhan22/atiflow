@@ -103,6 +103,7 @@ The `/` route renders `TabletLayout` as its shell. All child routes render into 
 ### Viewport Budget
 
 ```
+md+ (≥ 900px)
 ┌───────────────────────────────────────────────┐
 │  ┌──────────┐  ┌─────────────────────────────┐│
 │  │          │  │                             ││
@@ -111,31 +112,61 @@ The `/` route renders `TabletLayout` as its shell. All child routes render into 
 │  │          │  │                             ││
 │  └──────────┘  └─────────────────────────────┘│
 └───────────────────────────────────────────────┘
-  ← Outer box: 1024px, p: 1.5, gap: 1.5, bgcolor: #e9e9e9 →
-```
+  ← Outer box: fills viewport (max 1366px), p: 1.5, gap: 1.5, bgcolor: #e9e9e9 →
 
-**Target screen:** 1024 × 616 px landscape
+< md (< 900px — mobile)
+┌──────────────────────┐
+│ ☰  [top bar]         │
+│ ┌────────────────────┤
+│ │                    │
+│ │  Page content      │
+│ │  (Outlet)          │
+│ │                    │
+│ └────────────────────┤
+└──────────────────────┘
+  Sidebar → temporary Drawer (opened via hamburger)
+```
 
 Both the sidebar card and the main content card have `borderRadius: '10px'` and `border: '1px solid #e0e0e0'` to create a floating card effect on a grey background. Page content fills 100% of the content card height via flex layout.
 
 ### `TabletLayout.tsx`
 
 ```tsx
-<Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden',
+<Box sx={{ display: 'flex', height: '100%', overflow: 'hidden',
            bgcolor: '#e9e9e9', p: 1.5, gap: 1.5, boxSizing: 'border-box' }}>
 
-  {/* Sidebar card — 153px wide, permanent on md+ */}
-  <Box sx={{ width: SIDEBAR_WIDTH, flexShrink: 0, height: '100%',
-             border: '1px solid #e0e0e0', borderRadius: '10px',
-             overflow: 'hidden', bgcolor: '#fff' }}>
-    <TabletSidebar />
-  </Box>
+  {/* Permanent sidebar card — md+ only */}
+  {!isMobile && (
+    <Box sx={{ width: SIDEBAR_WIDTH, flexShrink: 0, height: '100%',
+               border: '1px solid #e0e0e0', borderRadius: '10px',
+               overflow: 'hidden', bgcolor: '#fff' }}>
+      <TabletSidebar />
+    </Box>
+  )}
+
+  {/* Temporary drawer — mobile only */}
+  {isMobile && (
+    <Drawer variant="temporary" open={mobileOpen} onClose={...}
+      sx={{
+        '& .MuiDrawer-paper': { width: SIDEBAR_WIDTH, height: '100vh' },
+        '@supports (height: 100dvh)': { '& .MuiDrawer-paper': { height: '100dvh' } },
+      }}>
+      <TabletSidebar onClose={...} />
+    </Drawer>
+  )}
 
   {/* Content card — flex: 1 */}
   <Box component="main" sx={{ flex: 1, display: 'flex', flexDirection: 'column',
                                overflow: 'hidden', minWidth: 0,
                                border: '1px solid #e0e0e0', borderRadius: '10px',
                                bgcolor: '#fff' }}>
+    {/* Mobile hamburger top bar */}
+    {isMobile && (
+      <Box sx={{ px: 1, py: 0.5, borderBottom: '1px solid #e0e0e0',
+                 display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+        <IconButton onClick={openDrawer}><MenuIcon /></IconButton>
+      </Box>
+    )}
     <Box sx={{ flex: 1, overflow: 'hidden', display: 'flex',
                flexDirection: 'column', minHeight: 0 }}>
       <Outlet />
@@ -144,7 +175,18 @@ Both the sidebar card and the main content card have `borderRadius: '10px'` and 
 </Box>
 ```
 
-On mobile breakpoints (below `md`), the sidebar becomes a temporary MUI Drawer triggered by a hamburger `MenuIcon` in a top bar.
+`isMobile` = `useMediaQuery(theme.breakpoints.down('md'))` — triggers below 900 px.
+
+### Layout Width Stability
+
+The App wrapper in `App.tsx` uses `width: '100%'` to anchor the layout to a definite viewport width:
+
+```tsx
+// App.tsx
+<Box sx={{ width: '100%', maxWidth: 1366, mx: 'auto', height: '100%', overflow: 'hidden' }}>
+```
+
+`mx: 'auto'` on a flex item of a column flex container (`#root`) suppresses `align-items: stretch`, which would otherwise make the wrapper's width content-determined rather than viewport-filling. The explicit `width: '100%'` ensures the layout always fills the available width regardless of how much content each page renders. `maxWidth: 1366` caps and centres the layout on very wide displays.
 
 ### The `minHeight: 0` Pattern
 
@@ -232,6 +274,98 @@ Some pages implement their own internal navigation using `useState`:
 - `StagingAreaPage`: `selectedArea = null | StagingArea` controls list vs. detail view
 
 This keeps the URL stable (no back/forward navigation between sub-steps), which is intentional for industrial touch UIs where back-button confusion must be minimised.
+
+---
+
+## Responsive Design
+
+The application is fully responsive across all major screen sizes on a single codebase. Responsive behaviour is implemented via MUI `sx` breakpoint syntax — no separate mobile build or stylesheet.
+
+### Breakpoints
+
+| Name | Range | Layout behaviour |
+|---|---|---|
+| `xs` | 0 – 599 px | Single-column, full-width elements, most table columns hidden |
+| `sm` | 600 – 899 px | Wider single-column, cards begin showing side-by-side |
+| `md` | 900 – 1199 px | Two-panel layout (sidebar + content card); this is the native tablet size |
+| `lg` | 1200 px+ | Same as `md`; `maxWidth: 1366` caps the layout width |
+
+The sidebar switches from permanent to a temporary `Drawer` below `md` (< 900 px).
+
+### Per-page Responsive Changes
+
+| Page | xs / sm behaviour |
+|---|---|
+| **Login** | Left decorative panel hidden; form full-width |
+| **Request History** | Grid collapses to 2 columns (name + status); date/time/ID columns hidden |
+| **Approvals** | Grid collapses to 2 columns; ID and Time columns hidden |
+| **WIP Inventory** | Overview sidebar hidden; card grid switches to 2 columns; status/quantity columns hidden in list |
+| **Staging Area** | SA cards go full-width at `xs`; detail header wraps vertically |
+| **Create Request** | Wizard step scroller allows horizontal scroll; select fields go full-width; rows wrap vertically |
+| **Container Selection** | Select fields go full-width; rows wrap vertically |
+| **Return Trolley** | Select fields go full-width; rows wrap vertically |
+
+Content that overflows a card scrolls horizontally **within** the card via `overflowX: 'auto'` on scroll containers. Card widths are always constant — set by `flex: 1` on the main content card.
+
+---
+
+## Browser Compatibility
+
+### Viewport Height (`100dvh`)
+
+`src/index.css` uses a `@supports` progressive enhancement to switch `html` to `100dvh` on browsers that support it:
+
+```css
+html, body, #root {
+  height: 100%;  /* base — chains percentage through parent */
+}
+
+@supports (height: 100dvh) {
+  html { height: 100dvh; }  /* dynamic viewport height — excludes mobile browser chrome */
+}
+```
+
+All layout containers (`App.tsx`, `TabletLayout.tsx`) use `height: '100%'` rather than `height: '100vh'` so they inherit through this chain. The MUI Drawer paper (which is `position: fixed`) keeps `100vh` as its base with an `@supports` override to `100dvh`.
+
+| Browser | `100dvh` support | Fallback behaviour |
+|---|---|---|
+| Safari iOS / macOS | 15.4+ | `height: 100%` (= `100vh` equivalent) |
+| Chrome | 108+ | `height: 100%` (= `100vh` equivalent) |
+| Firefox | 101+ | `height: 100%` (= `100vh` equivalent) |
+
+### Scrollbar Styling
+
+Two layers of scrollbar styling are applied to cover all browsers:
+
+```css
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 4px; }
+```
+
+Inline scroll containers that need custom colours (e.g. the trip history table in Request History) also carry `scrollbarWidth` and `scrollbarColor` in their `sx` props alongside the `&::-webkit-scrollbar` rules.
+
+### `scrollbarGutter: 'stable'`
+
+All scroll containers use `scrollbarGutter: 'stable'` to pre-reserve scrollbar space on platforms with classic (non-overlay) scrollbars (Windows Chrome, Windows Firefox), preventing layout shift when a scrollbar appears or disappears. Safari silently ignores this property — on Safari, scrollbars are always overlay and take no space, so no layout shift occurs without it.
+
+### Feature Support Matrix
+
+| Feature | Chrome | Firefox | Safari (macOS/iOS) | Edge |
+|---|---|---|---|---|
+| `100dvh` | ✓ 108+ | ✓ 101+ | ✓ 15.4+ | ✓ (Chromium) |
+| `scrollbar-gutter: stable` | ✓ 94+ | ✓ 97+ | ignored (overlay scrollbars) | ✓ |
+| `scrollbar-width` / `scrollbar-color` | — | ✓ 64+ | — | — |
+| `-webkit-scrollbar` | ✓ | — | ✓ | ✓ |
+| `overscroll-behavior: none` | ✓ 63+ | ✓ 59+ | ✓ 16+ | ✓ |
+| Flex `gap` | ✓ 84+ | ✓ 63+ | ✓ 14.1+ | ✓ |
 
 ---
 

@@ -125,6 +125,26 @@ MUI's default 8px grid is used throughout. Common spacing values:
 
 ---
 
+## Responsive Breakpoints
+
+MUI's default breakpoint scale is used throughout. All responsive `sx` values follow the object syntax:
+
+```tsx
+// Example — column count changes at md
+gridTemplateColumns: { xs: '1fr 110px', md: '1fr 155px 80px 110px' }
+```
+
+| Breakpoint | Range | Typical usage |
+|---|---|---|
+| `xs` | 0 – 599 px | Phone portrait — minimal columns, full-width inputs |
+| `sm` | 600 – 899 px | Phone landscape / small tablet — intermediate layouts |
+| `md` | 900 – 1199 px | Native tablet (1024 px) — full sidebar, full column sets |
+| `lg` | 1200 px+ | Desktop — same as `md`; layout width caps at 1366 px |
+
+The sidebar switches from permanent to a temporary `Drawer` below `md`. Below `md`, a hamburger icon appears in a top bar inside the content card.
+
+---
+
 ## Border Radius
 
 | Value | px | Usage |

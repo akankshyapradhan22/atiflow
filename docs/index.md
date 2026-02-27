@@ -1,6 +1,6 @@
 # AtiFLOW v2.0 –  Requester and Approver application
 
-**AtiFLOW v2.0** Requester & Approver is an application currently designed to operate on a 1024 × 640 screen based on the existing reference device. While it is presently used on tablet-sized displays, the application is not strictly defined as a tablet-only solution.
+**AtiFLOW v2.0** Requester & Approver is a fully responsive application that runs across tablets, desktops, and mobile phones on a single codebase. The native reference device is a 1024 × 616 px landscape tablet, but the UI adapts across all major screen sizes using MUI breakpoints.
 
 The application supports two device roles on a single codebase:
 
@@ -18,11 +18,21 @@ This document strictly covers the Requester and Approver flows in their current 
 
 | Property | Value |
 |---|---|
-| Screen | 1024 × 616 px landscape |
+| Native reference screen | 1024 × 616 px landscape tablet |
+| Responsive range | 360 px (phone) → 1366 px (desktop, capped) |
 | Touch target minimum | 44 px (WCAG 2.1 AA) |
-| Orientation | Landscape only |
-| Input method | Touch (no hover dependency) |
+| Orientation | Landscape (native); portrait supported on smaller screens |
+| Input method | Touch primary; pointer/keyboard on desktop |
 | Network | Always-connected (MTS-PROD) |
+
+### Browser Support
+
+| Browser | Minimum supported version |
+|---|---|
+| Safari (iOS + macOS) | 15.4+ (full `100dvh` support) |
+| Chrome | 108+ (full `100dvh` support) |
+| Firefox | 97+ (`scrollbar-gutter` support) |
+| Edge | Chromium-based — same as Chrome |
 
 ---
 
