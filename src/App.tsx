@@ -15,6 +15,7 @@ import WIPInventoryPage from './pages/requester/WIPInventoryPage';
 import SettingsPage from './pages/settings/SettingsPage';
 import ProfilePage from './pages/profile/ProfilePage';
 import ApprovalsPage from './pages/approver/ApprovalsPage';
+import HomePage from './pages/requester/HomePage';
 
 function AuthGuard({ children }: { children: React.ReactNode }) {
   const user = useAuthStore((s) => s.user);
@@ -27,12 +28,13 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/login" element={user ? <Navigate to={user.role === 'approver' ? '/approvals' : '/history'} replace /> : <LoginPage />} />
+      <Route path="/login" element={user ? <Navigate to={user.role === 'approver' ? '/approvals' : '/home'} replace /> : <LoginPage />} />
       <Route
         path="/"
         element={<AuthGuard><TabletLayout /></AuthGuard>}
       >
-        <Route index element={<Navigate to={user?.role === 'approver' ? '/approvals' : '/history'} replace />} />
+        <Route index element={<Navigate to={user?.role === 'approver' ? '/approvals' : '/home'} replace />} />
+        <Route path="home" element={<HomePage />} />
         <Route path="history" element={<RequestHistoryPage />} />
         <Route path="history/create" element={<CreateRequestPage />} />
         <Route path="history/checkout" element={<CheckoutPage />} />

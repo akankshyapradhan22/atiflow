@@ -14,6 +14,7 @@ import { useWorkflowStore } from '../../stores/workflowStore';
 export const SIDEBAR_WIDTH = 153;
 
 const requesterNavItems = [
+  { label: 'Home', path: '/home' },
   { label: 'Request History', path: '/history' },
   { label: 'Staging Area', path: '/staging' },
   { label: 'WIP Inventory', path: '/inventory' },
@@ -152,11 +153,11 @@ export default function TabletSidebar({ onClose }: { onClose?: () => void }) {
         sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 2, py: 1.5, cursor: 'pointer', '&:hover': { bgcolor: 'rgba(0,0,0,0.03)' } }}
       >
         <Avatar sx={{ width: 36, height: 36, bgcolor: '#00a99d', fontSize: '1rem', fontWeight: 700, flexShrink: 0 }}>
-          {user.username.charAt(0).toUpperCase()}
+          {user.stationId.charAt(0).toUpperCase()}
         </Avatar>
         <Box sx={{ overflow: 'hidden' }}>
           <Typography sx={{ fontSize: '0.875rem', fontWeight: 500, color: '#1A2332', lineHeight: 1.3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {user.username}
+            {user.stationId}
           </Typography>
           <Typography sx={{ fontSize: '0.75rem', color: 'rgba(26,35,50,0.54)', lineHeight: 1.3 }}>
             {user.role === 'approver' ? 'Approver' : 'Operator'}
