@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -89,53 +89,52 @@ const selectSx = {
 };
 
 /* ── Wizard Stepper ── */
-function WizardStepper({ step }: { step: number }) {
-  // Exact pixel positions from Figma (Frame 266: 678×42px, left: 246px)
-  const circles = [
-    { left: 43,  label: 'Request Material',       labelLeft: 0   },
-    { left: 248, label: 'Return Empty\nContainer', labelLeft: 185 },
-    { left: 458, label: 'Request Summary',         labelLeft: 411 },
-    { left: 636, label: 'Confirmation',            labelLeft: 604 },
-  ];
-  // Progress line starts at left: 49px; widths to each circle center
-  const progressWidth = step === 1 ? 0 : step === 2 ? 207 : step === 3 ? 417 : 593;
+const STEPPER_STEPS = [
+  'Request Material',
+  'Return Empty Container',
+  'Request Summary',
+  'Confirmation',
+] as const;
 
+function WizardStepper({ step }: { step: number }) {
   return (
-    <Box sx={{ py: 1.5, pl: { xs: 2, md: '44px' }, overflowX: 'auto' }}>
-      <Box sx={{ position: 'relative', height: 42, width: 678, minWidth: 320 }}>
-        {/* Grey background line */}
-        <Box sx={{ position: 'absolute', top: 9, left: 49, width: 593, height: '2px', bgcolor: 'rgba(99,115,129,0.25)', zIndex: 0 }} />
-        {/* Teal progress line */}
-        {step > 1 && (
-          <Box sx={{ position: 'absolute', top: 9, left: 49, width: progressWidth, height: '2px', bgcolor: '#00a99d', zIndex: 0, transition: 'width 0.25s ease' }} />
-        )}
-        {/* Circles */}
-        {circles.map((c, i) => {
+    <Box sx={{ py: 1.5, px: { xs: 2, md: 3 }, display: 'flex', justifyContent: 'center', overflowX: 'auto' }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', width: '100%', minWidth: 480, maxWidth: 680 }}>
+        {STEPPER_STEPS.map((label, i) => {
           const num = i + 1;
-          const teal = step >= num;
+          const active = step >= num;
+          const isLast = i === STEPPER_STEPS.length - 1;
           return (
-            <Box key={`c${num}`} sx={{
-              position: 'absolute', top: 2, left: c.left,
-              width: 16, height: 16, borderRadius: '50%',
-              bgcolor: teal ? '#00a99d' : '#e8e8e8',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1,
-            }}>
-              <Typography sx={{ fontSize: '0.625rem', fontWeight: 400, color: teal ? '#fff' : '#9E9E9E', lineHeight: 1 }}>
-                {num}
-              </Typography>
-            </Box>
+            <Fragment key={label}>
+              {/* Step node: circle + label, column-centred */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
+                <Box sx={{
+                  width: 16, height: 16, borderRadius: '50%',
+                  bgcolor: active ? '#00a99d' : '#e8e8e8',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                }}>
+                  <Typography sx={{ fontSize: '0.625rem', fontWeight: 400, color: active ? '#fff' : '#9E9E9E', lineHeight: 1 }}>
+                    {num}
+                  </Typography>
+                </Box>
+                <Typography sx={{
+                  fontSize: '0.75rem', fontWeight: 400, color: '#1A2332',
+                  lineHeight: '19px', mt: 0.75, whiteSpace: 'nowrap', textAlign: 'center',
+                }}>
+                  {label}
+                </Typography>
+              </Box>
+              {/* Connector line — fills space between step nodes */}
+              {!isLast && (
+                <Box sx={{
+                  flex: 1, height: 2, mt: '7px', minWidth: 16,
+                  bgcolor: step > num ? '#00a99d' : 'rgba(99,115,129,0.25)',
+                  transition: 'background-color 0.25s ease',
+                }} />
+              )}
+            </Fragment>
           );
         })}
-        {/* Labels */}
-        {circles.map((c, i) => (
-          <Typography key={`l${i}`} sx={{
-            position: 'absolute', top: 23, left: c.labelLeft,
-            fontSize: '0.75rem', fontWeight: 400, color: '#1A2332',
-            lineHeight: '19px', whiteSpace: 'pre-line',
-          }}>
-            {c.label}
-          </Typography>
-        ))}
       </Box>
     </Box>
   );

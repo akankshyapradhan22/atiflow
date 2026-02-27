@@ -132,13 +132,31 @@ export const mockStagingAreas: StagingArea[] = [
 ];
 
 export const mockRequests: Request[] = [
-  { id: 'Req-001', type: 'material',  status: 'in_progress',          createdAt: 'Today, 3:00 pm', items: 'SKU 7765',       workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-002', type: 'container', status: 'failed',               createdAt: 'Today, 3:00 pm', items: 'Leaf Container', workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-003', type: 'material',  status: 'completed',            createdAt: 'Today, 2:30 pm', items: 'Widget A – T1',  workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-004', type: 'material',  status: 'pending',              createdAt: 'Today, 2:00 pm', items: 'Bracket B – T1', workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-005', type: 'container', status: 'awaiting_confirmation', createdAt: 'Today, 1:45 pm', items: 'Heavy Trolley',  workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-006', type: 'material',  status: 'completed',            createdAt: 'Today, 1:00 pm', items: 'Panel C – T2',   workflow: 'Assembly Line A', workflowId: 'wf-01' },
-  { id: 'Req-007', type: 'material',  status: 'failed',               createdAt: 'Today, 12:30 pm', items: 'Axle D – T1',  workflow: 'QC Station B',    workflowId: 'wf-02' },
+  // ── Today ──────────────────────────────────────────────────────────────
+  { id: 'Req-001', type: 'material',       status: 'in_progress',          createdAt: 'Today, 3:45 pm',  items: 'SKU 7765',          workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-002', type: 'container',      status: 'failed',               createdAt: 'Today, 3:30 pm',  items: 'Leaf Container',    workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-003', type: 'material',       status: 'awaiting_confirmation', createdAt: 'Today, 3:00 pm',  items: 'Widget A – T1',     workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-004', type: 'return_trolley', status: 'pending',              createdAt: 'Today, 2:50 pm',  items: 'Heavy Trolley',     workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-005', type: 'material',       status: 'pending',              createdAt: 'Today, 2:30 pm',  items: 'Bracket B – T1',    workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-006', type: 'container',      status: 'awaiting_confirmation', createdAt: 'Today, 2:10 pm',  items: 'Standard Pallet',   workflow: 'QC Station B',    workflowId: 'wf-02' },
+  { id: 'Req-007', type: 'material',       status: 'completed',            createdAt: 'Today, 1:55 pm',  items: 'Panel C – T2',      workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-008', type: 'material',       status: 'breakdown',            createdAt: 'Today, 1:30 pm',  items: 'Axle D – T1',       workflow: 'QC Station B',    workflowId: 'wf-02' },
+  { id: 'Req-009', type: 'return_trolley', status: 'completed',            createdAt: 'Today, 1:10 pm',  items: 'Leaf Container',    workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-010', type: 'material',       status: 'in_progress',          createdAt: 'Today, 12:45 pm', items: 'Gasket E – T3',     workflow: 'Dispatch Bay C',  workflowId: 'wf-03' },
+  { id: 'Req-011', type: 'container',      status: 'failed',               createdAt: 'Today, 12:20 pm', items: 'Mini Bin',          workflow: 'QC Station B',    workflowId: 'wf-02' },
+  { id: 'Req-012', type: 'material',       status: 'completed',            createdAt: 'Today, 11:50 am', items: 'Rod F – T1',        workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  // ── Yesterday ──────────────────────────────────────────────────────────
+  { id: 'Req-013', type: 'material',       status: 'completed',            createdAt: 'Yesterday, 4:30 pm', items: 'Bracket B – T2',  workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-014', type: 'container',      status: 'completed',            createdAt: 'Yesterday, 3:55 pm', items: 'Heavy Trolley',   workflow: 'Dispatch Bay C',  workflowId: 'wf-03' },
+  { id: 'Req-015', type: 'material',       status: 'failed',               createdAt: 'Yesterday, 3:10 pm', items: 'Widget A – T2',   workflow: 'QC Station B',    workflowId: 'wf-02' },
+  { id: 'Req-016', type: 'return_trolley', status: 'completed',            createdAt: 'Yesterday, 2:00 pm', items: 'Standard Pallet', workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-017', type: 'material',       status: 'breakdown',            createdAt: 'Yesterday, 1:30 pm', items: 'Panel C – T1',    workflow: 'Dispatch Bay C',  workflowId: 'wf-03' },
+  { id: 'Req-018', type: 'material',       status: 'completed',            createdAt: 'Yesterday, 11:00 am', items: 'Axle D – T2',   workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  // ── Older ──────────────────────────────────────────────────────────────
+  { id: 'Req-019', type: 'container',      status: 'completed',            createdAt: 'Feb 25, 10:30 am', items: 'Mini Bin',          workflow: 'QC Station B',    workflowId: 'wf-02' },
+  { id: 'Req-020', type: 'material',       status: 'completed',            createdAt: 'Feb 25, 9:15 am',  items: 'Gasket E – T1',     workflow: 'Assembly Line A', workflowId: 'wf-01' },
+  { id: 'Req-021', type: 'return_trolley', status: 'failed',               createdAt: 'Feb 24, 3:00 pm',  items: 'Heavy Trolley',     workflow: 'Dispatch Bay C',  workflowId: 'wf-03' },
+  { id: 'Req-022', type: 'material',       status: 'completed',            createdAt: 'Feb 24, 11:00 am', items: 'Rod F – T2',        workflow: 'Assembly Line A', workflowId: 'wf-01' },
 ];
 
 export const mockInventory: InventoryRow[] = [
