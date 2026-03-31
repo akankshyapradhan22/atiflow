@@ -195,7 +195,7 @@ export default function Sidebar({ onCreateArea }: SidebarProps) {
             Allu Arjun
           </Typography>
           <Typography sx={{ fontSize: '0.75rem', color: 'rgba(26,35,50,0.54)', lineHeight: 1.3 }}>
-            Jhunega Nahi
+            Jhukega Nahi
           </Typography>
         </Box>
       </Box>
