@@ -10,6 +10,14 @@ import Collapse from '@mui/material/Collapse';
 import Divider from '@mui/material/Divider';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import TabletMacOutlinedIcon from '@mui/icons-material/TabletMacOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -17,7 +25,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import PrecisionManufacturingOutlinedIcon from '@mui/icons-material/PrecisionManufacturingOutlined';
-import { mockProcessingAreas } from '../../data/mock';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useProcessingAreas } from '../../context/ProcessingAreasContext';
 import { PRIMARY } from '../../theme';
 
 export const SIDEBAR_WIDTH = 220;
@@ -34,11 +44,24 @@ interface SidebarProps {
 export default function Sidebar({ onCreateArea }: SidebarProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { areas, renameArea, deleteArea } = useProcessingAreas();
   const [paOpen, setPaOpen] = useState(true);
 
-  const isActive        = (path: string)   => pathname === path || pathname.startsWith(path + '/');
-  const isAreaActive    = (areaId: string) => pathname === `/area/${areaId}` || pathname.startsWith(`/area/${areaId}/`);
-  const isHomeActive    = pathname === '/';
+  // Kebab menu state
+  const [menuAnchor, setMenuAnchor] = useState<HTMLElement | null>(null);
+  const [menuAreaId, setMenuAreaId] = useState<string | null>(null);
+
+  // Rename dialog state
+  const [renameOpen, setRenameOpen] = useState(false);
+  const [renameName, setRenameName] = useState('');
+
+  // Delete dialog state
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
+
+  const isActive     = (path: string)   => pathname === path || pathname.startsWith(path + '/');
+  const isAreaActive = (areaId: string) => pathname === `/area/${areaId}` || pathname.startsWith(`/area/${areaId}/`);
+  const isHomeActive = pathname === '/';
 
   const navItemSx = (active: boolean) => ({
     mx: 0.75,
@@ -50,6 +73,66 @@ export default function Sidebar({ onCreateArea }: SidebarProps) {
     bgcolor: active ? 'rgba(0,169,157,0.19)' : 'transparent',
     '&:hover': { bgcolor: active ? 'rgba(0,169,157,0.19)' : 'rgba(0,0,0,0.04)' },
   });
+
+  const handleKebabClick = (e: React.MouseEvent<HTMLElement>, areaId: string) => {
+    e.stopPropagation();
+    setMenuAreaId(areaId);
+    setMenuAnchor(e.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchor(null);
+    setMenuAreaId(null);
+  };
+
+  const handleRenameOpen = () => {
+    const area = areas.find((a) => a.id === menuAreaId);
+    setRenameName(area?.name ?? '');
+    setRenameOpen(true);
+    handleMenuClose();
+  };
+
+  const handleRenameSave = () => {
+    if (menuAreaId || renameOpen) {
+      // menuAreaId was cleared on menu close, capture via renameName flow
+    }
+    setRenameOpen(false);
+  };
+
+  // Track which area is being renamed
+  const [renameTargetId, setRenameTargetId] = useState<string | null>(null);
+
+  const openRename = (areaId: string) => {
+    const area = areas.find((a) => a.id === areaId);
+    setRenameTargetId(areaId);
+    setRenameName(area?.name ?? '');
+    setRenameOpen(true);
+    handleMenuClose();
+  };
+
+  const commitRename = () => {
+    if (renameTargetId && renameName.trim()) {
+      renameArea(renameTargetId, renameName.trim());
+    }
+    setRenameOpen(false);
+    setRenameTargetId(null);
+  };
+
+  const openDelete = (areaId: string) => {
+    setDeleteTargetId(areaId);
+    setDeleteOpen(true);
+    handleMenuClose();
+  };
+
+  const commitDelete = () => {
+    if (deleteTargetId) {
+      deleteArea(deleteTargetId);
+      // Navigate away if currently on deleted area
+      if (pathname.startsWith(`/area/${deleteTargetId}`)) navigate('/');
+    }
+    setDeleteOpen(false);
+    setDeleteTargetId(null);
+  };
 
   return (
     <Box
@@ -121,7 +204,7 @@ export default function Sidebar({ onCreateArea }: SidebarProps) {
 
         <Collapse in={paOpen} timeout="auto">
           <List disablePadding dense>
-            {mockProcessingAreas.map((area) => {
+            {areas.map((area) => {
               const active = isAreaActive(area.id);
               return (
                 <ListItemButton
@@ -149,7 +232,7 @@ export default function Sidebar({ onCreateArea }: SidebarProps) {
                     size="small"
                     className="more-btn"
                     sx={{ p: 0.25, color: '#637381', flexShrink: 0 }}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => handleKebabClick(e, area.id)}
                   >
                     <MoreVertIcon sx={{ fontSize: 16 }} />
                   </IconButton>
@@ -199,6 +282,104 @@ export default function Sidebar({ onCreateArea }: SidebarProps) {
           </Typography>
         </Box>
       </Box>
+
+      {/* ── Kebab menu ────────────────────────────────── */}
+      <Menu
+        anchorEl={menuAnchor}
+        open={Boolean(menuAnchor)}
+        onClose={handleMenuClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        PaperProps={{ sx: { borderRadius: '8px', minWidth: 140, boxShadow: '0 4px 16px rgba(0,0,0,0.12)' } }}
+      >
+        <MenuItem
+          onClick={() => openRename(menuAreaId!)}
+          sx={{ fontSize: '0.875rem', gap: 1, py: 1 }}
+        >
+          <DriveFileRenameOutlineIcon sx={{ fontSize: 16, color: '#637381' }} />
+          Rename
+        </MenuItem>
+        <MenuItem
+          onClick={() => openDelete(menuAreaId!)}
+          sx={{ fontSize: '0.875rem', gap: 1, py: 1, color: '#d32f2f' }}
+        >
+          <DeleteOutlineIcon sx={{ fontSize: 16, color: '#d32f2f' }} />
+          Delete
+        </MenuItem>
+      </Menu>
+
+      {/* ── Rename dialog ─────────────────────────────── */}
+      <Dialog
+        open={renameOpen}
+        onClose={() => setRenameOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{ sx: { borderRadius: '10px' } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600, fontSize: '1rem', color: '#1a2332', pb: 1 }}>
+          Rename Processing Area
+        </DialogTitle>
+        <DialogContent sx={{ pt: '8px !important' }}>
+          <TextField
+            autoFocus
+            fullWidth
+            size="small"
+            label="Area Name"
+            value={renameName}
+            onChange={(e) => setRenameName(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && renameName.trim() && commitRename()}
+            InputProps={{ sx: { borderRadius: '6px' } }}
+          />
+        </DialogContent>
+        <DialogActions sx={{ px: 3, py: 2 }}>
+          <Button onClick={() => setRenameOpen(false)} color="inherit" sx={{ textTransform: 'none' }}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            disableElevation
+            disabled={!renameName.trim()}
+            onClick={commitRename}
+            sx={{ bgcolor: PRIMARY, textTransform: 'none', borderRadius: '6px', '&:hover': { bgcolor: '#009188' } }}
+          >
+            Rename
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* ── Delete confirmation dialog ────────────────── */}
+      <Dialog
+        open={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        PaperProps={{ sx: { borderRadius: '10px' } }}
+      >
+        <DialogTitle sx={{ fontWeight: 600, fontSize: '1rem', color: '#1a2332', pb: 1 }}>
+          Delete Processing Area
+        </DialogTitle>
+        <DialogContent sx={{ pt: '4px !important' }}>
+          <Typography sx={{ fontSize: '0.875rem', color: '#637381' }}>
+            Are you sure you want to delete{' '}
+            <strong style={{ color: '#1a2332' }}>
+              {areas.find((a) => a.id === deleteTargetId)?.name}
+            </strong>
+            ? This action cannot be undone.
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, py: 2 }}>
+          <Button onClick={() => setDeleteOpen(false)} color="inherit" sx={{ textTransform: 'none' }}>
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            disableElevation
+            onClick={commitDelete}
+            sx={{ bgcolor: '#d32f2f', textTransform: 'none', borderRadius: '6px', '&:hover': { bgcolor: '#b71c1c' } }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

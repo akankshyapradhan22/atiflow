@@ -21,8 +21,8 @@ import { mockMatMaterials, mockContainers, STATIONS } from '../../data/mock';
 
 const materialRows = mockMatMaterials.map((m) => ({
   id: m.id,
-  type: m.className,
-  typeCode: m.materialCode,
+  type: m.materialType,
+  typeCode: m.prefix,
 }));
 
 const containerRows = Array.from(

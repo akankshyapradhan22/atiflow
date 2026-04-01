@@ -1,6 +1,13 @@
 import { useState } from 'react';
+import { useProcessingAreas } from '../../context/ProcessingAreasContext';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Table from '@mui/material/Table';
@@ -15,51 +22,111 @@ import SearchIcon from '@mui/icons-material/Search';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import AddIcon from '@mui/icons-material/Add';
-import { mockProcessingAreas } from '../../data/mock';
 import { PRIMARY } from '../../theme';
-import type { ProcessingArea } from '../../types';
-import CreateAreaDialog from '../home/CreateAreaDialog';
 
 const ROWS_PER_PAGE = 10;
+const HEAD_CELLS = ['Machine Name', 'Point Type', 'Action'];
 
-const HEAD_CELLS = ['Area Name', 'Machine Name', 'Point Type', 'Action'];
+interface Machine {
+  id: string;
+  machineName: string;
+  pointType: string;
+}
 
-export default function ProcessingAreaTab() {
-  const [rows, setRows] = useState<ProcessingArea[]>(mockProcessingAreas);
+const POINT_TYPES = ['Consumption Point', 'Production Point'];
+
+function MachineDialog({
+  open,
+  onClose,
+  onSave,
+  initial,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSave: (machineName: string, pointType: string) => void;
+  initial?: { machineName: string; pointType: string };
+}) {
+  const [machineName, setMachineName] = useState(initial?.machineName ?? '');
+  const [pointType, setPointType] = useState(initial?.pointType ?? '');
+
+  const isEdit = Boolean(initial);
+  const canSave = machineName.trim() !== '';
+
+  const handleSave = () => {
+    onSave(machineName.trim(), pointType);
+  };
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: '12px' } }}>
+      <DialogTitle sx={{ fontWeight: 600, fontSize: '1rem', color: '#1a2332', pb: 1 }}>
+        {isEdit ? 'Edit Machine' : 'Add Machine'}
+      </DialogTitle>
+      <DialogContent sx={{ pt: '8px !important', display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <TextField
+          autoFocus
+          label="Machine Name"
+          size="small"
+          fullWidth
+          value={machineName}
+          onChange={(e) => setMachineName(e.target.value)}
+          InputProps={{ sx: { borderRadius: '6px' } }}
+        />
+        <TextField
+          select
+          label="Point Type"
+          size="small"
+          fullWidth
+          value={pointType}
+          onChange={(e) => setPointType(e.target.value)}
+          InputProps={{ sx: { borderRadius: '6px' } }}
+        >
+          <MenuItem value="">— Select —</MenuItem>
+          {POINT_TYPES.map((pt) => (
+            <MenuItem key={pt} value={pt}>{pt}</MenuItem>
+          ))}
+        </TextField>
+      </DialogContent>
+      <DialogActions sx={{ px: 3, py: 2, gap: 1 }}>
+        <Button onClick={onClose} color="inherit" sx={{ textTransform: 'none' }}>Cancel</Button>
+        <Button
+          variant="contained"
+          disableElevation
+          disabled={!canSave}
+          onClick={handleSave}
+          sx={{ bgcolor: PRIMARY, textTransform: 'none', borderRadius: '6px', '&:hover': { bgcolor: '#009188' } }}
+        >
+          {isEdit ? 'Save' : 'Add'}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+}
+
+export default function ProcessingAreaTab({ areaId }: { areaId: string }) {
+  const { machines: allMachines, addAreaMachine, updateAreaMachine, deleteAreaMachine } = useProcessingAreas();
+  const machines: Machine[] = allMachines[areaId] ?? [];
+
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
-  const [addOpen, setAddOpen] = useState(false);
-  const [editRow, setEditRow] = useState<ProcessingArea | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [editMachine, setEditMachine] = useState<Machine | null>(null);
 
-  const filtered = rows.filter((r) =>
-    r.name.toLowerCase().includes(search.toLowerCase()) ||
-    (r.machineName ?? '').toLowerCase().includes(search.toLowerCase())
+  const filtered = machines.filter((m) =>
+    m.machineName.toLowerCase().includes(search.toLowerCase())
   );
 
   const paginated = filtered.slice(page * ROWS_PER_PAGE, page * ROWS_PER_PAGE + ROWS_PER_PAGE);
 
-  const handleDelete = (id: string) => setRows((prev) => prev.filter((r) => r.id !== id));
+  const handleDelete = (id: string) => deleteAreaMachine(areaId, id);
 
-  const handleSave = (name: string, machineName: string, pointType: string) => {
-    if (editRow) {
-      setRows((prev) =>
-        prev.map((r) =>
-          r.id === editRow.id
-            ? { ...r, name, machineName, pointType: pointType as ProcessingArea['pointType'] }
-            : r
-        )
-      );
-      setEditRow(null);
+  const handleSave = (machineName: string, pointType: string) => {
+    if (editMachine) {
+      updateAreaMachine(areaId, editMachine.id, { machineName, pointType });
     } else {
-      const newArea: ProcessingArea = {
-        id: name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
-        name,
-        machineName,
-        pointType: pointType as ProcessingArea['pointType'],
-      };
-      setRows((prev) => [newArea, ...prev]);
+      addAreaMachine(areaId, { machineName, pointType });
     }
-    setAddOpen(false);
+    setDialogOpen(false);
+    setEditMachine(null);
   };
 
   return (
@@ -69,7 +136,7 @@ export default function ProcessingAreaTab() {
         <OutlinedInput
           value={search}
           onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-          placeholder="Search Area"
+          placeholder="Search Machine"
           size="small"
           startAdornment={
             <InputAdornment position="start">
@@ -89,7 +156,7 @@ export default function ProcessingAreaTab() {
           variant="contained"
           size="small"
           startIcon={<AddIcon />}
-          onClick={() => { setEditRow(null); setAddOpen(true); }}
+          onClick={() => { setEditMachine(null); setDialogOpen(true); }}
           sx={{
             bgcolor: PRIMARY,
             textTransform: 'none',
@@ -101,7 +168,7 @@ export default function ProcessingAreaTab() {
             '&:hover': { bgcolor: '#009688', boxShadow: 'none' },
           }}
         >
-          Add
+          Add Machine
         </Button>
       </Box>
 
@@ -132,8 +199,8 @@ export default function ProcessingAreaTab() {
           <TableBody>
             {paginated.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} align="center" sx={{ py: 6, color: '#9EA8B3', fontSize: '0.875rem' }}>
-                  No processing areas found
+                <TableCell colSpan={3} align="center" sx={{ py: 6, color: '#9EA8B3', fontSize: '0.875rem' }}>
+                  No machines found
                 </TableCell>
               </TableRow>
             ) : (
@@ -144,18 +211,15 @@ export default function ProcessingAreaTab() {
                   sx={{ '&:last-child td': { borderBottom: 0 }, '& td': { borderBottom: '1px solid #f0f0f0' } }}
                 >
                   <TableCell sx={{ fontSize: '0.8125rem', fontWeight: 600, color: '#1a2332', py: 1.25 }}>
-                    {row.name}
+                    {row.machineName}
                   </TableCell>
                   <TableCell sx={{ fontSize: '0.8125rem', color: '#1a2332', py: 1.25 }}>
-                    {row.machineName ?? '—'}
-                  </TableCell>
-                  <TableCell sx={{ fontSize: '0.8125rem', color: '#1a2332', py: 1.25 }}>
-                    {row.pointType ?? '—'}
+                    {row.pointType || '—'}
                   </TableCell>
                   <TableCell sx={{ py: 1.25, textAlign: 'center' }}>
                     <IconButton
                       size="small"
-                      onClick={() => { setEditRow(row); setAddOpen(true); }}
+                      onClick={() => { setEditMachine(row); setDialogOpen(true); }}
                       sx={{ color: '#637381', '&:hover': { color: PRIMARY } }}
                     >
                       <EditOutlinedIcon sx={{ fontSize: 17 }} />
@@ -184,22 +248,15 @@ export default function ProcessingAreaTab() {
           rowsPerPage={ROWS_PER_PAGE}
           rowsPerPageOptions={[]}
           onPageChange={(_, p) => setPage(p)}
-          sx={{
-            fontSize: '0.8125rem',
-            '& .MuiTablePagination-displayedRows': { fontSize: '0.8125rem' },
-          }}
+          sx={{ fontSize: '0.8125rem', '& .MuiTablePagination-displayedRows': { fontSize: '0.8125rem' } }}
         />
       </Box>
 
-      <CreateAreaDialog
-        open={addOpen}
-        onClose={() => { setAddOpen(false); setEditRow(null); }}
+      <MachineDialog
+        open={dialogOpen}
+        onClose={() => { setDialogOpen(false); setEditMachine(null); }}
         onSave={handleSave}
-        initialValues={
-          editRow
-            ? { name: editRow.name, machineName: editRow.machineName ?? '', pointType: editRow.pointType ?? '' }
-            : undefined
-        }
+        initial={editMachine ? { machineName: editMachine.machineName, pointType: editMachine.pointType } : undefined}
       />
     </Box>
   );

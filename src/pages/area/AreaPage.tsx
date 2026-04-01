@@ -21,7 +21,7 @@ import StagingAreaPage from '../staging/StagingAreaPage';
 import StationMappingPage from './StationMappingPage';
 import WIPInventoryPage from './WIPInventoryPage';
 import ProcessingAreaTab from './ProcessingAreaTab';
-import { mockProcessingAreas } from '../../data/mock';
+import { useProcessingAreas } from '../../context/ProcessingAreasContext';
 import { PRIMARY } from '../../theme';
 
 const AREA_TABS = [
@@ -37,8 +37,9 @@ const AREA_TABS = [
 export default function AreaPage() {
   const { areaId } = useParams<{ areaId: string }>();
   const [tabIdx, setTabIdx] = useState(0);
+  const { areas } = useProcessingAreas();
 
-  const area = mockProcessingAreas.find((a) => a.id === areaId);
+  const area = areas.find((a) => a.id === areaId);
   if (!area) return <Navigate to="/area/rotr" replace />;
 
   const tabLabel = AREA_TABS[tabIdx].label;
@@ -112,7 +113,7 @@ export default function AreaPage() {
         {tabIdx === 3 && <WIPInventoryPage />}
         {tabIdx === 4 && <StagingAreaPage embedded />}
         {tabIdx === 5 && <StationMappingPage embedded />}
-        {tabIdx === 6 && <ProcessingAreaTab />}
+        {tabIdx === 6 && <ProcessingAreaTab areaId={areaId!} />}
       </Box>
     </Box>
   );

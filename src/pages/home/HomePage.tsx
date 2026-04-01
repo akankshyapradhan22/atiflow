@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useProcessingAreas } from '../../context/ProcessingAreasContext';
+import type { DialogMachine } from './CreateAreaDialog';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -11,12 +13,16 @@ import { PRIMARY } from '../../theme';
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const { addArea } = useProcessingAreas();
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleSave = (name: string, _machine: string, _point: string) => {
+  const handleSave = (name: string, machines: DialogMachine[]) => {
     setDialogOpen(false);
-    // Navigate to the newly created area
     const id = name.toLowerCase().replace(/\s+/g, '-');
+    addArea(
+      { id, name },
+      machines.map((m, i) => ({ ...m, id: `mch-${i}-${Date.now()}` }))
+    );
     navigate(`/area/${id}`);
   };
 

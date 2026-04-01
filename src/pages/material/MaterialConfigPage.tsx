@@ -49,16 +49,16 @@ export default function MaterialConfigPage({ embedded }: { embedded?: boolean })
     setFn((p) => { const n = new Set(p); n.has(id) ? n.delete(id) : n.add(id); return n; });
 
   const filtered = materials.filter((m) =>
-    m.className.toLowerCase().includes(search.toLowerCase()) ||
-    m.materialCode.toLowerCase().includes(search.toLowerCase())
+    m.materialType.toLowerCase().includes(search.toLowerCase()) ||
+    m.prefix.toLowerCase().includes(search.toLowerCase())
   );
   const paginated = filtered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
-  const handleSave = (data: Omit<MatMaterial, 'id'>) => {
+  const handleSave = (data: Omit<MatMaterial, 'id' | 'skus'>) => {
     if (dialog.edit) {
-      setMaterials((p) => p.map((m) => m.id === dialog.edit!.id ? { ...data, id: dialog.edit!.id } : m));
+      setMaterials((p) => p.map((m) => m.id === dialog.edit!.id ? { ...m, ...data } : m));
     } else {
-      setMaterials((p) => [...p, { ...data, id: `mat-${Date.now()}` }]);
+      setMaterials((p) => [...p, { ...data, id: `mat-${Date.now()}`, skus: [] }]);
     }
     setDialog({ open: false });
   };
@@ -90,11 +90,11 @@ export default function MaterialConfigPage({ embedded }: { embedded?: boolean })
               <TableHead>
                 <TableRow>
                   <TableCell width={36} />
-                  <TableCell>Material Type Name</TableCell>
+                  <TableCell>Material Type</TableCell>
                   <TableCell>Prefix</TableCell>
-                  <TableCell>Pre-Proc Time (mins)</TableCell>
-                  <TableCell>Staging Area</TableCell>
+                  <TableCell>Pre-processing Time (min)</TableCell>
                   <TableCell>Max Qty</TableCell>
+                  <TableCell>Staging Area</TableCell>
                   <TableCell align="center">Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -110,11 +110,13 @@ export default function MaterialConfigPage({ embedded }: { embedded?: boolean })
                             : <KeyboardArrowRightIcon sx={{ fontSize: 18, color: '#9EA8B3' }} />}
                         </IconButton>
                       </TableCell>
-                      <TableCell sx={{ fontWeight: 500 }}>{mat.className}</TableCell>
-                      <TableCell sx={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#637381' }}>{mat.materialCode}</TableCell>
+                      <TableCell sx={{ fontWeight: 500 }}>{mat.materialType}</TableCell>
+                      <TableCell sx={{ fontFamily: 'monospace', fontSize: '0.8rem', color: '#637381' }}>{mat.prefix}</TableCell>
                       <TableCell>{mat.preprocessingTime}</TableCell>
-                      <TableCell sx={{ color: '#637381' }}>{mat.stagingArea ?? '—'}</TableCell>
                       <TableCell>{mat.maxQty}</TableCell>
+                      <TableCell sx={{ color: mat.stagingAreaEnabled ? '#2e7d32' : '#637381' }}>
+                        {mat.stagingAreaEnabled ? 'Yes' : 'No'}
+                      </TableCell>
                       <TableCell align="center">
                         <Tooltip title="Edit">
                           <IconButton size="small" onClick={() => setDialog({ open: true, edit: mat })}>
@@ -231,8 +233,10 @@ export default function MaterialConfigPage({ embedded }: { embedded?: boolean })
       </Box>
 
       <AddMaterialDialog
-        open={dialog.open} material={dialog.edit}
-        onClose={() => setDialog({ open: false })} onSave={handleSave}
+        open={dialog.open}
+        initial={dialog.edit}
+        onClose={() => setDialog({ open: false })}
+        onSave={handleSave}
       />
     </Box>
   );

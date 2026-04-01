@@ -32,11 +32,11 @@ export interface MatSku {
 
 export interface MatMaterial {
   id: string;
-  className: string;   // Material Type Name
-  materialCode: string; // Prefix
+  materialType: string;
+  prefix: string;
   preprocessingTime: number;
-  stagingArea?: string;
   maxQty: number;
+  stagingAreaEnabled: boolean;
   skus: MatSku[];
 }
 

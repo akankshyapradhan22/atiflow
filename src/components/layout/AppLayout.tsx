@@ -4,14 +4,21 @@ import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import CreateAreaDialog from '../../pages/home/CreateAreaDialog';
+import { useProcessingAreas } from '../../context/ProcessingAreasContext';
+import type { DialogMachine } from '../../pages/home/CreateAreaDialog';
 
 export default function AppLayout() {
   const navigate = useNavigate();
+  const { addArea } = useProcessingAreas();
   const [createOpen, setCreateOpen] = useState(false);
 
-  const handleSave = (name: string, _machine: string, _point: string) => {
+  const handleSave = (name: string, machines: DialogMachine[]) => {
     setCreateOpen(false);
     const id = name.toLowerCase().replace(/\s+/g, '-');
+    addArea(
+      { id, name },
+      machines.map((m, i) => ({ ...m, id: `mch-${i}-${Date.now()}` }))
+    );
     navigate(`/area/${id}`);
   };
 

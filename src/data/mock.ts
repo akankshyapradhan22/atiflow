@@ -18,7 +18,7 @@ import type {
 // ─── Material Configuration (3-level: Material Class > SKU > Sub SKU) ─────────
 export const mockMatMaterials: MatMaterial[] = [
   {
-    id: 'mat-1', className: 'SMD Class', materialCode: 'MAT-001', preprocessingTime: 30, stagingArea: 'SA 001', maxQty: 50,
+    id: 'mat-1', materialType: 'SMD', prefix: 'MAT-001', preprocessingTime: 30, maxQty: 50, stagingAreaEnabled: true,
     skus: [
       { id: 'sku-1-1', skuType: 'SMD', skuCode: 'SKU-SMD-001', containerType: 'Trolley', containerSubType: 'Trolley Type 1',
         subSkus: [
@@ -32,7 +32,7 @@ export const mockMatMaterials: MatMaterial[] = [
     ],
   },
   {
-    id: 'mat-2', className: 'PBA Class', materialCode: 'MAT-002', preprocessingTime: 45, stagingArea: 'SA 002', maxQty: 30,
+    id: 'mat-2', materialType: 'PBA', prefix: 'MAT-002', preprocessingTime: 45, maxQty: 30, stagingAreaEnabled: true,
     skus: [
       { id: 'sku-2-1', skuType: 'PBA', skuCode: 'SKU-PBA-001', containerType: 'Bin', containerSubType: 'Bin Type 1',
         subSkus: [
@@ -41,7 +41,7 @@ export const mockMatMaterials: MatMaterial[] = [
     ],
   },
   {
-    id: 'mat-3', className: 'Mechanical Class', materialCode: 'MAT-003', preprocessingTime: 15, stagingArea: 'SA 001', maxQty: 100,
+    id: 'mat-3', materialType: 'Mechanical', prefix: 'MAT-003', preprocessingTime: 15, maxQty: 100, stagingAreaEnabled: false,
     skus: [
       { id: 'sku-3-1', skuType: 'Mechanical', skuCode: 'SKU-MECH-001', containerType: 'Trolley', containerSubType: 'Trolley Type 2',
         subSkus: [
