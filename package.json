@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && vite build",
+    "preview": "vite preview --port 4180",
+    "a11y": "pa11y http://127.0.0.1:5173/configurator && pa11y http://127.0.0.1:5173/configurator/amr && pa11y http://127.0.0.1:5173/configurator/maps && pa11y http://127.0.0.1:5173/configurator/devices && pa11y http://127.0.0.1:5173/supervisor && pa11y http://127.0.0.1:5173/supervisor/live && pa11y http://127.0.0.1:5173/supervisor/staging && pa11y http://127.0.0.1:5173/supervisor/workflow/new && pa11y http://127.0.0.1:5173/requester/history && pa11y http://127.0.0.1:5173/requester/book && pa11y http://127.0.0.1:5173/requester/book/material && pa11y http://127.0.0.1:5173/requester/staging && node scripts/a11y-hover.mjs"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -14,12 +16,13 @@
     "@mui/material": "^5.15.20",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.30.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.0",
+    "pa11y": "^8.0.0",
     "typescript": "^5.4.5",
     "vite": "^5.3.1"
   }
