@@ -1,4 +1,4 @@
-import { type ReactNode, useMemo, useState } from "react";
+import { type CSSProperties, type ReactNode, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
@@ -39,7 +39,7 @@ type WorkflowNodeModel = { rows: string[]; title: string; tone: WorkflowTone };
 type ConfigModule = { action: string; count: number; detail: string; title: string };
 type TripRowModel = { id: string; kind: string; route: string; status: string };
 
-const asset = (name: string) => `/aflow/assets/${name}`;
+const asset = (name: string) => `${import.meta.env.BASE_URL}aflow/assets/${name}`;
 
 const CONFIG_GROUPS: NavGroup[] = [
   { items: [{ label: "Dashboard", path: "/configurator", icon: SyncRoundedIcon }] },
@@ -204,7 +204,7 @@ export default function AFlowPrototype() {
   }
 
   return (
-    <div className="af-app">
+    <div className="af-app" style={{ "--af-floorplan-image": `url("${asset("facility-floorplan.png")}")` } as CSSProperties}>
       <header className="af-top">
         <div className="af-brand-card">
           <button className="af-logo" onClick={() => navigate(homeFor(role))} type="button">
