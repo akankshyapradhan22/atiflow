@@ -1,0 +1,22 @@
+{
+  "title": "AFlow Prototype",
+  "description": "Product, implementation, and deployment documentation for the AFlow prototype.",
+  "pages": [
+    "index",
+    "---Product---",
+    "product/overview",
+    "product/roles-and-flows",
+    "product/screen-inventory",
+    "---Engineering---",
+    "engineering/architecture",
+    "engineering/frontend-implementation",
+    "engineering/ui-system",
+    "engineering/assets-and-routing",
+    "---Operations---",
+    "operations/local-development",
+    "operations/deployment",
+    "operations/testing-and-qa",
+    "---Planning---",
+    "roadmap/gaps-and-next-steps"
+  ]
+}

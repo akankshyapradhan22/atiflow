@@ -1,0 +1,5 @@
+{
+  "title": "Engineering",
+  "defaultOpen": true,
+  "pages": ["architecture", "frontend-implementation", "ui-system", "assets-and-routing"]
+}
