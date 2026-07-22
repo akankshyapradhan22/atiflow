@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "build": "npm run typecheck && vite build",
+    "build": "npm run typecheck && vite build && node scripts/write-sites-worker.mjs",
     "preview": "vite preview --port 4180",
     "a11y": "pa11y http://127.0.0.1:5173/configurator && pa11y http://127.0.0.1:5173/configurator/amr && pa11y http://127.0.0.1:5173/configurator/maps && pa11y http://127.0.0.1:5173/configurator/devices && pa11y http://127.0.0.1:5173/supervisor && pa11y http://127.0.0.1:5173/supervisor/live && pa11y http://127.0.0.1:5173/supervisor/staging && pa11y http://127.0.0.1:5173/supervisor/workflow/new && pa11y http://127.0.0.1:5173/requester/history && pa11y http://127.0.0.1:5173/requester/book && pa11y http://127.0.0.1:5173/requester/book/material && pa11y http://127.0.0.1:5173/requester/staging && node scripts/a11y-hover.mjs"
   },

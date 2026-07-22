@@ -20,6 +20,7 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import NotificationsNoneRoundedIcon from "@mui/icons-material/NotificationsNoneRounded";
+import OpenInNewRoundedIcon from "@mui/icons-material/OpenInNewRounded";
 import PersonOutlineRoundedIcon from "@mui/icons-material/PersonOutlineRounded";
 import QueryStatsRoundedIcon from "@mui/icons-material/QueryStatsRounded";
 import RouteRoundedIcon from "@mui/icons-material/RouteRounded";
@@ -38,6 +39,7 @@ type WorkflowTone = "start" | "material" | "station" | "turns" | "aiot" | "end";
 type WorkflowNodeModel = { rows: string[]; title: string; tone: WorkflowTone };
 type ConfigModule = { action: string; count: number; detail: string; title: string };
 type TripRowModel = { id: string; kind: string; route: string; status: string };
+type FigmaConfigScreen = "dashboard" | "amr" | "maps" | "devices" | "workflow" | "workflowMaker";
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}aflow/assets/${name}`;
 
@@ -102,6 +104,24 @@ const INTERFACE_GROUPS: NavGroup[] = [
   },
 ];
 
+const SUPERVISOR_HOME_GROUPS: NavGroup[] = [
+  { items: [{ label: "Dashboard", path: "/supervisor", icon: HomeRoundedIcon }] },
+  {
+    label: "Monitor your fleet",
+    items: [
+      { label: "Live Status", path: "/supervisor/live", icon: LocationOnOutlinedIcon },
+      { label: "Analytics", path: "/supervisor/analytics", icon: QueryStatsRoundedIcon },
+    ],
+  },
+  {
+    label: "Manage your fleet",
+    items: [
+      { label: "Trip Details", path: "/supervisor/trips", icon: RouteRoundedIcon },
+      { label: "Staging Area", path: "/supervisor/staging", icon: GridViewRoundedIcon },
+    ],
+  },
+];
+
 const REQUESTER_GROUPS: NavGroup[] = [
   {
     items: [
@@ -146,6 +166,15 @@ const configuratorModules: Record<string, ConfigModule> = {
   "/configurator/notifications": { action: "Enable Alert", count: 5, detail: "Configure alert recipients and acknowledgement rules.", title: "Notifications" },
 };
 
+const figmaConfigImages: Record<FigmaConfigScreen, string> = {
+  dashboard: "config-dashboard.png",
+  amr: "config-amr.png",
+  maps: "config-maps.png",
+  devices: "config-devices.png",
+  workflow: "workflow.png",
+  workflowMaker: "workflow-maker.png",
+};
+
 function roleFor(pathname: string): Role {
   if (pathname.startsWith("/requester")) return "Requester";
   if (pathname.startsWith("/supervisor")) return "Supervisor";
@@ -168,6 +197,11 @@ export default function AFlowPrototype() {
   const [roleMenuOpen, setRoleMenuOpen] = useState(false);
   const [selectedSherpa, setSelectedSherpa] = useState("Sherpa Pallet Mover 05");
   const workflowMode = pathname.includes("/workflow/new");
+  const figmaSupervisorHome = pathname === "/supervisor";
+
+  if (role === "Configurator") {
+    return <FigmaConfiguratorPrototype />;
+  }
 
   const content = useMemo(() => {
     if (pathname.endsWith("/settings")) return <OperationsPage title="Settings" primaryAction="Save settings" detail="Review role preferences, processing area defaults, and notification behavior." />;
@@ -204,7 +238,7 @@ export default function AFlowPrototype() {
   }
 
   return (
-    <div className="af-app" style={{ "--af-floorplan-image": `url("${asset("facility-floorplan.png")}")` } as CSSProperties}>
+    <div className={`af-app ${figmaSupervisorHome ? "is-figma-supervisor-home" : ""}`} style={{ "--af-floorplan-image": `url("${asset("facility-floorplan.png")}")` } as CSSProperties}>
       <header className="af-top">
         <div className="af-brand-card">
           <button className="af-logo" onClick={() => navigate(homeFor(role))} type="button">
@@ -217,7 +251,7 @@ export default function AFlowPrototype() {
             type="button"
             onClick={() => setRoleMenuOpen((open) => !open)}
           >
-            {role}
+            {figmaSupervisorHome ? "Supervisor Mode" : role}
             <KeyboardArrowDownRoundedIcon />
           </button>
           {roleMenuOpen && (
@@ -245,12 +279,12 @@ export default function AFlowPrototype() {
           </button>
           <div className="af-search">
             <SearchRoundedIcon />
-            <span>Super Search</span>
+            <span>{figmaSupervisorHome ? "Search Ati Flow" : "Super Search"}</span>
           </div>
         </div>
         <button className="af-support" aria-label="Open support agent" type="button" onClick={() => setSupportOpen(true)}>
           {role === "Requester" ? <HelpOutlineRoundedIcon /> : null}
-          {role === "Requester" ? "Support" : "Support/Agent"}
+          {figmaSupervisorHome ? "Go to support" : role === "Requester" ? "Support" : "Support/Agent"}
         </button>
       </header>
 
@@ -271,6 +305,175 @@ export default function AFlowPrototype() {
   );
 }
 
+function FigmaConfiguratorPrototype() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const [toast, setToast] = useState("");
+  const [modal, setModal] = useState("");
+  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
+  const [amrTab, setAmrTab] = useState("About AMR");
+  const [amrName, setAmrName] = useState("AMR 101");
+  const [ipAddress, setIpAddress] = useState("192.168.1.101");
+  const [hardwareId, setHardwareId] = useState("XT-LITE-101");
+  const [commissioned, setCommissioned] = useState("2026-05-04");
+
+  const screen: FigmaConfigScreen = pathname.includes("/workflow/new")
+    ? "workflowMaker"
+    : pathname.includes("/workflow")
+      ? "workflow"
+      : pathname.includes("/maps")
+        ? "maps"
+        : pathname.includes("/devices")
+          ? "devices"
+          : pathname.includes("/amr")
+            ? "amr"
+            : "dashboard";
+
+  function go(path: string) {
+    setRoleMenuOpen(false);
+    setModal("");
+    navigate(path);
+  }
+
+  function saveAmr() {
+    if (!amrName.trim() || !ipAddress.trim() || !hardwareId.trim() || !commissioned.trim()) {
+      setToast("Error: complete all AMR fields before saving.");
+      return;
+    }
+    setToast("AMR configuration saved.");
+  }
+
+  return (
+    <div className="figma-configurator-shell">
+      <img className="figma-config-screen" src={`${import.meta.env.BASE_URL}aflow/${figmaConfigImages[screen]}`} alt={`Configurator ${screen}`} />
+
+      <Hotspot label="Configurator role menu" rect={[20, 20, 217, 60]} onClick={() => setRoleMenuOpen((open) => !open)} />
+      <Hotspot label="Back" rect={[269, 30, 40, 40]} onClick={() => navigate(-1)} />
+      <Hotspot label="Forward" rect={[321, 30, 40, 40]} onClick={() => navigate(1)} />
+      <Hotspot label="Search" rect={[393, 30, 821, 40]} onClick={() => setModal("Search Configurator records")} />
+      <Hotspot label="Support" rect={[1246, 20, 174, 60]} onClick={() => setModal("Support request")} />
+      <Hotspot label="Dashboard" rect={[20, 100, 217, 40]} onClick={() => go("/configurator")} />
+      <Hotspot label="AMRs" rect={[20, 209, 217, 40]} onClick={() => go("/configurator/amr")} />
+      <Hotspot label="Maps" rect={[20, 257, 217, 40]} onClick={() => go("/configurator/maps")} />
+      <Hotspot label="Triggers" rect={[20, 305, 217, 40]} onClick={() => setToast("Triggers are covered from Workflow Builder in this prototype.")} />
+      <Hotspot label="Fleets" rect={[20, 414, 217, 40]} onClick={() => setToast("Fleet setup opened from AMR assignments.")} />
+      <Hotspot label="Traffic Rules" rect={[20, 462, 217, 40]} onClick={() => setToast("Traffic rules opened for the active map.")} />
+      <Hotspot label="Master Data" rect={[20, 571, 217, 40]} onClick={() => go("/configurator/devices")} />
+      <Hotspot label="Workflow Builder" rect={[20, 619, 217, 40]} onClick={() => go("/configurator/workflow/new")} />
+      <Hotspot label="Settings" rect={[20, 916, 217, 40]} onClick={() => setModal("General Settings")} />
+      <Hotspot label="Profile" rect={[20, 964, 217, 40]} onClick={() => setModal("Profile")} />
+
+      {screen === "dashboard" && (
+        <>
+          <Hotspot label="Manage AMRs" rect={[292, 745, 180, 30]} onClick={() => go("/configurator/amr")} />
+          <Hotspot label="Manage Maps" rect={[512, 745, 180, 30]} onClick={() => go("/configurator/maps")} />
+          <Hotspot label="Manage Devices" rect={[732, 745, 180, 30]} onClick={() => go("/configurator/devices")} />
+          <Hotspot label="Manage Fleets" rect={[292, 925, 180, 30]} onClick={() => setToast("Fleet records opened through AMR assignments.")} />
+          <Hotspot label="Manage Workflows" rect={[512, 925, 180, 30]} onClick={() => go("/configurator/workflow")} />
+          <Hotspot label="Manage Users" rect={[732, 925, 180, 30]} onClick={() => setModal("Users")} />
+          {[0, 1, 2, 3, 4].map((index) => (
+            <Hotspot key={index} label={`Attention item ${index + 1}`} rect={[257, 156 + index * 70, 550, 70]} onClick={() => setModal("Attention required")} />
+          ))}
+        </>
+      )}
+
+      {screen === "amr" && (
+        <>
+          {["About AMR", "Configurations", "Calibration", "Software Update"].map((tab, index) => (
+            <Hotspot key={tab} label={tab} rect={[283 + index * 180, 161, index === 1 ? 165 : 150, 40]} onClick={() => setAmrTab(tab)} />
+          ))}
+          <input className="figma-field amr-name" aria-label="AMR Name" value={amrName} onChange={(event) => setAmrName(event.target.value)} />
+          <input className="figma-field amr-ip" aria-label="IP Address" value={ipAddress} onChange={(event) => setIpAddress(event.target.value)} />
+          <input className="figma-field amr-hardware" aria-label="Hardware ID" value={hardwareId} onChange={(event) => setHardwareId(event.target.value)} />
+          <input className="figma-field amr-date" aria-label="Date commissioned" type="date" value={commissioned} onChange={(event) => setCommissioned(event.target.value)} />
+          <Hotspot label="Save AMR" rect={[1312, 120, 88, 40]} onClick={saveAmr} />
+          <Hotspot label="AMR tab action" rect={[878, 706, 337, 48]} onClick={() => setToast(`${amrTab} selected.`)} />
+        </>
+      )}
+
+      {screen === "maps" && (
+        <>
+          <Hotspot label="Upload map" rect={[1280, 120, 120, 40]} onClick={() => setModal("Upload Map")} />
+          <Hotspot label="Select map" rect={[282, 220, 560, 470]} onClick={() => setToast("Map selected for editing.")} />
+          <Hotspot label="Publish map" rect={[1288, 920, 112, 40]} onClick={() => setToast("Map published successfully.")} />
+        </>
+      )}
+
+      {screen === "devices" && (
+        <>
+          <Hotspot label="Add device" rect={[1280, 120, 120, 40]} onClick={() => setModal("Add Device")} />
+          <Hotspot label="Test device" rect={[878, 342, 337, 40]} onClick={() => setToast("Device heartbeat test passed.")} />
+          <Hotspot label="Save device" rect={[1312, 120, 88, 40]} onClick={() => setToast("Device configuration saved.")} />
+        </>
+      )}
+
+      {screen === "workflow" && (
+        <>
+          <Hotspot label="Create workflow" rect={[1258, 120, 142, 40]} onClick={() => go("/configurator/workflow/new")} />
+          <Hotspot label="Open workflow" rect={[282, 220, 260, 180]} onClick={() => go("/configurator/workflow/new")} />
+        </>
+      )}
+
+      {screen === "workflowMaker" && (
+        <>
+          <Hotspot label="Add material node" rect={[35, 160, 182, 42]} onClick={() => setToast("Material node added.")} />
+          <Hotspot label="Add station node" rect={[35, 214, 182, 42]} onClick={() => setToast("Station node added.")} />
+          <Hotspot label="Save workflow" rect={[1288, 944, 112, 40]} onClick={() => setToast("Workflow saved successfully.")} />
+          <Hotspot label="Back to workflow list" rect={[269, 30, 40, 40]} onClick={() => go("/configurator/workflow")} />
+        </>
+      )}
+
+      {roleMenuOpen && (
+        <div className="figma-menu" style={{ left: 54, top: 82 }}>
+          <button type="button" onClick={() => go("/configurator")}>Configurator Mode</button>
+          <button type="button" onClick={() => go("/supervisor")}>Supervisor Mode</button>
+          <button type="button" onClick={() => go("/requester/history")}>Requester Mode</button>
+        </div>
+      )}
+      {modal && <FigmaConfigModal title={modal} onClose={() => setModal("")} onDone={(message) => { setModal(""); setToast(message); }} />}
+      {toast && <button className={`figma-toast ${toast.startsWith("Error") ? "error" : ""}`} type="button" onClick={() => setToast("")}>{toast}</button>}
+    </div>
+  );
+}
+
+function Hotspot({ label, onClick, rect }: { label: string; onClick: () => void; rect: [number, number, number, number] }) {
+  return (
+    <button
+      aria-label={label}
+      className="figma-hotspot"
+      style={{ left: rect[0], top: rect[1], width: rect[2], height: rect[3] }}
+      type="button"
+      onClick={onClick}
+    />
+  );
+}
+
+function FigmaConfigModal({ onClose, onDone, title }: { onClose: () => void; onDone: (message: string) => void; title: string }) {
+  const [value, setValue] = useState("");
+  const isSearch = title.includes("Search");
+  return (
+    <div className="figma-modal-backdrop" role="dialog" aria-modal="true" aria-label={title}>
+      <section className="figma-modal">
+        <header>
+          <strong>{title}</strong>
+          <button aria-label="Close" type="button" onClick={onClose}><CloseRoundedIcon /></button>
+        </header>
+        <label>
+          {isSearch ? "Query" : "Name"}
+          <input value={value} onChange={(event) => setValue(event.target.value)} placeholder={isSearch ? "Search AMRs, maps, fleets..." : title} />
+        </label>
+        {!isSearch && <label>Type<select defaultValue="Standard"><option>Standard</option><option>Priority</option><option>Maintenance</option></select></label>}
+        <footer>
+          <button type="button" onClick={onClose}>Back</button>
+          <button type="button" onClick={() => onDone(isSearch ? `Search complete: ${value || "all records"}` : `${title} saved successfully.`)}>
+            {isSearch ? "Search" : "Save"}
+          </button>
+        </footer>
+      </section>
+    </div>
+  );
+}
+
 function Sidebar({
   machine,
   processingZone,
@@ -286,7 +489,8 @@ function Sidebar({
 }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const groups = role === "Configurator" ? CONFIG_GROUPS : role === "Supervisor" ? INTERFACE_GROUPS : REQUESTER_GROUPS;
+  const figmaSupervisorHome = role === "Supervisor" && pathname === "/supervisor";
+  const groups = role === "Configurator" ? CONFIG_GROUPS : figmaSupervisorHome ? SUPERVISOR_HOME_GROUPS : role === "Supervisor" ? INTERFACE_GROUPS : REQUESTER_GROUPS;
   const compact = pathname.includes("/workflow/new");
   const isActivePath = (path: string) => {
     const exactOnly = path === "/configurator" || path === "/supervisor" || path === "/requester/history";
@@ -296,10 +500,13 @@ function Sidebar({
   return (
     <aside className={compact ? "af-sidebar is-rail" : "af-sidebar"}>
       {role !== "Configurator" && !compact && (
+        <>
+        {figmaSupervisorHome && <div className="af-nav-label af-zone-heading">Processing Zone</div>}
         <button className="af-zone-select" type="button" onClick={() => setProcessingZone(processingZone === "Processing Zone" ? "Assembly North" : "Processing Zone")}>
-          {processingZone}
+          {figmaSupervisorHome ? "Zone 24" : processingZone}
           <ExpandMoreRoundedIcon />
         </button>
+        </>
       )}
       {role === "Requester" && (
         <button className="af-book-button" type="button" onClick={() => navigate("/requester/book")}>
@@ -345,6 +552,12 @@ function Sidebar({
         </nav>
       )}
       <div className="af-sidebar-bottom">
+        {figmaSupervisorHome && (
+          <button className="af-nav-item" type="button" aria-label="Notifications" onClick={() => navigate("/supervisor/notifications")}>
+            <NotificationsNoneRoundedIcon />
+            <span>Notifications</span>
+          </button>
+        )}
         <button className="af-nav-item" type="button" aria-label="Settings" onClick={() => navigate(`${homeFor(role).split("/").slice(0, 2).join("/")}/settings`)}>
           <SettingsOutlinedIcon />
           {!compact && <span>Settings</span>}
@@ -713,33 +926,53 @@ function Divider() {
 
 function SupervisorDashboard({ zone }: { zone: string }) {
   const navigate = useNavigate();
-  const [activeTrip, setActiveTrip] = useState<TripRowModel | null>(null);
   return (
-    <div className="supervisor-grid">
-      <Panel title="Live Status" className="live-preview">
-        <button className="panel-link-map" type="button" onClick={() => navigate("/supervisor/live")}><WarehouseMap muted /></button>
+    <div className="supervisor-grid figma-dashboard">
+      <Panel title="Live Status" className="live-preview" onOpen={() => navigate("/supervisor/live")}>
+        <button className="panel-link-map" type="button" onClick={() => navigate("/supervisor/live")}><FigmaWarehouseMap /></button>
       </Panel>
-      <Panel title="Trip Details" className="trip-details-panel">
-        <TripTable compact onTripSelect={(trip) => setActiveTrip(trip)} />
-        <div className="dashboard-trip-detail">
-          <strong>{activeTrip ? activeTrip.id : "Select a trip row"}</strong>
-          <span>{activeTrip ? `${activeTrip.kind} route ${activeTrip.route}` : "Open the trip details page from any row."}</span>
-          <button type="button" onClick={() => navigate("/supervisor/trips")}>Open trip details</button>
-        </div>
+      <Panel title="Trip Details" className="trip-details-panel" onOpen={() => navigate("/supervisor/trips")}>
+        <SupervisorTripDetails />
       </Panel>
-      <Panel title="Analytics" className="analytics-panel">
+      <Panel title="Analytics" className="analytics-panel" onOpen={() => navigate("/supervisor/analytics")}>
         <div className="analytics-content">
-          <div className="bar-chart">
-            {[72, 72, 48, 70, 82, 92].map((height, index) => <i key={index} style={{ height: `${height}%` }} />)}
-          </div>
+          <div className="analytics-blank" />
           <div className="alert-stack">
-            <StatusRow label={`${zone} fleet running at 75% efficiency`} status="Completed" />
-            <StatusRow label="Traffic queue forming at Station S-14" status="Take action" danger />
-            <StatusRow label="Material route completed without exception" status="Completed" />
+            <StatusRow label={`${zone === "Processing Zone" ? "Fleet" : zone} running at 75 % efficiency`} status="Completed" />
+            <StatusRow label="Fleet running at 75 % efficiency" status="Take action" danger />
+            <StatusRow label="Fleet running at 75 % efficiency" status="Completed" />
           </div>
         </div>
       </Panel>
     </div>
+  );
+}
+
+function SupervisorTripDetails() {
+  const rows = [
+    { id: "Req-001", kind: "Material", status: "Completed" },
+    { id: "Req-002", kind: "Container", status: "In process" },
+    { id: "Req-003", kind: "Container", status: "Cancelled" },
+  ];
+  return (
+    <section className="figma-trip-table">
+      <div className="trip-tabs">
+        {["All", "Scheduled", "Inprogress", "Completed", "Cancelled"].map((tab, index) => (
+          <button className={index === 0 ? "active" : ""} key={tab} type="button">{tab}</button>
+        ))}
+      </div>
+      <div className="trip-head">
+        <span>ID No.</span><span>Request Details</span><span>Request Time</span><span>Status</span>
+      </div>
+      {rows.map((row) => (
+        <div className="trip-row" key={row.id}>
+          <strong>{row.id}<small>{row.kind}</small></strong>
+          <span><b>SKU 7765</b><small>100 units</small></span>
+          <span><b>3:00 pm</b></span>
+          <span className="status-cell"><StatusPill danger={row.status === "Cancelled"} warning={row.status === "In process"}>{row.status}</StatusPill></span>
+        </div>
+      ))}
+    </section>
   );
 }
 
@@ -1352,12 +1585,37 @@ function TripTable({
   );
 }
 
-function Panel({ children, className = "", title }: { children: ReactNode; className?: string; title: string }) {
+function Panel({ children, className = "", onOpen, title }: { children: ReactNode; className?: string; onOpen?: () => void; title: string }) {
   return (
     <section className={`soft-panel ${className}`}>
-      <div className="panel-heading"><h2>{title}</h2><MoreHorizRoundedIcon /></div>
+      <div className="panel-heading">
+        <h2>{title}</h2>
+        {onOpen ? (
+          <button type="button" aria-label={`Open ${title}`} onClick={onOpen}><OpenInNewRoundedIcon /></button>
+        ) : (
+          <MoreHorizRoundedIcon />
+        )}
+      </div>
       {children}
     </section>
+  );
+}
+
+function FigmaWarehouseMap() {
+  return (
+    <div className="figma-map" aria-label="Live fleet map preview" role="img">
+      <span className="map-dot d1" /><span className="map-dot d2" /><span className="map-dot d3" /><span className="map-dot d4" /><span className="map-dot d5" />
+      <span className="station-label s102">S102</span>
+      <span className="station-label s101a">S101</span>
+      <span className="station-label s100">S100</span>
+      <span className="station-label s101b">S101</span>
+      <span className="station-label s101c">S101</span>
+      <span className="station-label s101d">S101</span>
+      <span className="map-route r1" /><span className="map-route r2" /><span className="map-route r3" /><span className="map-route r4" />
+      <img className="amr yellow" alt="Yellow AMR" src={asset("sherpa-pallet-form.png")} />
+      <img className="amr orange" alt="Orange AMR" src={asset("sherpa-pallet-form.png")} />
+      <img className="amr red" alt="Red AMR" src={asset("sherpa-pallet-form.png")} />
+    </div>
   );
 }
 
@@ -1381,8 +1639,8 @@ function StatusRow({ danger = false, label, status }: { danger?: boolean; label:
   return <div className={danger ? "status-row danger" : "status-row"}><span>{label}</span><StatusPill danger={danger}>{status}</StatusPill></div>;
 }
 
-function StatusPill({ children, danger = false }: { children: ReactNode; danger?: boolean }) {
-  return <span className={danger ? "status-pill danger" : "status-pill"}>{children}</span>;
+function StatusPill({ children, danger = false, warning = false }: { children: ReactNode; danger?: boolean; warning?: boolean }) {
+  return <span className={`status-pill ${danger ? "danger" : ""} ${warning ? "warning" : ""}`}>{children}</span>;
 }
 
 function SupportPanel({ onClose }: { onClose: () => void }) {
