@@ -39,7 +39,7 @@ type WorkflowTone = "start" | "material" | "station" | "turns" | "aiot" | "end";
 type WorkflowNodeModel = { rows: string[]; title: string; tone: WorkflowTone };
 type ConfigModule = { action: string; count: number; detail: string; title: string };
 type TripRowModel = { id: string; kind: string; route: string; status: string };
-type FigmaConfigScreen = "dashboard" | "amr" | "maps" | "devices" | "workflow" | "workflowMaker";
+type AtiPrototypePage = "amrs" | "maps" | "triggers" | "fleets" | "supervisor" | "map-editor" | "fleet-amrs" | "fleet-maps";
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}aflow/assets/${name}`;
 
@@ -166,13 +166,17 @@ const configuratorModules: Record<string, ConfigModule> = {
   "/configurator/notifications": { action: "Enable Alert", count: 5, detail: "Configure alert recipients and acknowledgement rules.", title: "Notifications" },
 };
 
-const figmaConfigImages: Record<FigmaConfigScreen, string> = {
-  dashboard: "config-dashboard.png",
-  amr: "config-amr.png",
-  maps: "config-maps.png",
-  devices: "config-devices.png",
-  workflow: "workflow.png",
-  workflowMaker: "workflow-maker.png",
+const atiPrototypePages: AtiPrototypePage[] = ["amrs", "maps", "triggers", "fleets", "supervisor", "map-editor", "fleet-amrs", "fleet-maps"];
+
+const atiPrototypeImages: Record<AtiPrototypePage, { alt: string; file: string; title: string }> = {
+  amrs: { alt: "AMRs configurator screen", file: "amrs.jpg", title: "AMRs" },
+  maps: { alt: "Maps configurator screen", file: "maps.jpg", title: "Maps" },
+  triggers: { alt: "Triggers configurator screen", file: "triggers.jpg", title: "Triggers" },
+  fleets: { alt: "Fleets configurator screen", file: "fleets.jpg", title: "Fleets" },
+  supervisor: { alt: "Supervisor mode dashboard", file: "supervisor.jpg", title: "Supervisor Dashboard" },
+  "map-editor": { alt: "Map 101 editor screen", file: "map-editor.jpg", title: "Map Editor" },
+  "fleet-amrs": { alt: "Fleet detail AMRs tab", file: "fleet-amrs.jpg", title: "Fleet - AMRs" },
+  "fleet-maps": { alt: "Fleet detail Maps tab", file: "fleet-maps.jpg", title: "Fleet - Maps" },
 };
 
 function roleFor(pathname: string): Role {
@@ -307,170 +311,99 @@ export default function AFlowPrototype() {
 
 function FigmaConfiguratorPrototype() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const [toast, setToast] = useState("");
-  const [modal, setModal] = useState("");
-  const [roleMenuOpen, setRoleMenuOpen] = useState(false);
-  const [amrTab, setAmrTab] = useState("About AMR");
-  const [amrName, setAmrName] = useState("AMR 101");
-  const [ipAddress, setIpAddress] = useState("192.168.1.101");
-  const [hardwareId, setHardwareId] = useState("XT-LITE-101");
-  const [commissioned, setCommissioned] = useState("2026-05-04");
+  const initialPage: AtiPrototypePage = pathname.includes("/maps")
+    ? "maps"
+    : pathname.includes("/triggers")
+      ? "triggers"
+      : pathname.includes("/fleet")
+        ? "fleets"
+        : "amrs";
+  const [currentPage, setCurrentPage] = useState<AtiPrototypePage>(initialPage);
+  const [lastConfiguratorPage, setLastConfiguratorPage] = useState<AtiPrototypePage>(initialPage);
+  const [history, setHistory] = useState<AtiPrototypePage[]>([initialPage]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+  const [modeMenuOpen, setModeMenuOpen] = useState(false);
 
-  const screen: FigmaConfigScreen = pathname.includes("/workflow/new")
-    ? "workflowMaker"
-    : pathname.includes("/workflow")
-      ? "workflow"
-      : pathname.includes("/maps")
-        ? "maps"
-        : pathname.includes("/devices")
-          ? "devices"
-          : pathname.includes("/amr")
-            ? "amr"
-            : "dashboard";
-
-  function go(path: string) {
-    setRoleMenuOpen(false);
-    setModal("");
-    navigate(path);
-  }
-
-  function saveAmr() {
-    if (!amrName.trim() || !ipAddress.trim() || !hardwareId.trim() || !commissioned.trim()) {
-      setToast("Error: complete all AMR fields before saving.");
-      return;
+  function showScreen(page: AtiPrototypePage, recordHistory = true) {
+    if (recordHistory && page !== currentPage) {
+      const nextHistory = history.slice(0, historyIndex + 1).concat(page);
+      setHistory(nextHistory);
+      setHistoryIndex(nextHistory.length - 1);
     }
-    setToast("AMR configuration saved.");
+    setCurrentPage(page);
+    if (page !== "supervisor") setLastConfiguratorPage(page);
+    setModeMenuOpen(false);
+    document.title = `ATI Robotics - ${atiPrototypeImages[page].title}`;
   }
 
+  function goBack() {
+    if (historyIndex <= 0) return;
+    const nextIndex = historyIndex - 1;
+    setHistoryIndex(nextIndex);
+    showScreen(history[nextIndex], false);
+  }
+
+  function goForward() {
+    if (historyIndex >= history.length - 1) return;
+    const nextIndex = historyIndex + 1;
+    setHistoryIndex(nextIndex);
+    showScreen(history[nextIndex], false);
+  }
+
+  function selectMode(mode: "configurator" | "supervisor") {
+    showScreen(mode === "supervisor" ? "supervisor" : lastConfiguratorPage);
+  }
+
+  const configuratorDisabled = currentPage === "supervisor";
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}ati-prototype-assets/${file}`;
+
   return (
-    <div className="figma-configurator-shell">
-      <img className="figma-config-screen" src={`${import.meta.env.BASE_URL}aflow/${figmaConfigImages[screen]}`} alt={`Configurator ${screen}`} />
-
-      <Hotspot label="Configurator role menu" rect={[20, 20, 217, 60]} onClick={() => setRoleMenuOpen((open) => !open)} />
-      <Hotspot label="Back" rect={[269, 30, 40, 40]} onClick={() => navigate(-1)} />
-      <Hotspot label="Forward" rect={[321, 30, 40, 40]} onClick={() => navigate(1)} />
-      <Hotspot label="Search" rect={[393, 30, 821, 40]} onClick={() => setModal("Search Configurator records")} />
-      <Hotspot label="Support" rect={[1246, 20, 174, 60]} onClick={() => setModal("Support request")} />
-      <Hotspot label="Dashboard" rect={[20, 100, 217, 40]} onClick={() => go("/configurator")} />
-      <Hotspot label="AMRs" rect={[20, 209, 217, 40]} onClick={() => go("/configurator/amr")} />
-      <Hotspot label="Maps" rect={[20, 257, 217, 40]} onClick={() => go("/configurator/maps")} />
-      <Hotspot label="Triggers" rect={[20, 305, 217, 40]} onClick={() => setToast("Triggers are covered from Workflow Builder in this prototype.")} />
-      <Hotspot label="Fleets" rect={[20, 414, 217, 40]} onClick={() => setToast("Fleet setup opened from AMR assignments.")} />
-      <Hotspot label="Traffic Rules" rect={[20, 462, 217, 40]} onClick={() => setToast("Traffic rules opened for the active map.")} />
-      <Hotspot label="Master Data" rect={[20, 571, 217, 40]} onClick={() => go("/configurator/devices")} />
-      <Hotspot label="Workflow Builder" rect={[20, 619, 217, 40]} onClick={() => go("/configurator/workflow/new")} />
-      <Hotspot label="Settings" rect={[20, 916, 217, 40]} onClick={() => setModal("General Settings")} />
-      <Hotspot label="Profile" rect={[20, 964, 217, 40]} onClick={() => setModal("Profile")} />
-
-      {screen === "dashboard" && (
-        <>
-          <Hotspot label="Manage AMRs" rect={[292, 745, 180, 30]} onClick={() => go("/configurator/amr")} />
-          <Hotspot label="Manage Maps" rect={[512, 745, 180, 30]} onClick={() => go("/configurator/maps")} />
-          <Hotspot label="Manage Devices" rect={[732, 745, 180, 30]} onClick={() => go("/configurator/devices")} />
-          <Hotspot label="Manage Fleets" rect={[292, 925, 180, 30]} onClick={() => setToast("Fleet records opened through AMR assignments.")} />
-          <Hotspot label="Manage Workflows" rect={[512, 925, 180, 30]} onClick={() => go("/configurator/workflow")} />
-          <Hotspot label="Manage Users" rect={[732, 925, 180, 30]} onClick={() => setModal("Users")} />
-          {[0, 1, 2, 3, 4].map((index) => (
-            <Hotspot key={index} label={`Attention item ${index + 1}`} rect={[257, 156 + index * 70, 550, 70]} onClick={() => setModal("Attention required")} />
+    <main className="ati-desktop-scene" aria-label="ATI Robotics prototype displayed on a desktop monitor">
+      <div className="ati-monitor">
+        <span className="ati-camera" aria-hidden="true" />
+        <div className="ati-prototype" aria-label="ATI Robotics configurator prototype">
+          {atiPrototypePages.map((page) => (
+            <img
+              className={page === currentPage ? "ati-screen active" : "ati-screen"}
+              key={page}
+              src={assetPath(atiPrototypeImages[page].file)}
+              alt={atiPrototypeImages[page].alt}
+            />
           ))}
-        </>
-      )}
-
-      {screen === "amr" && (
-        <>
-          {["About AMR", "Configurations", "Calibration", "Software Update"].map((tab, index) => (
-            <Hotspot key={tab} label={tab} rect={[283 + index * 180, 161, index === 1 ? 165 : 150, 40]} onClick={() => setAmrTab(tab)} />
-          ))}
-          <input className="figma-field amr-name" aria-label="AMR Name" value={amrName} onChange={(event) => setAmrName(event.target.value)} />
-          <input className="figma-field amr-ip" aria-label="IP Address" value={ipAddress} onChange={(event) => setIpAddress(event.target.value)} />
-          <input className="figma-field amr-hardware" aria-label="Hardware ID" value={hardwareId} onChange={(event) => setHardwareId(event.target.value)} />
-          <input className="figma-field amr-date" aria-label="Date commissioned" type="date" value={commissioned} onChange={(event) => setCommissioned(event.target.value)} />
-          <Hotspot label="Save AMR" rect={[1312, 120, 88, 40]} onClick={saveAmr} />
-          <Hotspot label="AMR tab action" rect={[878, 706, 337, 48]} onClick={() => setToast(`${amrTab} selected.`)} />
-        </>
-      )}
-
-      {screen === "maps" && (
-        <>
-          <Hotspot label="Upload map" rect={[1280, 120, 120, 40]} onClick={() => setModal("Upload Map")} />
-          <Hotspot label="Select map" rect={[282, 220, 560, 470]} onClick={() => setToast("Map selected for editing.")} />
-          <Hotspot label="Publish map" rect={[1288, 920, 112, 40]} onClick={() => setToast("Map published successfully.")} />
-        </>
-      )}
-
-      {screen === "devices" && (
-        <>
-          <Hotspot label="Add device" rect={[1280, 120, 120, 40]} onClick={() => setModal("Add Device")} />
-          <Hotspot label="Test device" rect={[878, 342, 337, 40]} onClick={() => setToast("Device heartbeat test passed.")} />
-          <Hotspot label="Save device" rect={[1312, 120, 88, 40]} onClick={() => setToast("Device configuration saved.")} />
-        </>
-      )}
-
-      {screen === "workflow" && (
-        <>
-          <Hotspot label="Create workflow" rect={[1258, 120, 142, 40]} onClick={() => go("/configurator/workflow/new")} />
-          <Hotspot label="Open workflow" rect={[282, 220, 260, 180]} onClick={() => go("/configurator/workflow/new")} />
-        </>
-      )}
-
-      {screen === "workflowMaker" && (
-        <>
-          <Hotspot label="Add material node" rect={[35, 160, 182, 42]} onClick={() => setToast("Material node added.")} />
-          <Hotspot label="Add station node" rect={[35, 214, 182, 42]} onClick={() => setToast("Station node added.")} />
-          <Hotspot label="Save workflow" rect={[1288, 944, 112, 40]} onClick={() => setToast("Workflow saved successfully.")} />
-          <Hotspot label="Back to workflow list" rect={[269, 30, 40, 40]} onClick={() => go("/configurator/workflow")} />
-        </>
-      )}
-
-      {roleMenuOpen && (
-        <div className="figma-menu" style={{ left: 54, top: 82 }}>
-          <button type="button" onClick={() => go("/configurator")}>Configurator Mode</button>
-          <button type="button" onClick={() => go("/supervisor")}>Supervisor Mode</button>
-          <button type="button" onClick={() => go("/requester/history")}>Requester Mode</button>
+          <button className="ati-hotspot config-hotspot amrs" type="button" aria-label="Open AMRs page" disabled={configuratorDisabled} onClick={() => showScreen("amrs")} />
+          <button className="ati-hotspot config-hotspot maps" type="button" aria-label="Open Maps page" disabled={configuratorDisabled} onClick={() => showScreen("maps")} />
+          <button className="ati-hotspot config-hotspot triggers" type="button" aria-label="Open Triggers page" disabled={configuratorDisabled} onClick={() => showScreen("triggers")} />
+          <button className="ati-hotspot config-hotspot fleets" type="button" aria-label="Open Fleets page" disabled={configuratorDisabled} onClick={() => showScreen("fleets")} />
+          {currentPage === "maps" && <button className="ati-content-hotspot map-card-hotspot" type="button" aria-label="Open selected map in Map Editor" onClick={() => showScreen("map-editor")} />}
+          {currentPage === "fleets" && <button className="ati-content-hotspot fleet-card-hotspot" type="button" aria-label="Open selected fleet" onClick={() => showScreen("fleet-amrs")} />}
+          {["fleet-amrs", "fleet-maps"].includes(currentPage) && (
+            <>
+              <button className="ati-content-hotspot fleet-tab-hotspot fleet-tab-amrs" type="button" aria-label="Open fleet AMRs tab" onClick={() => showScreen("fleet-amrs")} />
+              <button className="ati-content-hotspot fleet-tab-hotspot fleet-tab-maps" type="button" aria-label="Open fleet Maps tab" onClick={() => showScreen("fleet-maps")} />
+            </>
+          )}
+          <button className="ati-history-hotspot history-back" type="button" aria-label="Go back" disabled={historyIndex <= 0} onClick={goBack} />
+          <button className="ati-history-hotspot history-forward" type="button" aria-label="Go forward" disabled={historyIndex >= history.length - 1} onClick={goForward} />
+          <button
+            className="ati-mode-hotspot"
+            type="button"
+            aria-label="Change application mode"
+            aria-haspopup="menu"
+            aria-expanded={modeMenuOpen}
+            onClick={() => setModeMenuOpen((open) => !open)}
+          />
+          {modeMenuOpen && (
+            <div className="ati-mode-menu" role="menu">
+              <button className={currentPage === "supervisor" ? "ati-mode-option" : "ati-mode-option current"} type="button" role="menuitem" onClick={() => selectMode("configurator")}><span>◇</span>Configurator Mode</button>
+              <button className={currentPage === "supervisor" ? "ati-mode-option current" : "ati-mode-option"} type="button" role="menuitem" onClick={() => selectMode("supervisor")}><span>◉</span>Supervisor Mode</button>
+            </div>
+          )}
         </div>
-      )}
-      {modal && <FigmaConfigModal title={modal} onClose={() => setModal("")} onDone={(message) => { setModal(""); setToast(message); }} />}
-      {toast && <button className={`figma-toast ${toast.startsWith("Error") ? "error" : ""}`} type="button" onClick={() => setToast("")}>{toast}</button>}
-    </div>
-  );
-}
-
-function Hotspot({ label, onClick, rect }: { label: string; onClick: () => void; rect: [number, number, number, number] }) {
-  return (
-    <button
-      aria-label={label}
-      className="figma-hotspot"
-      style={{ left: rect[0], top: rect[1], width: rect[2], height: rect[3] }}
-      type="button"
-      onClick={onClick}
-    />
-  );
-}
-
-function FigmaConfigModal({ onClose, onDone, title }: { onClose: () => void; onDone: (message: string) => void; title: string }) {
-  const [value, setValue] = useState("");
-  const isSearch = title.includes("Search");
-  return (
-    <div className="figma-modal-backdrop" role="dialog" aria-modal="true" aria-label={title}>
-      <section className="figma-modal">
-        <header>
-          <strong>{title}</strong>
-          <button aria-label="Close" type="button" onClick={onClose}><CloseRoundedIcon /></button>
-        </header>
-        <label>
-          {isSearch ? "Query" : "Name"}
-          <input value={value} onChange={(event) => setValue(event.target.value)} placeholder={isSearch ? "Search AMRs, maps, fleets..." : title} />
-        </label>
-        {!isSearch && <label>Type<select defaultValue="Standard"><option>Standard</option><option>Priority</option><option>Maintenance</option></select></label>}
-        <footer>
-          <button type="button" onClick={onClose}>Back</button>
-          <button type="button" onClick={() => onDone(isSearch ? `Search complete: ${value || "all records"}` : `${title} saved successfully.`)}>
-            {isSearch ? "Search" : "Save"}
-          </button>
-        </footer>
-      </section>
-    </div>
+      </div>
+      <div className="ati-monitor-neck" aria-hidden="true" />
+      <div className="ati-monitor-base" aria-hidden="true" />
+      <div className="ati-desk-shadow" aria-hidden="true" />
+    </main>
   );
 }
 

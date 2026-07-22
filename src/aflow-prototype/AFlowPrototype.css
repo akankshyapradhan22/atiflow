@@ -219,6 +219,237 @@ input:focus-visible {
   background: #00a99d;
 }
 
+.ati-desktop-scene {
+  position: relative;
+  z-index: 0;
+  width: min(96vw, calc(72dvh * 1.40625));
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding-top: 2vh;
+  background:
+    radial-gradient(circle at 50% 28%, #f8fafb 0, #e9edf0 42%, #cbd1d6 100%);
+}
+
+.ati-desktop-scene::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 28%, #f8fafb 0, #e9edf0 42%, #cbd1d6 100%);
+}
+
+.ati-monitor {
+  position: relative;
+  width: 100%;
+  padding: clamp(9px, 1.1vw, 17px);
+  border-radius: clamp(14px, 1.8vw, 26px);
+  background: linear-gradient(145deg, #30353a, #111416 72%);
+  box-shadow:
+    0 3.5vh 6vh rgba(25, 31, 36, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.8);
+}
+
+.ati-camera {
+  position: absolute;
+  top: clamp(3px, 0.32vw, 6px);
+  left: 50%;
+  z-index: 2;
+  width: clamp(3px, 0.38vw, 6px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #090b0d;
+  box-shadow: inset 0 0 0 1px #46515b, 0 0 3px #4a7797;
+}
+
+.ati-prototype {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1440 / 1024;
+  overflow: hidden;
+  background: #f7f7f7;
+  container-type: inline-size;
+  touch-action: manipulation;
+  border-radius: clamp(5px, 0.45vw, 8px);
+  box-shadow: 0 0 0 1px #000, inset 0 0 8px rgba(0, 0, 0, 0.18);
+}
+
+.ati-monitor-neck {
+  width: 15%;
+  height: clamp(35px, 7vh, 72px);
+  background: linear-gradient(90deg, #777d82, #d2d5d7 48%, #747a7f);
+  clip-path: polygon(22% 0, 78% 0, 91% 100%, 9% 100%);
+  box-shadow: 0 8px 11px rgba(0, 0, 0, 0.17);
+}
+
+.ati-monitor-base {
+  width: 34%;
+  height: clamp(9px, 1.5vh, 16px);
+  border-radius: 50% 50% 25% 25%;
+  background: linear-gradient(#d1d4d6, #777d81);
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.28);
+}
+
+.ati-desk-shadow {
+  width: 70%;
+  height: 2.5vh;
+  margin-top: -1vh;
+  border-radius: 50%;
+  background: rgba(42, 48, 53, 0.18);
+  filter: blur(13px);
+}
+
+.ati-screen {
+  position: absolute;
+  inset: 0;
+  display: none;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ati-screen.active {
+  display: block;
+}
+
+.ati-hotspot {
+  position: absolute;
+  left: 1.35%;
+  width: 15.15%;
+  height: 4.1%;
+  border: 0;
+  border-radius: 24px;
+  background: transparent;
+}
+
+.ati-hotspot.amrs { top: 20.4%; }
+.ati-hotspot.maps { top: 25.1%; }
+.ati-hotspot.triggers { top: 29.8%; }
+.ati-hotspot.fleets { top: 39.9%; }
+
+.ati-content-hotspot {
+  position: absolute;
+  z-index: 3;
+  border: 0;
+  background: transparent;
+}
+
+.ati-content-hotspot.map-card-hotspot,
+.ati-content-hotspot.fleet-card-hotspot {
+  left: 19.5%;
+  top: 22.2%;
+  width: 74.5%;
+  height: 64.3%;
+}
+
+.ati-content-hotspot.fleet-tab-hotspot {
+  top: 9.8%;
+  height: 5.7%;
+}
+
+.ati-content-hotspot.fleet-tab-amrs {
+  left: 19.65%;
+  width: 7.3%;
+}
+
+.ati-content-hotspot.fleet-tab-maps {
+  left: 29.55%;
+  width: 6.5%;
+}
+
+.ati-history-hotspot {
+  position: absolute;
+  z-index: 4;
+  top: 2.85%;
+  width: 2.9%;
+  height: 4.15%;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.ati-history-hotspot.history-back { left: 18.65%; }
+.ati-history-hotspot.history-forward { left: 22.35%; }
+
+.ati-history-hotspot:disabled {
+  cursor: default;
+}
+
+.ati-mode-hotspot {
+  position: absolute;
+  z-index: 4;
+  top: 1.95%;
+  left: 1.35%;
+  width: 15.15%;
+  height: 5.95%;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+}
+
+.ati-mode-menu {
+  position: absolute;
+  z-index: 8;
+  top: 8.2%;
+  left: 1.35%;
+  width: 15.15%;
+  padding: 0.45cqw;
+  border: 1px solid #c7c7c7;
+  border-radius: 1.15cqw;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 0.7cqw 1.7cqw rgba(0, 0, 0, 0.2);
+}
+
+.ati-mode-option {
+  width: 100%;
+  min-height: 3.7cqw;
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  padding: 0 0.75cqw;
+  border: 0;
+  border-radius: 0.75cqw;
+  background: transparent;
+  color: #292929;
+  font-size: 1.05cqw;
+  text-align: left;
+}
+
+.ati-mode-option:hover,
+.ati-mode-option:focus-visible {
+  background: #e4e4e4;
+  outline: none;
+}
+
+.ati-mode-option.current {
+  color: #008f86;
+  font-weight: 600;
+}
+
+.ati-mode-option span {
+  width: 1.4cqw;
+  text-align: center;
+  font-size: 1.25cqw;
+}
+
+.ati-hotspot:focus-visible,
+.ati-content-hotspot:focus-visible,
+.ati-history-hotspot:focus-visible {
+  outline: 3px solid #00aaa0;
+  outline-offset: 2px;
+}
+
+.ati-mode-hotspot:focus-visible {
+  outline: 3px solid white;
+  outline-offset: -5px;
+}
+
 .af-app {
   min-height: 100dvh;
   padding: 22px;
