@@ -31,7 +31,9 @@ import SyncRoundedIcon from "@mui/icons-material/SyncRounded";
 import TuneRoundedIcon from "@mui/icons-material/TuneRounded";
 import "./AFlowPrototype.css";
 
-type Role = "Configurator" | "Supervisor" | "Requester";
+type Role = "Configurator" | "Supervisor" | "Requester" | "Approver" | "Manager";
+type DesktopPrototype = "Configurator" | "Supervisor";
+type TabletPrototype = "Approver" | "Manager" | "Requester";
 type NavItem = { label: string; path: string; icon: typeof DashboardRoundedIcon };
 type NavGroup = { label?: string; items: NavItem[] };
 type ViewMode = "grid" | "list";
@@ -39,7 +41,44 @@ type WorkflowTone = "start" | "material" | "station" | "turns" | "aiot" | "end";
 type WorkflowNodeModel = { rows: string[]; title: string; tone: WorkflowTone };
 type ConfigModule = { action: string; count: number; detail: string; title: string };
 type TripRowModel = { id: string; kind: string; route: string; status: string };
-type AtiPrototypePage = "amrs" | "maps" | "triggers" | "fleets" | "supervisor" | "map-editor" | "fleet-amrs" | "fleet-maps";
+type ConfiguratorScreen =
+  | "dashboard"
+  | "amrs"
+  | "amr-configurations"
+  | "maps"
+  | "map-editor"
+  | "triggers"
+  | "fleets"
+  | "fleets-amrs"
+  | "fleet-maps"
+  | "master-data"
+  | "staging-area"
+  | "staging-area-1"
+  | "general-settings"
+  | "general-settings-1"
+  | "workflow-builder"
+  | "workflow-builder-1"
+  | "hover-list";
+type SupervisorScreen =
+  | "dashboard"
+  | "dashboard-analytics"
+  | "dashboard-1"
+  | "dashboard-2"
+  | "dashboard-3"
+  | "dashboard-staging-area"
+  | "analytics-board"
+  | "analytics-board-1"
+  | "live-status"
+  | "live-status-pause"
+  | "live-status-resume"
+  | "live-status-legends-opened"
+  | "live-status-with-staging-area"
+  | "live-status-chat-attach"
+  | "live-status-chat-describing"
+  | "staging-area-cells";
+type ApproverScreen = "pending" | "cancelled-list" | "cancelled-reason" | "cancelled-success" | "away";
+type RequesterTabletScreen = "history" | "alerts" | "live-status" | "booking-start" | "booking-amr" | "booking-material" | "booking-review";
+type ManagerTabletScreen = "action-center" | "staging-area" | "wip-inventory" | "notifications";
 
 const asset = (name: string) => `${import.meta.env.BASE_URL}aflow/assets/${name}`;
 
@@ -145,7 +184,7 @@ const dashboardCards = [
 ] as const;
 
 const tabs = ["All", "Scheduled", "In progress", "Completed", "Cancelled"];
-const roleOptions: Role[] = ["Configurator", "Supervisor", "Requester"];
+const roleOptions: Role[] = ["Configurator", "Supervisor", "Requester", "Manager"];
 const workflowNodeTemplates: Record<WorkflowTone, WorkflowNodeModel> = {
   start: { tone: "start", title: "Start Node", rows: ["Start Trigger", "Auto API"] },
   material: { tone: "material", title: "Material Node", rows: ["Material", "SKU", "Sub- SKU", "Quantity", "100 units"] },
@@ -166,27 +205,127 @@ const configuratorModules: Record<string, ConfigModule> = {
   "/configurator/notifications": { action: "Enable Alert", count: 5, detail: "Configure alert recipients and acknowledgement rules.", title: "Notifications" },
 };
 
-const atiPrototypePages: AtiPrototypePage[] = ["amrs", "maps", "triggers", "fleets", "supervisor", "map-editor", "fleet-amrs", "fleet-maps"];
+const configuratorScreens: ConfiguratorScreen[] = [
+  "dashboard",
+  "amrs",
+  "amr-configurations",
+  "maps",
+  "map-editor",
+  "triggers",
+  "fleets",
+  "fleets-amrs",
+  "fleet-maps",
+  "master-data",
+  "staging-area",
+  "staging-area-1",
+  "general-settings",
+  "general-settings-1",
+  "workflow-builder",
+  "workflow-builder-1",
+  "hover-list",
+];
 
-const atiPrototypeImages: Record<AtiPrototypePage, { alt: string; file: string; title: string }> = {
-  amrs: { alt: "AMRs configurator screen", file: "amrs.jpg", title: "AMRs" },
-  maps: { alt: "Maps configurator screen", file: "maps.jpg", title: "Maps" },
-  triggers: { alt: "Triggers configurator screen", file: "triggers.jpg", title: "Triggers" },
-  fleets: { alt: "Fleets configurator screen", file: "fleets.jpg", title: "Fleets" },
-  supervisor: { alt: "Supervisor mode dashboard", file: "supervisor.jpg", title: "Supervisor Dashboard" },
-  "map-editor": { alt: "Map 101 editor screen", file: "map-editor.jpg", title: "Map Editor" },
-  "fleet-amrs": { alt: "Fleet detail AMRs tab", file: "fleet-amrs.jpg", title: "Fleet - AMRs" },
-  "fleet-maps": { alt: "Fleet detail Maps tab", file: "fleet-maps.jpg", title: "Fleet - Maps" },
+const configuratorImages: Record<ConfiguratorScreen, { alt: string; file: string; title: string }> = {
+  dashboard: { alt: "Configurator dashboard", file: "dashboard.png", title: "Dashboard" },
+  amrs: { alt: "AMRs list", file: "amrs.jpg", title: "AMRs" },
+  "amr-configurations": { alt: "AMR configurations", file: "amr-configurations.png", title: "AMR Configurations" },
+  maps: { alt: "Maps list", file: "maps.jpg", title: "Maps" },
+  "map-editor": { alt: "Map editor", file: "map-editor.jpg", title: "Map Editor" },
+  triggers: { alt: "Triggers", file: "triggers.jpg", title: "Triggers" },
+  fleets: { alt: "Fleets list", file: "fleets.jpg", title: "Fleets" },
+  "fleets-amrs": { alt: "Fleet AMRs tab", file: "fleets-amrs.jpg", title: "Fleet AMRs" },
+  "fleet-maps": { alt: "Fleet maps tab", file: "fleet-maps.jpg", title: "Fleet Maps" },
+  "master-data": { alt: "Master data", file: "master-data.png", title: "Master Data" },
+  "staging-area": { alt: "Staging area", file: "staging-area.png", title: "Staging Area" },
+  "staging-area-1": { alt: "Staging area detail", file: "staging-area-1.png", title: "Staging Area Detail" },
+  "general-settings": { alt: "General settings", file: "general-settings.png", title: "General Settings" },
+  "general-settings-1": { alt: "General settings detail", file: "general-settings-1.png", title: "General Settings Detail" },
+  "workflow-builder": { alt: "Workflow builder", file: "workflow-builder.png", title: "Workflow Builder" },
+  "workflow-builder-1": { alt: "Workflow builder configured", file: "workflow-builder-1.png", title: "Workflow Builder Detail" },
+  "hover-list": { alt: "Mode hover list", file: "hover-list.png", title: "Mode List" },
+};
+
+const supervisorScreens: SupervisorScreen[] = [
+  "dashboard",
+  "dashboard-analytics",
+  "dashboard-1",
+  "dashboard-2",
+  "dashboard-3",
+  "dashboard-staging-area",
+  "analytics-board",
+  "analytics-board-1",
+  "live-status",
+  "live-status-pause",
+  "live-status-resume",
+  "live-status-legends-opened",
+  "live-status-with-staging-area",
+  "live-status-chat-attach",
+  "live-status-chat-describing",
+  "staging-area-cells",
+];
+
+const supervisorImages: Record<SupervisorScreen, { alt: string; file: string; title: string }> = {
+  dashboard: { alt: "Supervisor dashboard", file: "dashboard.jpg", title: "Supervisor Dashboard" },
+  "dashboard-analytics": { alt: "Supervisor dashboard analytics selected", file: "dashboard.png", title: "Supervisor Dashboard Analytics" },
+  "dashboard-1": { alt: "Supervisor dashboard variant one", file: "dashboard-1.png", title: "Supervisor Dashboard" },
+  "dashboard-2": { alt: "Supervisor dashboard variant two", file: "dashboard-2.png", title: "Supervisor Dashboard" },
+  "dashboard-3": { alt: "Supervisor dashboard variant three", file: "dashboard-3.png", title: "Supervisor Dashboard" },
+  "dashboard-staging-area": { alt: "Supervisor staging area dashboard", file: "dashboard-staging-area.png", title: "Staging Area" },
+  "analytics-board": { alt: "Supervisor analytics board", file: "analytics-errors.png", title: "Analytics Board" },
+  "analytics-board-1": { alt: "Supervisor analytics board detail", file: "analytics-board-1.png", title: "Analytics Board Detail" },
+  "live-status": { alt: "Supervisor live status", file: "live-status.png", title: "Live Status" },
+  "live-status-pause": { alt: "Supervisor live status pause", file: "live-status-pause.png", title: "Pause AMR" },
+  "live-status-resume": { alt: "Supervisor live status resume", file: "live-status-resume.png", title: "Resume AMR" },
+  "live-status-legends-opened": { alt: "Supervisor live status legends opened", file: "live-status-legends-opened.png", title: "Map Legends" },
+  "live-status-with-staging-area": { alt: "Supervisor live status with staging area", file: "live-status-with-staging-area.png", title: "Live Status Staging Area" },
+  "live-status-chat-attach": { alt: "Supervisor chat support attach", file: "live-status-chat-attach.png", title: "Support Attachment" },
+  "live-status-chat-describing": { alt: "Supervisor chat support describing", file: "live-status-chat-describing.png", title: "Support Description" },
+  "staging-area-cells": { alt: "Supervisor staging area cells", file: "staging-area-cells.png", title: "Staging Area Cells" },
+};
+
+const approverScreens: ApproverScreen[] = ["pending", "cancelled-list", "cancelled-reason", "cancelled-success", "away"];
+
+const approverImages: Record<ApproverScreen, { alt: string; file: string; title: string }> = {
+  pending: { alt: "Approver tablet pending requests", file: "pending.jpg", title: "Pending Requests" },
+  "cancelled-list": { alt: "Approver tablet cancelled requests", file: "cancelled-list.jpg", title: "Cancelled Requests" },
+  "cancelled-reason": { alt: "Approver tablet cancellation reason dialog", file: "cancelled-reason.png", title: "Cancellation Reason" },
+  "cancelled-success": { alt: "Approver tablet cancellation success", file: "cancelled-success.jpg", title: "Cancellation Success" },
+  away: { alt: "Approver tablet away state", file: "away.jpg", title: "Away" },
+};
+
+const requesterTabletScreens: RequesterTabletScreen[] = ["history", "alerts", "live-status", "booking-start", "booking-amr", "booking-material", "booking-review"];
+
+const requesterTabletImages: Record<RequesterTabletScreen, { alt: string; file: string; title: string }> = {
+  history: { alt: "Requester tablet history", file: "history.jpg", title: "History" },
+  alerts: { alt: "Requester tablet alerts", file: "alerts.jpg", title: "Alerts" },
+  "live-status": { alt: "Requester tablet live status", file: "live-status.jpg", title: "Track Trip" },
+  "booking-start": { alt: "Requester tablet trip option selection", file: "booking-start.jpg", title: "Book Trip" },
+  "booking-amr": { alt: "Requester tablet AMR trip booking", file: "booking-amr.jpg", title: "Schedule AMR Trip" },
+  "booking-material": { alt: "Requester tablet material delivery booking", file: "booking-material.jpg", title: "Schedule Material Delivery" },
+  "booking-review": { alt: "Requester tablet booking review", file: "booking-review.jpg", title: "Confirm Trip" },
+};
+
+const managerTabletScreens: ManagerTabletScreen[] = ["action-center", "staging-area", "wip-inventory", "notifications"];
+
+const managerTabletImages: Record<ManagerTabletScreen, { alt: string; file: string; title: string }> = {
+  "action-center": { alt: "Manager tablet action center", file: "manual-trip-booking.jpg", title: "Action Center" },
+  "staging-area": { alt: "Manager tablet staging area", file: "staging-area.jpg", title: "Staging Area" },
+  "wip-inventory": { alt: "Manager tablet WIP inventory", file: "wip-inventory.jpg", title: "WIP Inventory" },
+  notifications: { alt: "Manager tablet notifications", file: "notifications.jpg", title: "Notifications" },
 };
 
 function roleFor(pathname: string): Role {
+  if (pathname.startsWith("/manager")) return "Manager";
+  if (pathname.startsWith("/approver")) return "Approver";
   if (pathname.startsWith("/requester")) return "Requester";
   if (pathname.startsWith("/supervisor")) return "Supervisor";
   return "Configurator";
 }
 
 function homeFor(role: Role) {
-  if (role === "Requester") return "/requester/history";
+  if (role === "Manager") return "/manager";
+  if (role === "Approver") return "/approver";
+  if (role === "Requester") return "/requester";
   if (role === "Supervisor") return "/supervisor";
   return "/configurator";
 }
@@ -203,8 +342,28 @@ export default function AFlowPrototype() {
   const workflowMode = pathname.includes("/workflow/new");
   const figmaSupervisorHome = pathname === "/supervisor";
 
+  if (pathname === "/" || pathname === "/prototype") {
+    return <PrototypeHub />;
+  }
+
   if (role === "Configurator") {
     return <FigmaConfiguratorPrototype />;
+  }
+
+  if (role === "Supervisor") {
+    return <SupervisorPrototype />;
+  }
+
+  if (role === "Approver") {
+    return <ApproverTabletPrototype />;
+  }
+
+  if (role === "Requester") {
+    return <RequesterTabletPrototype />;
+  }
+
+  if (role === "Manager") {
+    return <ManagerTabletPrototype />;
   }
 
   const content = useMemo(() => {
@@ -309,31 +468,69 @@ export default function AFlowPrototype() {
   );
 }
 
-function FigmaConfiguratorPrototype() {
+function PrototypeHub() {
+  const [desktop, setDesktop] = useState<DesktopPrototype>("Configurator");
+  const [tablet, setTablet] = useState<TabletPrototype>("Approver");
+
+  return (
+    <main className="prototype-hub">
+      <section className="prototype-group">
+        <div className="prototype-switcher" aria-label="Desktop prototype switcher">
+          <span>Desktop</span>
+          {(["Configurator", "Supervisor"] as const).map((option) => (
+            <button className={desktop === option ? "active" : ""} key={option} type="button" onClick={() => setDesktop(option)}>
+              {option}
+            </button>
+          ))}
+        </div>
+        {desktop === "Configurator" ? (
+          <FigmaConfiguratorPrototype onModeSwitch={setDesktop} />
+        ) : (
+          <SupervisorPrototype onModeSwitch={setDesktop} />
+        )}
+      </section>
+
+      <section className="prototype-group">
+        <div className="prototype-switcher" aria-label="Tablet prototype switcher">
+          <span>Tablet</span>
+          {(["Approver", "Manager", "Requester"] as const).map((option) => (
+            <button className={tablet === option ? "active" : ""} key={option} type="button" onClick={() => setTablet(option)}>
+              {option}
+            </button>
+          ))}
+        </div>
+        {tablet === "Approver" && <ApproverTabletPrototype />}
+        {tablet === "Manager" && <ManagerTabletPrototype />}
+        {tablet === "Requester" && <RequesterTabletPrototype />}
+      </section>
+    </main>
+  );
+}
+
+function FigmaConfiguratorPrototype({ onModeSwitch }: { onModeSwitch?: (next: DesktopPrototype) => void }) {
   const { pathname } = useLocation();
-  const initialPage: AtiPrototypePage = pathname.includes("/maps")
+  const navigate = useNavigate();
+  const initialPage: ConfiguratorScreen = pathname.includes("/maps")
     ? "maps"
     : pathname.includes("/triggers")
       ? "triggers"
       : pathname.includes("/fleet")
         ? "fleets"
-        : "amrs";
-  const [currentPage, setCurrentPage] = useState<AtiPrototypePage>(initialPage);
-  const [lastConfiguratorPage, setLastConfiguratorPage] = useState<AtiPrototypePage>(initialPage);
-  const [history, setHistory] = useState<AtiPrototypePage[]>([initialPage]);
+        : pathname.includes("/amr")
+          ? "amrs"
+          : "dashboard";
+  const [currentPage, setCurrentPage] = useState<ConfiguratorScreen>(initialPage);
+  const [history, setHistory] = useState<ConfiguratorScreen[]>([initialPage]);
   const [historyIndex, setHistoryIndex] = useState(0);
-  const [modeMenuOpen, setModeMenuOpen] = useState(false);
 
-  function showScreen(page: AtiPrototypePage, recordHistory = true) {
+  function showScreen(page: ConfiguratorScreen, recordHistory = true) {
     if (recordHistory && page !== currentPage) {
       const nextHistory = history.slice(0, historyIndex + 1).concat(page);
       setHistory(nextHistory);
       setHistoryIndex(nextHistory.length - 1);
     }
     setCurrentPage(page);
-    if (page !== "supervisor") setLastConfiguratorPage(page);
-    setModeMenuOpen(false);
-    document.title = `ATI Robotics - ${atiPrototypeImages[page].title}`;
+    document.title = `ATI Robotics - ${configuratorImages[page].title}`;
   }
 
   function goBack() {
@@ -350,60 +547,447 @@ function FigmaConfiguratorPrototype() {
     showScreen(history[nextIndex], false);
   }
 
-  function selectMode(mode: "configurator" | "supervisor") {
-    showScreen(mode === "supervisor" ? "supervisor" : lastConfiguratorPage);
-  }
-
-  const configuratorDisabled = currentPage === "supervisor";
-  const assetPath = (file: string) => `${import.meta.env.BASE_URL}ati-prototype-assets/${file}`;
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}configurator-assets/${file}`;
 
   return (
-    <main className="ati-desktop-scene" aria-label="ATI Robotics prototype displayed on a desktop monitor">
-      <div className="ati-monitor">
-        <span className="ati-camera" aria-hidden="true" />
-        <div className="ati-prototype" aria-label="ATI Robotics configurator prototype">
-          {atiPrototypePages.map((page) => (
-            <img
-              className={page === currentPage ? "ati-screen active" : "ati-screen"}
-              key={page}
-              src={assetPath(atiPrototypeImages[page].file)}
-              alt={atiPrototypeImages[page].alt}
-            />
-          ))}
-          <button className="ati-hotspot config-hotspot amrs" type="button" aria-label="Open AMRs page" disabled={configuratorDisabled} onClick={() => showScreen("amrs")} />
-          <button className="ati-hotspot config-hotspot maps" type="button" aria-label="Open Maps page" disabled={configuratorDisabled} onClick={() => showScreen("maps")} />
-          <button className="ati-hotspot config-hotspot triggers" type="button" aria-label="Open Triggers page" disabled={configuratorDisabled} onClick={() => showScreen("triggers")} />
-          <button className="ati-hotspot config-hotspot fleets" type="button" aria-label="Open Fleets page" disabled={configuratorDisabled} onClick={() => showScreen("fleets")} />
-          {currentPage === "maps" && <button className="ati-content-hotspot map-card-hotspot" type="button" aria-label="Open selected map in Map Editor" onClick={() => showScreen("map-editor")} />}
-          {currentPage === "fleets" && <button className="ati-content-hotspot fleet-card-hotspot" type="button" aria-label="Open selected fleet" onClick={() => showScreen("fleet-amrs")} />}
-          {["fleet-amrs", "fleet-maps"].includes(currentPage) && (
-            <>
-              <button className="ati-content-hotspot fleet-tab-hotspot fleet-tab-amrs" type="button" aria-label="Open fleet AMRs tab" onClick={() => showScreen("fleet-amrs")} />
-              <button className="ati-content-hotspot fleet-tab-hotspot fleet-tab-maps" type="button" aria-label="Open fleet Maps tab" onClick={() => showScreen("fleet-maps")} />
-            </>
-          )}
-          <button className="ati-history-hotspot history-back" type="button" aria-label="Go back" disabled={historyIndex <= 0} onClick={goBack} />
-          <button className="ati-history-hotspot history-forward" type="button" aria-label="Go forward" disabled={historyIndex >= history.length - 1} onClick={goForward} />
-          <button
-            className="ati-mode-hotspot"
-            type="button"
-            aria-label="Change application mode"
-            aria-haspopup="menu"
-            aria-expanded={modeMenuOpen}
-            onClick={() => setModeMenuOpen((open) => !open)}
-          />
-          {modeMenuOpen && (
-            <div className="ati-mode-menu" role="menu">
-              <button className={currentPage === "supervisor" ? "ati-mode-option" : "ati-mode-option current"} type="button" role="menuitem" onClick={() => selectMode("configurator")}><span>◇</span>Configurator Mode</button>
-              <button className={currentPage === "supervisor" ? "ati-mode-option current" : "ati-mode-option"} type="button" role="menuitem" onClick={() => selectMode("supervisor")}><span>◉</span>Supervisor Mode</button>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="ati-monitor-neck" aria-hidden="true" />
-      <div className="ati-monitor-base" aria-hidden="true" />
-      <div className="ati-desk-shadow" aria-hidden="true" />
+    <DeviceFrame kind="desktop">
+    <main className="configurator-prototype" aria-label="ATI Robotics configurator prototype">
+      {configuratorScreens.map((screen) => (
+        <img
+          className={screen === currentPage ? "configurator-screen active" : "configurator-screen"}
+          key={screen}
+          src={assetPath(configuratorImages[screen].file)}
+          alt={configuratorImages[screen].alt}
+        />
+      ))}
+      <ScreenHotspot className="mode" label="Switch to supervisor mode" rect={[20, 20, 217, 60]} onClick={() => onModeSwitch ? onModeSwitch("Supervisor") : navigate("/supervisor")} />
+      <ScreenHotspot label="Go back" rect={[269, 30, 40, 40]} disabled={historyIndex <= 0} onClick={goBack} />
+      <ScreenHotspot label="Go forward" rect={[321, 30, 40, 40]} disabled={historyIndex >= history.length - 1} onClick={goForward} />
+      <ScreenHotspot label="Go to support" rect={[1246, 20, 174, 60]} onClick={() => showScreen("general-settings")} />
+      <ScreenHotspot label="Dashboard" rect={[20, 100, 217, 40]} onClick={() => showScreen("dashboard")} />
+      <ScreenHotspot label="AMRs" rect={[20, 209, 217, 40]} onClick={() => showScreen("amrs")} />
+      <ScreenHotspot label="Maps" rect={[20, 257, 217, 40]} onClick={() => showScreen("maps")} />
+      <ScreenHotspot label="Triggers" rect={[20, 305, 217, 40]} onClick={() => showScreen("triggers")} />
+      <ScreenHotspot label="Fleets" rect={[20, 414, 217, 40]} onClick={() => showScreen("fleets")} />
+      <ScreenHotspot label="Traffic Rules" rect={[20, 462, 217, 40]} onClick={() => showScreen("maps")} />
+      <ScreenHotspot label="Master Data" rect={[20, 571, 217, 40]} onClick={() => showScreen("master-data")} />
+      <ScreenHotspot label="Workflow Builder" rect={[20, 619, 217, 40]} onClick={() => showScreen("workflow-builder")} />
+      <ScreenHotspot label="General Settings" rect={[20, 916, 217, 40]} onClick={() => showScreen("general-settings")} />
+      <ScreenHotspot label="Profile" rect={[20, 964, 217, 40]} onClick={() => showScreen("general-settings-1")} />
+
+      {currentPage === "dashboard" && (
+        <>
+          <ScreenHotspot label="Manage AMRs" rect={[282, 624, 200, 160]} onClick={() => showScreen("amrs")} />
+          <ScreenHotspot label="Manage Maps" rect={[502, 624, 200, 160]} onClick={() => showScreen("maps")} />
+          <ScreenHotspot label="Manage Devices" rect={[722, 624, 200, 160]} onClick={() => showScreen("master-data")} />
+          <ScreenHotspot label="Manage Fleets" rect={[282, 804, 200, 160]} onClick={() => showScreen("fleets")} />
+          <ScreenHotspot label="Manage Workflows" rect={[502, 804, 200, 160]} onClick={() => showScreen("workflow-builder")} />
+          <ScreenHotspot label="Manage Users" rect={[722, 804, 200, 160]} onClick={() => showScreen("master-data")} />
+        </>
+      )}
+
+      {currentPage === "amrs" && <ScreenHotspot label="Configure AMR" rect={[257, 160, 1163, 740]} onClick={() => showScreen("amr-configurations")} />}
+      {currentPage === "amr-configurations" && <ScreenHotspot label="Save AMR configuration" rect={[1312, 120, 88, 40]} onClick={() => showScreen("amrs")} />}
+      {currentPage === "maps" && <ScreenHotspot label="Open map editor" rect={[257, 160, 1163, 740]} onClick={() => showScreen("map-editor")} />}
+      {currentPage === "map-editor" && <ScreenHotspot label="Save map editor" rect={[1280, 120, 120, 40]} onClick={() => showScreen("maps")} />}
+      {currentPage === "fleets" && <ScreenHotspot label="Open fleet details" rect={[257, 160, 1163, 740]} onClick={() => showScreen("fleets-amrs")} />}
+      {["fleets-amrs", "fleet-maps"].includes(currentPage) && (
+        <>
+          <ScreenHotspot label="Fleet AMRs tab" rect={[283, 160, 140, 40]} onClick={() => showScreen("fleets-amrs")} />
+          <ScreenHotspot label="Fleet Maps tab" rect={[463, 160, 140, 40]} onClick={() => showScreen("fleet-maps")} />
+          <ScreenHotspot label="Back to fleets" rect={[289, 121, 120, 24]} onClick={() => showScreen("fleets")} />
+        </>
+      )}
+      {currentPage === "workflow-builder" && <ScreenHotspot label="Configure workflow" rect={[360, 280, 520, 520]} onClick={() => showScreen("workflow-builder-1")} />}
+      {currentPage === "workflow-builder-1" && <ScreenHotspot label="Save workflow" rect={[1280, 120, 120, 40]} onClick={() => showScreen("workflow-builder")} />}
+      {currentPage === "master-data" && <ScreenHotspot label="Open staging area" rect={[257, 160, 1163, 740]} onClick={() => showScreen("staging-area")} />}
+      {currentPage === "staging-area" && <ScreenHotspot label="Open staging detail" rect={[257, 160, 1163, 740]} onClick={() => showScreen("staging-area-1")} />}
+      {currentPage === "staging-area-1" && <ScreenHotspot label="Back to staging area" rect={[269, 30, 40, 40]} onClick={() => showScreen("staging-area")} />}
+      {currentPage === "general-settings" && <ScreenHotspot label="Save general settings" rect={[1312, 120, 88, 40]} onClick={() => showScreen("general-settings-1")} />}
+      {currentPage === "hover-list" && <ScreenHotspot label="Return to configurator dashboard" rect={[20, 20, 217, 120]} onClick={() => showScreen("dashboard")} />}
     </main>
+    </DeviceFrame>
+  );
+}
+
+function SupervisorPrototype({ onModeSwitch }: { onModeSwitch?: (next: DesktopPrototype) => void }) {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const initialPage: SupervisorScreen = pathname.includes("/live")
+    ? "live-status"
+    : pathname.includes("/analytics")
+      ? "analytics-board"
+      : pathname.includes("/staging")
+        ? "dashboard-staging-area"
+        : pathname.includes("/inventory")
+          ? "dashboard-3"
+          : pathname.includes("/trips")
+            ? "dashboard-1"
+            : "dashboard";
+  const [currentPage, setCurrentPage] = useState<SupervisorScreen>(initialPage);
+  const [history, setHistory] = useState<SupervisorScreen[]>([initialPage]);
+  const [historyIndex, setHistoryIndex] = useState(0);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+
+  function showScreen(page: SupervisorScreen, recordHistory = true) {
+    if (recordHistory && page !== currentPage) {
+      const nextHistory = history.slice(0, historyIndex + 1).concat(page);
+      setHistory(nextHistory);
+      setHistoryIndex(nextHistory.length - 1);
+    }
+    setCurrentPage(page);
+    setDatePickerOpen(false);
+    document.title = `ATI Robotics - ${supervisorImages[page].title}`;
+  }
+
+  function goBack() {
+    if (historyIndex <= 0) return;
+    const nextIndex = historyIndex - 1;
+    setHistoryIndex(nextIndex);
+    showScreen(history[nextIndex], false);
+  }
+
+  function goForward() {
+    if (historyIndex >= history.length - 1) return;
+    const nextIndex = historyIndex + 1;
+    setHistoryIndex(nextIndex);
+    showScreen(history[nextIndex], false);
+  }
+
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}supervisor-assets/${file}`;
+  const liveStatusOpen = currentPage.startsWith("live-status");
+  const dashboardCycle: Record<SupervisorScreen, SupervisorScreen> = {
+    dashboard: "dashboard-1",
+    "dashboard-analytics": "dashboard",
+    "dashboard-1": "dashboard-2",
+    "dashboard-2": "dashboard-3",
+    "dashboard-3": "dashboard-analytics",
+    "dashboard-staging-area": "staging-area-cells",
+    "analytics-board": "analytics-board-1",
+    "analytics-board-1": "analytics-board",
+    "live-status": "live-status-pause",
+    "live-status-pause": "live-status-resume",
+    "live-status-resume": "live-status-pause",
+    "live-status-legends-opened": "live-status",
+    "live-status-with-staging-area": "live-status",
+    "live-status-chat-attach": "live-status-chat-describing",
+    "live-status-chat-describing": "live-status",
+    "staging-area-cells": "dashboard-staging-area",
+  };
+
+  return (
+    <DeviceFrame kind="desktop">
+    <main className="configurator-prototype" aria-label="ATI Robotics supervisor prototype">
+      {supervisorScreens.map((screen) => (
+        <img
+          className={screen === currentPage ? "configurator-screen active" : "configurator-screen"}
+          key={screen}
+          src={assetPath(supervisorImages[screen].file)}
+          alt={supervisorImages[screen].alt}
+        />
+      ))}
+
+      <ScreenHotspot className="mode" label="Switch to configurator mode" rect={[20, 20, 217, 60]} onClick={() => onModeSwitch ? onModeSwitch("Configurator") : navigate("/configurator")} />
+      <ScreenHotspot label="Go back" rect={[269, 30, 40, 40]} disabled={historyIndex <= 0} onClick={goBack} />
+      <ScreenHotspot label="Go forward" rect={[321, 30, 40, 40]} disabled={historyIndex >= history.length - 1} onClick={goForward} />
+      <ScreenHotspot label="Go to support" rect={[1246, 20, 174, 60]} onClick={() => showScreen("live-status-chat-attach")} />
+
+      <ScreenHotspot label="Dashboard" rect={[20, 209, 217, 40]} onClick={() => showScreen("dashboard")} />
+      <ScreenHotspot label="Live Status" rect={[20, 318, 217, 40]} onClick={() => showScreen("live-status")} />
+      <ScreenHotspot label="Analytics" rect={[20, 366, 217, 40]} onClick={() => showScreen("analytics-board")} />
+      <ScreenHotspot label="AMR Trips" rect={[20, 475, 217, 40]} onClick={() => showScreen("dashboard-1")} />
+      <ScreenHotspot label="Staging Area" rect={[20, 527, 217, 40]} onClick={() => showScreen("dashboard-staging-area")} />
+      <ScreenHotspot label="WIP Inventory" rect={[20, 579, 217, 40]} onClick={() => showScreen("dashboard-3")} />
+      <ScreenHotspot label="Notifications" rect={[20, 868, 217, 40]} onClick={() => showScreen("dashboard-2")} />
+      <ScreenHotspot label="Settings" rect={[20, 916, 217, 40]} onClick={() => showScreen("dashboard-3")} />
+      <ScreenHotspot label="Profile" rect={[20, 964, 217, 40]} onClick={() => showScreen("dashboard-1")} />
+
+      {currentPage === "dashboard" && (
+        <>
+          <ScreenHotspot className="silent" label="Open live fleet status" rect={[257, 100, 581, 550]} onClick={() => showScreen("live-status")} />
+          <ScreenHotspot className="silent" label="Open trip overview" rect={[858, 100, 562, 550]} onClick={() => showScreen("dashboard-1")} />
+          <ScreenHotspot className="silent" label="Open analytics board" rect={[257, 670, 1163, 334]} onClick={() => showScreen("analytics-board")} />
+          <ScreenHotspot label="Expand analytics" rect={[1378, 678, 30, 30]} onClick={() => showScreen("analytics-board")} />
+        </>
+      )}
+
+      {["dashboard-analytics", "dashboard-1", "dashboard-2", "dashboard-3"].includes(currentPage) && (
+        <ScreenHotspot className="silent" label="Cycle dashboard state" rect={[257, 100, 1163, 904]} onClick={() => showScreen(dashboardCycle[currentPage])} />
+      )}
+
+      {liveStatusOpen && (
+        <>
+          <ScreenHotspot label="Toggle AMR pause resume" rect={[1054, 405, 120, 80]} onClick={() => showScreen(dashboardCycle[currentPage])} />
+          <ScreenHotspot label="Open map legends" rect={[1271, 115, 131, 40]} onClick={() => showScreen("live-status-legends-opened")} />
+          <ScreenHotspot label="Show staging area on map" rect={[294, 930, 100, 36]} onClick={() => showScreen("live-status-with-staging-area")} />
+          <ScreenHotspot label="Close live status panel" rect={[1358, 178, 30, 30]} onClick={() => showScreen("live-status")} />
+        </>
+      )}
+
+      {currentPage === "live-status-chat-attach" && (
+        <ScreenHotspot label="Attach and describe support issue" rect={[1036, 884, 354, 104]} onClick={() => showScreen("live-status-chat-describing")} />
+      )}
+      {currentPage === "live-status-chat-describing" && (
+        <ScreenHotspot label="Close support chat" rect={[1358, 178, 30, 30]} onClick={() => showScreen("live-status")} />
+      )}
+
+      {currentPage === "analytics-board" && (
+        <>
+          <ScreenHotspot className="silent" label="Open analytics detail" rect={[257, 160, 1163, 844]} onClick={() => showScreen("analytics-board-1")} />
+          <ScreenHotspot label="Open date picker" rect={[1051, 112, 205, 40]} onClick={() => setDatePickerOpen((open) => !open)} />
+          {datePickerOpen && <SupervisorDatePicker onClose={() => setDatePickerOpen(false)} />}
+        </>
+      )}
+      {currentPage === "analytics-board-1" && (
+        <ScreenHotspot className="silent" label="Return to analytics board" rect={[257, 100, 1163, 904]} onClick={() => showScreen("analytics-board")} />
+      )}
+
+      {currentPage === "dashboard-staging-area" && (
+        <ScreenHotspot className="silent" label="Open staging area cells" rect={[257, 100, 1163, 904]} onClick={() => showScreen("staging-area-cells")} />
+      )}
+      {currentPage === "staging-area-cells" && (
+        <ScreenHotspot className="silent" label="Return to staging dashboard" rect={[257, 100, 1163, 904]} onClick={() => showScreen("dashboard-staging-area")} />
+      )}
+    </main>
+    </DeviceFrame>
+  );
+}
+
+function DeviceFrame({ children, kind }: { children: ReactNode; kind: "desktop" | "tablet" }) {
+  return (
+    <div className={`device-stage ${kind}`}>
+      <div className={`device-frame ${kind}`}>
+        <div className="device-screen">{children}</div>
+      </div>
+    </div>
+  );
+}
+
+function ScreenHotspot({ className = "", disabled = false, label, onClick, rect }: { className?: string; disabled?: boolean; label: string; onClick: () => void; rect: [number, number, number, number] }) {
+  return (
+    <button
+      aria-label={label}
+      className={`screen-hotspot ${className}`}
+      disabled={disabled}
+      style={{ left: rect[0], top: rect[1], width: rect[2], height: rect[3] }}
+      type="button"
+      onClick={onClick}
+    />
+  );
+}
+
+function SupervisorDatePicker({ onClose }: { onClose: () => void }) {
+  const years = Array.from({ length: 28 }, (_, index) => 2015 + index);
+
+  return (
+    <div className="supervisor-date-picker" role="dialog" aria-label="Date picker">
+      <div className="supervisor-date-picker__month">
+        <button type="button" aria-label="Previous month">‹</button>
+        <span>July 2026</span>
+        <button type="button" aria-label="Next month">›</button>
+      </div>
+      <div className="supervisor-date-picker__grid">
+        {years.map((year) => (
+          <button className={year === 2026 ? "active" : ""} key={year} type="button" onClick={onClose}>
+            {year}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ApproverTabletPrototype() {
+  const [currentPage, setCurrentPage] = useState<ApproverScreen>("pending");
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}approver-assets/${file}`;
+
+  function showScreen(page: ApproverScreen) {
+    setCurrentPage(page);
+    document.title = `ATI Flow - ${approverImages[page].title}`;
+  }
+
+  return (
+    <DeviceFrame kind="tablet">
+    <main className="tablet-prototype" aria-label="ATI Flow approver tablet prototype">
+      {approverScreens.map((screen) => (
+        <img
+          className={screen === currentPage ? "tablet-screen active" : "tablet-screen"}
+          key={screen}
+          src={assetPath(approverImages[screen].file)}
+          alt={approverImages[screen].alt}
+        />
+      ))}
+
+      <ScreenHotspot className="silent" label="Active requests" rect={[210, 25, 102, 40]} onClick={() => showScreen("pending")} />
+      <ScreenHotspot className="silent" label="Cancelled requests" rect={[366, 25, 130, 40]} onClick={() => showScreen("cancelled-list")} />
+      <ScreenHotspot className="silent" label="All requests" rect={[526, 25, 110, 40]} onClick={() => showScreen("cancelled-success")} />
+      <ScreenHotspot label="Action Center" rect={[10, 164, 156, 40]} onClick={() => showScreen("pending")} />
+      <ScreenHotspot label="Away toggle" rect={[132, 576, 32, 18]} onClick={() => showScreen(currentPage === "away" ? "pending" : "away")} />
+      <ScreenHotspot label="RTLS toggle" rect={[132, 606, 32, 18]} onClick={() => showScreen("cancelled-list")} />
+
+      {currentPage === "pending" && (
+        <>
+          {[90, 160, 230, 300].map((top) => (
+            <div className="approver-row-actions" key={top} style={{ top }}>
+              <button aria-label="Approve dispatch request" type="button" onClick={() => showScreen("cancelled-success")}>
+                <CheckRoundedIcon />
+              </button>
+              <button aria-label="Cancel dispatch request" type="button" onClick={() => showScreen("cancelled-reason")}>
+                <CloseRoundedIcon />
+              </button>
+            </div>
+          ))}
+        </>
+      )}
+      {currentPage === "cancelled-list" && (
+        <ScreenHotspot className="silent" label="Return to pending requests" rect={[188, 90, 812, 280]} onClick={() => showScreen("pending")} />
+      )}
+      {currentPage === "cancelled-reason" && (
+        <>
+          <ScreenHotspot label="Close cancellation dialog" rect={[782, 490, 78, 35]} onClick={() => showScreen("pending")} />
+          <button className="approver-dialog-cancel" type="button" onClick={() => showScreen("cancelled-list")}>
+            <CloseRoundedIcon />
+            Cancel
+          </button>
+        </>
+      )}
+      {currentPage === "cancelled-success" && (
+        <ScreenHotspot className="silent" label="Return to cancelled list" rect={[188, 90, 812, 280]} onClick={() => showScreen("cancelled-list")} />
+      )}
+    </main>
+    </DeviceFrame>
+  );
+}
+
+function RequesterTabletPrototype() {
+  const { pathname } = useLocation();
+  const initialPage: RequesterTabletScreen = pathname.includes("/live")
+    ? "live-status"
+    : pathname.includes("/alerts")
+      ? "alerts"
+      : pathname.includes("/book")
+        ? "booking-start"
+        : "history";
+  const [currentPage, setCurrentPage] = useState<RequesterTabletScreen>(initialPage);
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}requester-assets/${file}`;
+
+  function showScreen(page: RequesterTabletScreen) {
+    setCurrentPage(page);
+    document.title = `ATI Flow - ${requesterTabletImages[page].title}`;
+  }
+
+  return (
+    <DeviceFrame kind="tablet">
+    <main className="tablet-prototype" aria-label="ATI Flow requester tablet prototype">
+      {requesterTabletScreens.map((screen) => (
+        <img
+          className={screen === currentPage ? "tablet-screen active" : "tablet-screen"}
+          key={screen}
+          src={assetPath(requesterTabletImages[screen].file)}
+          alt={requesterTabletImages[screen].alt}
+        />
+      ))}
+
+      <ScreenHotspot label="Profile" rect={[32, 572, 105, 54]} onClick={() => showScreen("history")} />
+      <ScreenHotspot label="Alerts" rect={[152, 572, 100, 54]} onClick={() => showScreen("alerts")} />
+      <ScreenHotspot label="History" rect={[268, 572, 106, 54]} onClick={() => showScreen("history")} />
+      <ScreenHotspot label="Track Trip" rect={[392, 572, 128, 54]} onClick={() => showScreen("live-status")} />
+      <ScreenHotspot label="Book Trip" rect={[881, 572, 133, 54]} onClick={() => showScreen("booking-start")} />
+
+      {currentPage === "booking-start" && (
+        <>
+          <ScreenHotspot className="silent" label="Schedule AMR trip" rect={[27, 112, 175, 179]} onClick={() => showScreen("booking-amr")} />
+          <ScreenHotspot className="silent" label="Schedule material delivery" rect={[27, 321, 175, 208]} onClick={() => showScreen("booking-material")} />
+        </>
+      )}
+      {currentPage === "booking-amr" && (
+        <>
+          <ScreenHotspot className="silent" label="Edit AMR details" rect={[247, 123, 560, 360]} onClick={() => showScreen("booking-review")} />
+          <ScreenHotspot label="Confirm AMR trip" rect={[881, 572, 133, 54]} onClick={() => showScreen("booking-review")} />
+          <ScreenHotspot className="silent" label="Switch to material delivery" rect={[27, 321, 175, 208]} onClick={() => showScreen("booking-material")} />
+        </>
+      )}
+      {currentPage === "booking-material" && (
+        <>
+          <ScreenHotspot className="silent" label="Edit material delivery details" rect={[239, 123, 745, 360]} onClick={() => showScreen("booking-review")} />
+          <ScreenHotspot label="Confirm material delivery" rect={[881, 572, 133, 54]} onClick={() => showScreen("booking-review")} />
+          <ScreenHotspot className="silent" label="Switch to AMR trip" rect={[27, 112, 175, 179]} onClick={() => showScreen("booking-amr")} />
+        </>
+      )}
+      {currentPage === "booking-review" && (
+        <ScreenHotspot label="Confirm trip booking" rect={[881, 572, 133, 54]} onClick={() => showScreen("history")} />
+      )}
+      {currentPage === "history" && (
+        <>
+          <ScreenHotspot label="Scheduled tab" rect={[140, 24, 130, 48]} onClick={() => showScreen("history")} />
+          <ScreenHotspot label="In progress tab" rect={[300, 24, 150, 48]} onClick={() => showScreen("live-status")} />
+          <ScreenHotspot className="silent" label="Track selected trip" rect={[10, 126, 1004, 420]} onClick={() => showScreen("live-status")} />
+        </>
+      )}
+      {currentPage === "alerts" && (
+        <ScreenHotspot className="silent" label="Open related trip" rect={[10, 90, 1004, 280]} onClick={() => showScreen("live-status")} />
+      )}
+    </main>
+    </DeviceFrame>
+  );
+}
+
+function ManagerTabletPrototype() {
+  const { pathname } = useLocation();
+  const initialPage: ManagerTabletScreen = pathname.includes("/staging")
+    ? "staging-area"
+    : pathname.includes("/wip") || pathname.includes("/inventory")
+      ? "wip-inventory"
+      : pathname.includes("/notifications")
+        ? "notifications"
+        : "action-center";
+  const [currentPage, setCurrentPage] = useState<ManagerTabletScreen>(initialPage);
+  const assetPath = (file: string) => `${import.meta.env.BASE_URL}manager-assets/${file}`;
+
+  function showScreen(page: ManagerTabletScreen) {
+    setCurrentPage(page);
+    document.title = `ATI Flow - ${managerTabletImages[page].title}`;
+  }
+
+  return (
+    <DeviceFrame kind="tablet">
+    <main className="tablet-prototype" aria-label="ATI Flow manager tablet prototype">
+      {managerTabletScreens.map((screen) => (
+        <img
+          className={screen === currentPage ? "tablet-screen active" : "tablet-screen"}
+          key={screen}
+          src={assetPath(managerTabletImages[screen].file)}
+          alt={managerTabletImages[screen].alt}
+        />
+      ))}
+
+      <ScreenHotspot label="Action Center" rect={[10, 164, 156, 40]} onClick={() => showScreen("action-center")} />
+      <ScreenHotspot label="Staging Area" rect={[10, 224, 156, 40]} onClick={() => showScreen("staging-area")} />
+      <ScreenHotspot label="WIP Inventory" rect={[10, 284, 156, 40]} onClick={() => showScreen("wip-inventory")} />
+      <ScreenHotspot label="Notifications" rect={[10, 344, 156, 40]} onClick={() => showScreen("notifications")} />
+      <ScreenHotspot label="Profile" rect={[10, 404, 156, 40]} onClick={() => showScreen("action-center")} />
+      <ScreenHotspot label="Previous page" rect={[200, 581, 36, 36]} onClick={() => showScreen("action-center")} />
+      <ScreenHotspot label="Next page" rect={[250, 581, 36, 36]} onClick={() => showScreen("staging-area")} />
+
+      {currentPage === "action-center" && (
+        <>
+          <ScreenHotspot label="Active tab" rect={[210, 25, 92, 40]} onClick={() => showScreen("action-center")} />
+          <ScreenHotspot label="Cancelled tab" rect={[350, 25, 132, 40]} onClick={() => showScreen("notifications")} />
+          <ScreenHotspot label="Closed tab" rect={[520, 25, 112, 40]} onClick={() => showScreen("action-center")} />
+          <ScreenHotspot className="silent" label="Open staging issue" rect={[182, 90, 832, 70]} onClick={() => showScreen("staging-area")} />
+        </>
+      )}
+      {currentPage === "staging-area" && (
+        <ScreenHotspot className="silent" label="Open blocked staging cell" rect={[238, 214, 55, 52]} onClick={() => showScreen("wip-inventory")} />
+      )}
+      {currentPage === "wip-inventory" && (
+        <ScreenHotspot className="silent" label="Open inventory notification" rect={[182, 90, 832, 280]} onClick={() => showScreen("notifications")} />
+      )}
+      {currentPage === "notifications" && (
+        <ScreenHotspot className="silent" label="Resolve notification" rect={[182, 90, 832, 280]} onClick={() => showScreen("action-center")} />
+      )}
+    </main>
+    </DeviceFrame>
   );
 }
 

@@ -31,7 +31,7 @@ body {
   margin: 0;
   min-width: 1024px;
   color: var(--af-ink);
-  background: linear-gradient(180deg, var(--af-bg-top) 0%, var(--af-bg-mid) 48%, var(--af-bg-bottom) 100%);
+  background: #f5f5f5;
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -49,6 +49,124 @@ button:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--af-teal-dark);
   outline-offset: 2px;
+}
+
+.prototype-hub {
+  display: grid;
+  gap: 72px;
+  width: max-content;
+  min-height: 100vh;
+  padding: 24px;
+  background: #f5f5f5;
+}
+
+.prototype-group {
+  display: grid;
+  gap: 14px;
+}
+
+.prototype-switcher {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: max-content;
+  padding: 6px;
+  border: 1px solid #d9d9d9;
+  border-radius: 46px;
+  background: #fff;
+}
+
+.prototype-switcher span {
+  padding: 0 10px;
+  color: #4d4d4d;
+  font: 500 14px Inter, sans-serif;
+}
+
+.prototype-switcher button {
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 46px;
+  background: transparent;
+  color: #262626;
+  font: 500 14px Inter, sans-serif;
+}
+
+.prototype-switcher button.active {
+  background: #d9d9d9;
+}
+
+.device-stage {
+  min-height: 100vh;
+  width: max-content;
+  padding: 28px;
+  background: #f5f5f5;
+}
+
+.prototype-hub .device-stage {
+  min-height: auto;
+  padding: 0;
+}
+
+.device-frame {
+  position: relative;
+  width: max-content;
+  background: #1f2326;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.device-frame.tablet {
+  padding: 18px 44px;
+  border: 2px solid #111;
+  border-radius: 34px;
+  background: linear-gradient(135deg, #08090a, #24272a 42%, #050506);
+}
+
+.device-frame.tablet::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #5a5f63;
+  transform: translateY(-50%);
+}
+
+.device-frame.desktop {
+  padding: 16px;
+  border-radius: 18px;
+  background: #202426;
+}
+
+.device-frame.desktop::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -54px;
+  width: 220px;
+  height: 38px;
+  border-radius: 0 0 28px 28px;
+  background: linear-gradient(180deg, #555b5f, #2b3033);
+  transform: translateX(-50%);
+}
+
+.device-screen {
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+}
+
+.device-frame.tablet .device-screen {
+  width: 1024px;
+  height: 640px;
+  border-radius: 12px;
+}
+
+.device-frame.desktop .device-screen {
+  width: 1440px;
+  height: 1024px;
 }
 
 .figma-configurator-shell {
@@ -217,6 +335,265 @@ input:focus-visible {
   color: white;
   border-color: #00a99d;
   background: #00a99d;
+}
+
+.configurator-prototype {
+  position: relative;
+  width: 1440px;
+  height: 1024px;
+  overflow: hidden;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.configurator-screen {
+  position: absolute;
+  inset: 0;
+  width: 1440px;
+  height: 1024px;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  user-select: none;
+}
+
+.configurator-screen.active {
+  opacity: 1;
+}
+
+.tablet-prototype {
+  position: relative;
+  width: 1024px;
+  height: 640px;
+  overflow: hidden;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.tablet-screen {
+  position: absolute;
+  inset: 0;
+  width: 1024px;
+  height: 640px;
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  user-select: none;
+}
+
+.tablet-screen.active {
+  opacity: 1;
+}
+
+.screen-hotspot {
+  position: absolute;
+  z-index: 3;
+  padding: 0;
+  border: 0;
+  border-radius: 46px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 140ms ease, box-shadow 140ms ease;
+}
+
+.screen-hotspot:disabled {
+  cursor: default;
+}
+
+.screen-hotspot:hover:not(:disabled),
+.screen-hotspot:focus-visible {
+  background: rgba(217, 217, 217, 0.24);
+  box-shadow: inset 0 0 0 1px rgba(217, 217, 217, 0.34);
+}
+
+.screen-hotspot.mode:hover:not(:disabled),
+.screen-hotspot.mode:focus-visible {
+  background: transparent;
+  box-shadow: none;
+}
+
+.screen-hotspot.silent:hover:not(:disabled),
+.screen-hotspot.silent:focus-visible {
+  background: transparent;
+  box-shadow: none;
+}
+
+.approver-action-menu {
+  position: absolute;
+  z-index: 5;
+  left: 858px;
+  top: 108px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 126px;
+  padding: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(153, 153, 153, 0.24);
+  animation: supervisor-picker-in 140ms ease both;
+}
+
+.approver-action-menu button {
+  height: 34px;
+  border: 1px solid #d9d9d9;
+  border-radius: 46px;
+  background: #fff;
+  color: #262626;
+  font: 500 14px Inter, sans-serif;
+  cursor: pointer;
+}
+
+.approver-action-menu button:first-child {
+  border-color: #00a99d;
+  background: #00a99d;
+  color: #fff;
+}
+
+.approver-action-menu button:hover,
+.approver-action-menu button:focus-visible {
+  background: #d9d9d9;
+  color: #262626;
+  outline: none;
+}
+
+.approver-row-actions {
+  position: absolute;
+  z-index: 4;
+  left: 850px;
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  width: 104px;
+  height: 68px;
+  padding: 14px 0 14px 4px;
+  background: #fff;
+}
+
+.approver-row-actions button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f2f2;
+  color: #262626;
+}
+
+.approver-row-actions button:hover,
+.approver-row-actions button:focus-visible {
+  background: #d9d9d9;
+  outline: none;
+}
+
+.approver-row-actions svg {
+  width: 24px;
+  height: 24px;
+}
+
+.approver-dialog-cancel {
+  position: absolute;
+  z-index: 5;
+  left: 869px;
+  top: 489px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  width: 95px;
+  height: 35px;
+  padding: 0 12px;
+  border: 1px solid #000;
+  border-radius: 46px;
+  background: #fff;
+  color: #262626;
+  font: 500 14px Inter, sans-serif;
+}
+
+.approver-dialog-cancel svg {
+  width: 18px;
+  height: 18px;
+}
+
+.supervisor-date-picker {
+  position: absolute;
+  z-index: 5;
+  left: 1051px;
+  top: 120px;
+  width: 256px;
+  padding: 8px;
+  border: 1px solid #d9d9d9;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(153, 153, 153, 0.24);
+  color: #262626;
+  font-family: Inter, sans-serif;
+  animation: supervisor-picker-in 140ms ease both;
+}
+
+.supervisor-date-picker__month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.supervisor-date-picker button {
+  border: 0;
+  border-radius: 46px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.supervisor-date-picker__month button {
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.supervisor-date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  gap: 0;
+  padding: 4px 8px 8px;
+}
+
+.supervisor-date-picker__grid button {
+  height: 32px;
+  font-size: 13px;
+}
+
+.supervisor-date-picker button:hover,
+.supervisor-date-picker button:focus-visible {
+  background: #d9d9d9;
+  outline: none;
+}
+
+.supervisor-date-picker__grid button.active {
+  background: #00a99d;
+  color: #fff;
+}
+
+@keyframes supervisor-picker-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .ati-desktop-scene {
